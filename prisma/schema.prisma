@@ -1,0 +1,117 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//пользователи
+model User {
+  id Int @id @default(autoincrement()) 
+  full_name String
+  login String @unique
+  passwordHash String
+  email String  @unique
+  createdAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+  permission Person_permissions[]
+  teacher Teachers[]
+  student Student?
+  kurator Kurator[]
+}
+model Kurator{
+  kurator_id Int @id  
+  user_id Int
+  user User @relation(fields:[user_id],references: [id])
+  group Group[]
+}
+model Teachers{
+  teacher_id Int @id  
+  user_id Int
+  user User @relation(fields:[user_id],references: [id])
+  lessonteached Lessonteached[]
+}
+model Lessonteached {
+  id Int @id
+  teacher_id Int? 
+  teacher Teachers? @relation(fields:[teacher_id],references: [teacher_id])
+  group_id Int? 
+  group Group? @relation(fields:[group_id],references: [id])
+  lesson_id Int 
+  hours Int?
+  specialization Lesson? @relation(fields:[lesson_id],references: [id])
+  dateoflessons DateOfLessons[] 
+}
+model Student {
+  id Int @id
+  user User @relation(fields:[id],references: [id])
+  group_id Int? 
+  group Group? @relation(fields:[group_id],references: [id])
+  assessmentofLessons AssessmentOfLessons[]
+}
+//права
+model Person_permissions {
+  id Int @id @default(autoincrement()) 
+  user_id Int? 
+  user User? @relation(fields:[user_id],references: [id])
+  
+  permission_id Int? 
+  permission Permission? @relation(fields:[permission_id],references: [id])
+}
+model Permission {
+  id Int @id @default(autoincrement()) 
+  permission_name String
+  user Person_permissions[]
+}
+
+model Specializations{
+  id Int @id @default(autoincrement())
+  specializations_id String @unique
+  specializations_name String @unique
+  group Group[]
+}
+model Group{
+  id Int @id @default(autoincrement())
+  group_name String @unique 
+  specialization_id Int?
+  kurator_id Int?
+  is_y Boolean?
+  kurator Kurator? @relation(fields:[kurator_id],references: [kurator_id])
+  kurs Int?
+  specialization Specializations? @relation(fields:[specialization_id],references: [id])
+  students Student[]
+  lessonteached Lessonteached[]
+}
+model Lesson{
+  id Int @id @default(autoincrement())
+  lesson_name String  
+  lessonteached Lessonteached[]
+}
+model DateOfLessons{
+  id Int @id @default(autoincrement())
+  lesson_id Int?
+  lesson_number Int
+  date DateTime
+  cabinet_number Int?
+  cabinet Cabinetnumber? @relation(fields:[cabinet_number],references: [id])
+  specialization Lessonteached? @relation(fields:[lesson_id],references: [id])
+  assessmentOfLessons AssessmentOfLessons[]
+}
+model Cabinetnumber{
+  id Int @id
+  number Int
+  dateofLesson DateOfLessons[]
+}
+model AssessmentOfLessons{
+  id Int @id @default(autoincrement())
+  number String
+  student_id Int?
+  lesson_id Int?
+  student Student? @relation(fields:[student_id],references: [id])
+  lesson DateOfLessons? @relation(fields:[lesson_id],references: [id])
+}
