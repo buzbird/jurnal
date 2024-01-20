@@ -11,7 +11,6 @@ import test from "node:test";
 import React, { useState } from "react";
 
 const JurnalModal = (lessons: any) => {
-  const [login,setLogin] = useState('')
   const teacher_id = lessons.lesson.teacher.teacher_id;
   let lessonmass = new Map();
   let groupmass = new Map();
@@ -139,11 +138,11 @@ const JurnalModal = (lessons: any) => {
     </div>
       <datalist id="group">
       <>
-      {groups.groups.map((group:any) => {
+      {groups.groups.map((group:any,index:any) => {
             groupmass.set(`${group.group.group_name}`,group.group.id)
             return(
                 <> 
-                  <option >{group.group.group_name}</option>
+                  <option key={index} >{group.group.group_name}</option>
                 </>
             );
       })}      
@@ -156,12 +155,10 @@ const JurnalModal = (lessons: any) => {
             <thead>
                 <tr>
                     <th>Студент</th>
-                    {date.data.map((date:any) => {
+                    {date.data.map((date:any,index:any) => {
                       const date2 = new Date(date.date).getDate();
                       return(
-                          <> 
-                          <th>{date2}</th>
-                          </>
+                          <th key={index}>{date2}</th>
                       );
                       })}
                       <th>ср.знач</th>

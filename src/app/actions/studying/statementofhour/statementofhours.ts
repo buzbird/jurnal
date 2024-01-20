@@ -5,12 +5,20 @@ const Statementofhours = async(teacher_id:any,group_id:any,lesson_id:any,date:Da
     Clearcache("/admin/studying/statementofhours")
     Clearcache("/api/admin/studying/statementofhours")
     console.log("пишу пишу")
-    console.log(teacher_id,group_id,lesson_id,date)
-    const data  = await fetch(process.env.API +"/api/admin/studying/statementofhour",{
-        method:'POST',
-        body: JSON.stringify({teacher_id:teacher_id,group_id:group_id,lesson_id:lesson_id}),
-    })
-    const statement = await data.json()
+    let statement:any;
+    try{
+        const data  = await fetch(process.env.API +"/api/admin/studying/statementofhour",{
+            method:'POST',
+            body: JSON.stringify({teacher_id:teacher_id,group_id:group_id,lesson_id:lesson_id}),
+        })
+      if(!data.ok){
+        throw new Error(`Error! status: ${data.status}`);
+      }
+      statement = await data.json()
+      }catch(err){
+        console.log(err);
+    }
+    
     let id2 =0;
     const year = date.getFullYear();
     const month = date.getMonth();

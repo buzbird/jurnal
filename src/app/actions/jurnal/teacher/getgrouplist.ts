@@ -2,10 +2,19 @@
 
 
 export const getgrouplist = async() =>{
-    const data  = await fetch(process.env.API +"/api/schedule/grouplist",{
-        method:'POST',
-        body: JSON.stringify({}),
-    })
-    const groups = await data.json()
-    return groups
+
+    try{
+        const data  = await fetch(process.env.API +"/api/schedule/grouplist",{
+            method:'POST',
+            body: JSON.stringify({}),
+        })
+      if(!data.ok){
+        throw new Error(`Error! status: ${data.status}`);
+      }
+      const groups = await data.json()
+      return groups
+      }catch(err){
+        console.log(err);
+      }
+
 }

@@ -3,7 +3,7 @@ import { deleteAssesment,CreateAssesment} from "@/db/fetch"
 import { NextRequest } from "next/server"
 
 export async function GET(req: NextRequest) {
-    return new Response("it's work")
+    return new Response("работает")
 }
 export async function POST(req:NextRequest){
     const body = await req.json()

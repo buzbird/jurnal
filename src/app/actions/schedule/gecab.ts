@@ -12,11 +12,22 @@ export const getcab = async() =>{
 }
 export const getcab2 = async(date:any) =>{
     revalidatePath("/schedule")
-    const data  = await fetch(process.env.API +"/api/schedule/getcab2/",{
-        method:'POST',
-        body: JSON.stringify({date:date}),
-    })
-    const cabs1 = await data.json()
+    let cabs1;
+    try{
+        const data  = await fetch(process.env.API +"/api/schedule/getcab2/",{
+            method:'POST',
+            body: JSON.stringify({date:date}),
+        })
+      if(!data.ok){
+        throw new Error(`Error! status: ${data.status}`);
+      }
+        revalidatePath("/schedule")
+        cabs1 = await data.json()
+      }catch(err){
+        console.log(err);
+      }
+
+    
     type Lessons =  {
         id: number,
         lesson_number:number,

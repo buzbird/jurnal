@@ -2,11 +2,20 @@
 import { revalidatePath } from "next/cache";
 export const getTeachers = async(date:any) =>{
     revalidatePath("/schedule")
-    const data  = await fetch(process.env.API +"/api/schedule/getTeachers/",{
-        method:'POST',
-        body: JSON.stringify({date:date}),
-    })
-    const teachers2 = await data.json()
+    let teachers2;
+    try{
+        const data  = await fetch(process.env.API +"/api/schedule/getTeachers/",{
+            method:'POST',
+            body: JSON.stringify({date:date}),
+        })
+      if(!data.ok){
+        throw new Error(`Error! status: ${data.status}`);
+      }
+        teachers2 = await data.json()
+        revalidatePath("/schedule")
+      }catch(err){
+        console.log(err);
+      }
     console.log("-------------------------------")
     console.log(teachers2)
     console.log("-------------------------------")
