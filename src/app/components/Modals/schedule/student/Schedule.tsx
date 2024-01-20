@@ -69,7 +69,7 @@ const ScheduleStudent = (data:any) => {
           return(
            <tr key={index}>
            <td>{i}</td>
-            {/* {table.lessons.map((table:any,index:any) => {
+            {table.lessons.map((table:any,index:any) => {
 
              if(i ==  table.lesson_number){
               return(
@@ -88,7 +88,7 @@ const ScheduleStudent = (data:any) => {
                   </td>
             );
              }
-            })}  */}
+            })} 
            </tr>
           )
         })}

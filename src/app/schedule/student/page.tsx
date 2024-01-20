@@ -20,6 +20,7 @@ const getgrouplist = async() =>{
 
 const Schedule = async() => {
     const data = await getgrouplist()
+    console.log(data)
     return (
       <>
       <div>

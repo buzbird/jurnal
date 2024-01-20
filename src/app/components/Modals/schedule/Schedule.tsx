@@ -37,7 +37,7 @@ const ScheduleTable = (data:any) => {
           <th></th>
           {data.data.groups.map((group:any,index:any) => {
             return(
-              <th key={group.id}>{group.group_name}</th>
+              <th key={index}>{group.group_name}</th>
             );
             })}   
           </tr>  
@@ -48,7 +48,6 @@ const ScheduleTable = (data:any) => {
           <tr key={index}>
             <td>{i}</td>
             {data.data.groups.map((group:any,index:any) => { 
-            const data = ({i,group,date})
             return(
                   <td key={index}>
                     <ScheduleModel lesson_number={i} group={group} date={date}/>
