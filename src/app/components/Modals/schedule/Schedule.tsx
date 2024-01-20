@@ -10,7 +10,7 @@ import { getLessonId2 } from "@/app/actions/schedule/getlessonid/getlessonid";
 import { DeleteLessons, getLessons } from "@/app/actions/schedule/getlessons";
 import { lessonsfromgroup } from "@/app/actions/schedule/lessonsfromgroup";
 import { getLessonId } from "@/db/fetch";
-import React, {  useState } from "react";
+import React, { use, useEffect, useState } from "react";
 const ScheduleTable = (data:any) => {
   const [date, setDate] = useState(new Date());
   const [tableviews,setTable] = useState(false)
@@ -48,9 +48,10 @@ const ScheduleTable = (data:any) => {
           <tr key={index}>
             <td>{i}</td>
             {data.data.groups.map((group:any,index:any) => { 
+            const data = ({i,group,date})
             return(
                   <td key={index}>
-                    {/* <ScheduleModel lesson_number={i} group={group} date={date}/> */}
+                    <ScheduleModel lesson_number={i} group={group} date={date}/>
                   </td>
             );
             })} 
