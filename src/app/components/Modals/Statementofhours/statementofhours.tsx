@@ -118,7 +118,7 @@ function Statementofhour() {
   let lessonmass = new Map();
   const [lessons,Setlessons] = useState([{}])
   const [lesson_id,Setlesson_id] = useState(undefined)
-  const [groups,Setgroups] = useState({groups:[]})
+  const [groups,Setgroups] = useState([{}])
   const [group,Setgroup] = useState(undefined)
   const [teachers,Setteahers] = useState([{}])
   const [teacher,Setteaher] = useState(undefined)
