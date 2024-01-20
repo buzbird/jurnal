@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { getServerSession } from 'next-auth'
 import Update from '@/app/components/Modals/Group/Update'
 import Create from '@/app/components/Modals/Group/Create'
-import { authOptions } from '@/app/api/[...nextauth]/route'
+import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 async function getGroup() {
   const session = await getServerSession(authOptions)
   const group = await fetch(process.env.API +"/api/admin/group",{

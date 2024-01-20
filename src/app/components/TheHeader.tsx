@@ -1,7 +1,8 @@
 import { getServerSession } from 'next-auth';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { authOptions } from '../api/[...nextauth]/route';
+import { authOptions } from '../api/auth/[...nextauth]/route';
+
 
 const getHeader = async(session:any) =>{
     const header = await fetch(process.env.API +"/api/header",{

@@ -4,7 +4,8 @@ import { getServerSession } from 'next-auth'
 
 import UpdateSpecialization from '@/app/components/Modals/Group/Specialization/Update'
 import CreateSpecialization from '@/app/components/Modals/Group/Specialization/Create'
-import { authOptions } from '@/app/api/[...nextauth]/route'
+import { authOptions } from '@/app/api/auth/[...nextauth]/route'
+
 async function getSpecialization() {
   const session = await getServerSession(authOptions)
   const users = await fetch(process.env.API +"/api/admin/group/specializations",{

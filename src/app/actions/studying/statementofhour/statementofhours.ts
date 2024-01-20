@@ -1,20 +1,15 @@
 "use server"
 import React from 'react'
 import { Clearcache } from '../../clearcache/clearcache'
+import { GetAllStatemnt } from "@/db/fetch"
 const Statementofhours = async(teacher_id:any,group_id:any,lesson_id:any,date:Date) => {
     Clearcache("/admin/studying/statementofhours")
     Clearcache("/api/admin/studying/statementofhours")
     console.log("пишу пишу")
     let statement:any;
     try{
-        const data  = await fetch(process.env.API +"/api/admin/studying/statementofhour",{
-            method:'POST',
-            body: JSON.stringify({teacher_id:teacher_id,group_id:group_id,lesson_id:lesson_id}),
-        })
-      if(!data.ok){
-        throw new Error(`Error! status: ${data.status}`);
-      }
-      statement = await data.json()
+        statement  = await GetAllStatemnt(teacher_id,group_id,lesson_id)
+
       }catch(err){
         console.log(err);
     }
