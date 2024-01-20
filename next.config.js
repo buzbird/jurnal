@@ -2,8 +2,8 @@
 const nextConfig = {
     experimental: {
 		serverActions: {
-			allowedForwardedHosts: ['5.35.93.157'],
-			allowedOrigins: ['http://5.35.93.157']
+			allowedForwardedHosts: ['localhost'],
+			allowedOrigins: ['http://5.35.93.157',"website.com", "localhost:3000"]
 		},
 	}
 }
