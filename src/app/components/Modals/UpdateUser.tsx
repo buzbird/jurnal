@@ -50,7 +50,7 @@ const UpdateUser = ({login,full_name}:any) => {
                 </div>
                 <div className="relative p-6 flex-auto">
                 <form className="bg-gray-200 shadow-md rounded px-8 pt-6 pb-8 w-full">
-                    <label placeholder={full_name} className="block text-black text-sm font-bold mb-1">
+                    <label className="block text-black text-sm font-bold mb-1">
                       Логин
                     </label>
                     <input type='text' placeholder={login} value={loginnew} onChange={(e)=> setLogin(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
