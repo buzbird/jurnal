@@ -22,7 +22,7 @@ export const getLessons = async(date:any,group_id:any,lesson_number:any) =>{
 export const DeleteLessons = async(id:any) =>{
     revalidatePath('/schedule')
     try{
-        const data  = await fetch(process.env.API +"/api/schedule/getLessons/",{
+        const data  = await fetch("/api/schedule/getLessons/",{
             method:'DELETE',
             body: JSON.stringify({id:id}),
         })

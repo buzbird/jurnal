@@ -7,7 +7,7 @@ const Statementofhours = async(teacher_id:any,group_id:any,lesson_id:any,date:Da
     console.log("пишу пишу")
     let statement:any;
     try{
-        const data  = await fetch(process.env.API +"/api/admin/studying/statementofhour",{
+        const data  = await fetch("/api/admin/studying/statementofhour",{
             method:'POST',
             body: JSON.stringify({teacher_id:teacher_id,group_id:group_id,lesson_id:lesson_id}),
         })

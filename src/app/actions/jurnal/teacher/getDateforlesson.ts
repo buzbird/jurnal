@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 export const getDateforlesson = async(lesson_id:any) =>{
     revalidatePath('/teacher')
     try{
-        const json  = await fetch(process.env.API +"/api/jurnal/lesson/date",{
+        const json  = await fetch("/api/jurnal/lesson/date",{
             method:'POST',
             body: JSON.stringify({lesson_id:lesson_id}),
         })

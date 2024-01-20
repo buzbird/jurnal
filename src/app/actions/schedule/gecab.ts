@@ -14,7 +14,7 @@ export const getcab2 = async(date:any) =>{
     revalidatePath("/schedule")
     let cabs1;
     try{
-        const data  = await fetch(process.env.API +"/api/schedule/getcab2/",{
+        const data  = await fetch("/api/schedule/getcab2/",{
             method:'POST',
             body: JSON.stringify({date:date}),
         })

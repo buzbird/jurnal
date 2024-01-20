@@ -4,7 +4,7 @@
 export const getgrouplist = async() =>{
 
     try{
-        const data  = await fetch(process.env.API +"/api/schedule/grouplist",{
+        const data  = await fetch("/api/schedule/grouplist",{
             method:'POST',
             body: JSON.stringify({}),
         })

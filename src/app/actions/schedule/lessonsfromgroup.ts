@@ -3,7 +3,7 @@
 
 export const lessonsfromgroup = async(group_id:any) =>{
     try{
-        const data  = await fetch(process.env.API +"/api/schedule/lessonsfromgroup/",{
+        const data  = await fetch("/api/schedule/lessonsfromgroup/",{
             method:'POST',
             body: JSON.stringify({group_id:group_id}),
         })
@@ -14,5 +14,5 @@ export const lessonsfromgroup = async(group_id:any) =>{
       return group
       }catch(err){
         console.log(err);
-      }
+    }
 }
