@@ -2,9 +2,9 @@
 import { revalidatePath } from "next/cache";
 export const getTeachers = async(date:any) =>{
     revalidatePath("/schedule")
-    let teachers2 ={teachers:[]};
+    let teachers2 = {teachers:[]};
     try{
-        const data  = await fetch("/api/schedule/getTeachers/",{
+        const data  = await fetch(process.env.API +"/api/schedule/getTeachers/",{
             method:'POST',
             body: JSON.stringify({date:date}),
         })

@@ -5,7 +5,7 @@ import { getUser,createUser } from "@/db/fetch";
 export const getAllLessons = async() =>{
     try{
     
-        const data = await fetch("/api/admin/getLessons",{
+        const data = await fetch(process.env.API +"/api/admin/getLessons",{
             method:'POST',
             body: JSON.stringify({teacher_id: 1}),
         })

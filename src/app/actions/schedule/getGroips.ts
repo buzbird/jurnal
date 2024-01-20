@@ -3,7 +3,7 @@ import { revalidatePath } from "next/cache";
 
 export const getAllGroup = async() =>{
     try{
-        const grouplist = await fetch("/api/schedule/grouplist",{
+        const grouplist = await fetch(process.env.API +"/api/schedule/grouplist",{
             method:'POST',
             body: JSON.stringify({teacher_id: 1}),
         })

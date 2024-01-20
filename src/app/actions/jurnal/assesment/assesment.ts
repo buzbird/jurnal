@@ -20,7 +20,7 @@ export const DeleteAssesment = async(id:any) =>{
 export const CreateAssesment = async(number:any,student_id:any,lesson_id:any) =>{
 
     try{
-        const data =await fetch("/api/jurnal/assessment/",{
+        const data =await fetch(process.env.API +"/api/jurnal/assessment/",{
             method:'POST',
             body: JSON.stringify({number: number,student_id:student_id,lesson_id:lesson_id}),
         })

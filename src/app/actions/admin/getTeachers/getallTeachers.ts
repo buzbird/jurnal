@@ -4,7 +4,7 @@ import { getUser,createUser } from "@/db/fetch";
 
 export const getAllTeachers= async() =>{
     try{
-        const data  = await fetch("/api/admin/getTeacher",{
+        const data  = await fetch(process.env.API +"/api/admin/getTeacher",{
             method:'POST',
             body: JSON.stringify({}),
         })
