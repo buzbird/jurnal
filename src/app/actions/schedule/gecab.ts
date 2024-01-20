@@ -12,7 +12,7 @@ export const getcab = async() =>{
 }
 export const getcab2 = async(date:any) =>{
     revalidatePath("/schedule")
-    let cabs1;
+    let cabs1 = {cab:[]};
     try{
         const data  = await fetch("/api/schedule/getcab2/",{
             method:'POST',
