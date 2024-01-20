@@ -6,7 +6,7 @@ import './globals.css'
 import {Provider} from "./components/Provider"
 import TheHeader from './components/TheHeader'
 import { useSession } from 'next-auth/react'
-import { authOptions } from './api/auth/[...nextauth]/route'
+
 
 const inter = Inter({ subsets: ['latin'] })
 

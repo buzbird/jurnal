@@ -1,19 +1,11 @@
 "use server";
 
-import { getUser,createUser } from "@/db/fetch";
+import {getAllTeachers } from "@/db/fetch";
 
-export const getAllTeachers= async() =>{
+export const getAllTeachers2= async() =>{
     try{
-        const data  = await fetch(process.env.API +"/api/admin/getTeacher",{
-            method:'POST',
-            body: JSON.stringify({}),
-        })
-    
-      if(!data.ok){
-        throw new Error(`Error! status: ${data.status}`);
-      }
-      const teachers = await data.json()
-    return teachers
+        const data  = await getAllTeachers()
+        return data
       }catch(err){
         console.log(err);
       }

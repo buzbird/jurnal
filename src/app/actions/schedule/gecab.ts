@@ -1,28 +1,18 @@
 "use server";
 import { revalidatePath } from "next/cache";
+import { getCab,getCab2 } from "@/db/fetch"
 
 export const getcab = async() =>{
-    const data  = await fetch(process.env.API +"/api/schedule/getcab/",{
-        method:'POST',
-        body: JSON.stringify({}),
-    })
-    const cab = await data.json()
-    console.log(cab)
+    const cab = await getCab()
     return cab
 }
 export const getcab2 = async(date:any) =>{
     revalidatePath("/schedule")
-    let cabs1= {cab:[]};
+    let cabs1= {cab:[{}]};
     try{
-        const data  = await fetch(process.env.API +"/api/schedule/getcab2/",{
-            method:'POST',
-            body: JSON.stringify({date:date}),
-        })
-      if(!data.ok){
-        throw new Error(`Error! status: ${data.status}`);
-      }
+        const cab = await getCab2(date)
+        cabs1 = {cab:cab}
         revalidatePath("/schedule")
-        cabs1 = await data.json()
       }catch(err){
         console.log(err);
       }

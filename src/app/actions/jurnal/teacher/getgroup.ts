@@ -1,21 +1,12 @@
 "use server";
-
-import { group } from "console";
+import { TeachersGroupList } from "@/db/fetch";
 
 
 export const getgrouplist = async(teacher_id:any,lesson_id:any) =>{
     try{
-        const data  = await fetch(process.env.API +"/api/jurnal/teacher/group/list",{
-            method:'POST',
-            body: JSON.stringify({teacher_id: teacher_id,lesson_id:lesson_id}),
-        })
-      if(!data.ok){
-        throw new Error(`Error! status: ${data.status}`);
-      }
-      const groups = await data.json()
-      return {groups}
+      const data =  await TeachersGroupList(teacher_id,lesson_id)
+      return data
       }catch(err){
         console.log(err);
       }
-    return {groups:[]}
 }

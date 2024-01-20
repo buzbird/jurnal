@@ -1,21 +1,14 @@
 "use server";
 import { revalidatePath } from "next/cache";
-
+import { getLessonFromDate } from "@/db/fetch"
 export const getLessonfromDate = async(date:any,group_id:any) =>{
     revalidatePath("/api/schedule/getLessonfromDate/")
     try{
-        const data  = await fetch(process.env.API +"/api/schedule/getLessonfromDate/",{
-            method:'POST',
-            body: JSON.stringify({date:date,group_id:group_id}),
-        })
-      if(!data.ok){
-        throw new Error(`Error! status: ${data.status}`);
-      }
-      const group = await data.json()
+      const data = await getLessonFromDate(date,group_id)
       revalidatePath("/schedule")
       revalidatePath("/api/schedule/grouplist")
       revalidatePath("/schedule/student/")
-        return group
+      return data
       }catch(err){
         console.log(err);
       }

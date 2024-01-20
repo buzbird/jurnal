@@ -1,22 +1,10 @@
 import React from 'react'
-import Link from 'next/link'
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
-import { getServerSession } from 'next-auth'
 import JurnalForm from '../components/Modals/jurnal/Jurnal'
+import { GetAllStatemnt } from '@/db/fetch'
 const getLesson = async() =>{
-  try{
-    const lesson = await fetch(process.env.API +"/api/jurnal/teacher",{
-      method:'POST',
-      body: JSON.stringify({teacher_id: 1}),
-  })
-  if(!lesson.ok){
-    throw new Error(`Error! status: ${lesson.status}`);
-  }
-  const data = await lesson.json()
+  const data  = await GetAllStatemnt(1,undefined,undefined)
   return data
-  }catch(err){
-    console.log(err);
-  }
+ 
 }
 const Jurnal = async() => {
   const data = await getLesson()

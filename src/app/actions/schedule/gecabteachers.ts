@@ -1,24 +1,16 @@
 "use server";
 import { revalidatePath } from "next/cache";
+import { getTeacher2 } from "@/db/fetch"
 export const getTeachers = async(date:any) =>{
     revalidatePath("/schedule")
-    let teachers2 = {teachers:[]};
+    let teachers2 = {teachers:[{}]};
     try{
-        const data  = await fetch(process.env.API +"/api/schedule/getTeachers/",{
-            method:'POST',
-            body: JSON.stringify({date:date}),
-        })
-      if(!data.ok){
-        throw new Error(`Error! status: ${data.status}`);
-      }
-        teachers2 = await data.json()
+        const data = await getTeacher2(date)
+        teachers2 = {teachers:data}
         revalidatePath("/schedule")
       }catch(err){
         console.log(err);
       }
-    console.log("-------------------------------")
-    console.log(teachers2)
-    console.log("-------------------------------")
     type Lessons =  {
         id: number,
         lesson_number:number,

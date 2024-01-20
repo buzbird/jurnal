@@ -1,16 +1,10 @@
 "use server";
 import { revalidatePath } from "next/cache";
+import { getGroups } from "@/db/fetch"
 
 export const getAllGroup = async() =>{
     try{
-        const grouplist = await fetch(process.env.API +"/api/schedule/grouplist",{
-            method:'POST',
-            body: JSON.stringify({teacher_id: 1}),
-        })
-      if(!grouplist.ok){
-        throw new Error(`Error! status: ${grouplist.status}`);
-      }
-      const data = await grouplist.json()
+      const data = await getGroups()
       revalidatePath("/schedule")
       revalidatePath("/api/schedule/grouplist")
       return data

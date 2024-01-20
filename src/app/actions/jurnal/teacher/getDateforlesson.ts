@@ -1,19 +1,19 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { gatelessondatefor } from "@/db/fetch"
 
 
 export const getDateforlesson = async(lesson_id:any) =>{
     revalidatePath('/teacher')
     try{
-        const json  = await fetch(process.env.API +"/api/jurnal/lesson/date",{
-            method:'POST',
-            body: JSON.stringify({lesson_id:lesson_id}),
-        })
-      if(!json.ok){
-        throw new Error(`Error! status: ${json.status}`);
-      }
-      const data = await json.json()
+      const date = new Date();
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      const startDate = new Date(year, month, 1);
+      const endDate = new Date(year, month + 1, 0);
+      console.log(startDate,endDate)
+      const data = await gatelessondatefor(lesson_id,endDate,startDate)
       return data
       }catch(err){
         console.log(err);

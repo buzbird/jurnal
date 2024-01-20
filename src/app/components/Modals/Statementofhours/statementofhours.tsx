@@ -1,6 +1,6 @@
 'use client'
-import { getAllTeachers } from '@/app/actions/admin/getTeachers/getallTeachers';
-import { getAllLessons } from '@/app/actions/admin/lessons/getalllessons';
+import { getAllTeachers2 } from '@/app/actions/admin/getTeachers/getallTeachers';
+import { getAllLesson } from '@/app/actions/admin/lessons/getalllessons';
 import { Clearcache } from '@/app/actions/clearcache/clearcache';
 import { getgrouplist } from '@/app/actions/jurnal/teacher/getgrouplist';
 import Statementofhours from '@/app/actions/studying/statementofhour/statementofhours';
@@ -116,11 +116,11 @@ function Statementofhour() {
   let groupnmass = new Map();
   let teachermass = new Map();
   let lessonmass = new Map();
-  const [lessons,Setlessons] = useState({lessons:[]})
+  const [lessons,Setlessons] = useState([{}])
   const [lesson_id,Setlesson_id] = useState(undefined)
   const [groups,Setgroups] = useState({groups:[]})
   const [group,Setgroup] = useState(undefined)
-  const [teachers,Setteahers] = useState({teachers:[]})
+  const [teachers,Setteahers] = useState([{}])
   const [teacher,Setteaher] = useState(undefined)
   const [data2,SetData] =useState([])
 
@@ -158,9 +158,9 @@ function Statementofhour() {
     SetData(data)
     data =await getgrouplist()
     Setgroups(data)
-    data = await getAllLessons()
+    data = await getAllLesson()
     Setlessons(data)
-    data = await getAllTeachers()
+    data = await getAllTeachers2()
     Setteahers(data)
    
     Settableviews(true)
@@ -173,7 +173,7 @@ function Statementofhour() {
       <input type="search" list='group' placeholder='Фильтрация по Группам'  onChange={(e) =>{GroupHandler(e.target.value)}}/>
     <datalist id="group">
                       <>
-                      {groups.groups.map((group:any)=>{
+                      {groups.map((group:any)=>{
                         groupnmass.set(`${group.group_name}`,group.id)
                         return(
                           <>
@@ -187,7 +187,7 @@ function Statementofhour() {
     <input type="search" list='lesson' placeholder='Фильтрация по предметам'onChange={(e) =>{LessonHandler(e.target.value)}} />
     <datalist id="lesson">
                       <>
-                      {lessons.lessons.map((lesson:any)=>{
+                      {lessons.map((lesson:any)=>{
                         lessonmass.set(`${lesson.lesson_name}`,lesson.id)
                         return(
                           <>
@@ -200,7 +200,7 @@ function Statementofhour() {
     </datalist>
     <input type="search" list='teacher' placeholder='Фильтрация по преподавателю' onChange={(e) =>{TeaherHandler(e.target.value)}} />
     <datalist id="teacher">
-      {teachers.teachers.map((teacher:any) =>{
+      {teachers.map((teacher:any) =>{
       teachermass.set(`${teacher.user.full_name}`,teacher.teacher_id)
       return(
         <>

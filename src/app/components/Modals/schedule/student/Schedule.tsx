@@ -11,30 +11,34 @@ const ScheduleStudent = (data:any) => {
   const [date, setDate] = useState(new Date());
   const [tableviews,setTable] = useState(false)
   const [group,setgroup] =useState("") ;
-  const [table,setTables] = useState({lessons:[]})
+  const [table,setTables] = useState([{}])
   const [groupmass,setgroupmass] =useState(new Map()) ;
   const m = [1,2,3,4,5,6]
   const checktable = async()=>{
-    setTables({lessons:[]})
+    setTables([{}])
     console.log(date,groupmass.get(group))
     const lessons2 = await getLessonfromDate(date,groupmass.get(group))
-    setTables(lessons2)
+    if(lessons2!=undefined){
+      setTables(lessons2)
+    }
     await setTable(true)
     await console.log(table)
   }
   const changDate = async(date:any)=>{
-    let lessons2;
+    let lessons2 = undefined;
     setDate(new Date(date))
     if(groupmass.get(group) == undefined){
-      lessons2 = {lessons:[]}
+      lessons2 = [{}]
     }else{
       lessons2 = await getLessonfromDate(date,groupmass.get(group))
     }
-    setTables(lessons2)
+    if(lessons2!= undefined){
+      setTables(lessons2)
+    }
 
   }
   const changeGroup = async(group:any)=>{
-    setTables({lessons:[]})
+    setTables([{}])
     await setgroup(group)
     await checktable()
     await setTable(true)
@@ -69,7 +73,7 @@ const ScheduleStudent = (data:any) => {
           return(
            <tr key={index}>
            <td>{i}</td>
-            {table.lessons.map((table:any,index:any) => {
+            {table.map((table:any,index:any) => {
 
              if(i ==  table.lesson_number){
               return(
@@ -80,7 +84,7 @@ const ScheduleStudent = (data:any) => {
             );
              }
             })} 
-            {table.lessons.map((table:any,index:any) => {
+            {table.map((table:any,index:any) => {
              if(i ==  table.lesson_number){
               return(
                   <td key={index}>

@@ -1,6 +1,6 @@
 "use client"
 import { createuser } from "@/app/actions/admin/users/createuser";
-import { CreateAssesment, DeleteAssesment } from "@/app/actions/jurnal/assesment/assesment";
+import { CreateAssesment2, DeleteAssesment } from "@/app/actions/jurnal/assesment/assesment";
 import { getDateforlesson } from "@/app/actions/jurnal/teacher/getDateforlesson";
 import { Getassessmentgroup } from "@/app/actions/jurnal/teacher/getassessment";
 import { getgrouplist } from "@/app/actions/jurnal/teacher/getgroup";
@@ -19,13 +19,29 @@ const JurnalModal = (lessons: any) => {
   const [showmodal,setShowmodal] = useState(false);
   const [lesson,setLesson] = useState("");
   const [group,setGroup] = useState("");
-  const [groups,setGroups] = useState({groups: []});
-  const [students,setStudent] = useState({students:[{assessments:[]}]});
+  const [groups,setGroups] = useState([{}]);
+
+  type Assessmet =  {
+    id:number,
+    number:string,
+    date_id:number,
+  }
+  type AssessmetDate =  {
+      id: Number,
+      date: Date ,
+      assessments: Assessmet[]
+  }
+
+  type Student = {id:number,full_name:string,assessments:AssessmetDate[]}
+  type Students = {students: Student[]};
+  const student :Students ={students:[]};
+
+  const [students,setStudent] = useState(student);
   const [studentid,setstudentId] = useState();
   const [dateid,setDateId] = useState();
   const [studentName,setstudentName] = useState("");
   const [assessmentStudent,setassessmentStudent] = useState({assessments:[]});
-  const [date,setDate] = useState({data:[{}]})
+  const [date,setDate] = useState([{}])
   const handleLesson = async(lesson:any) =>{
     try {
       if(lesson ==="Выберите предмет"){
@@ -33,7 +49,9 @@ const JurnalModal = (lessons: any) => {
         setLesson(lesson);
         console.log("точка входа")
         const groups2 = await getgrouplist(teacher_id,lessonmass.get(lesson))
-        setGroups(groups2)
+        if(groups2!=undefined){
+          setGroups(groups2)
+        }
         console.log("точка выхода")
         
         
@@ -49,10 +67,13 @@ const JurnalModal = (lessons: any) => {
         setGroup(group);
         const assessmentgroup = await Getassessmentgroup(teacher_id,lessonmass.get(lesson),groupmass.get(group))
         setShowtable(true)
-
-        setStudent(assessmentgroup)
+        if(assessmentgroup!=undefined){
+          setStudent(assessmentgroup)
+        }
         const date = await getDateforlesson(lessonmass.get(lesson))
-        setDate(date)
+        if(date != undefined){
+          setDate(date)
+        }
         console.log("группа")
         console.log(assessmentgroup)
 
@@ -88,10 +109,13 @@ const JurnalModal = (lessons: any) => {
       await DeleteAssesment(assessment_id)
       const assessmentgroup = await Getassessmentgroup(teacher_id,lessonmass.get(lesson),groupmass.get(group))
         setShowtable(true)
-
-        setStudent(assessmentgroup)
+        if(assessmentgroup!=undefined){
+          setStudent(assessmentgroup)
+        }
         const date = await getDateforlesson(lessonmass.get(lesson))
-        setDate(date)
+        if(date!=undefined){
+          setDate(date)
+        }
 
       }catch(err){
           console.log(err)
@@ -103,13 +127,16 @@ const JurnalModal = (lessons: any) => {
       setShowmodal(false); 
       console.log("d")
       console.log(number,studentid,dateid);
-      await CreateAssesment(number,studentid,dateid)
+      await CreateAssesment2(number,studentid,dateid)
       const assessmentgroup = await Getassessmentgroup(teacher_id,lessonmass.get(lesson),groupmass.get(group))
         setShowtable(true)
-
-        setStudent(assessmentgroup)
+        if(assessmentgroup!=undefined){
+          setStudent(assessmentgroup)
+        }
         const date = await getDateforlesson(lessonmass.get(lesson))
-        setDate(date)
+        if(date!=undefined){
+          setDate(date)
+        }
       }catch(err){
           console.log(err)
       }
@@ -138,7 +165,7 @@ const JurnalModal = (lessons: any) => {
     </div>
       <datalist id="group">
       <>
-      {groups.groups.map((group:any,index:any) => {
+      {groups.map((group:any,index:any) => {
             groupmass.set(`${group.group.group_name}`,group.group.id)
             return(
                 <> 
@@ -155,7 +182,7 @@ const JurnalModal = (lessons: any) => {
             <thead>
                 <tr>
                     <th>Студент</th>
-                    {date.data.map((date:any,index:any) => {
+                    {date.map((date:any,index:any) => {
                       const date2 = new Date(date.date).getDate();
                       return(
                           <th key={index}>{date2}</th>
@@ -171,7 +198,7 @@ const JurnalModal = (lessons: any) => {
                 <> 
                   <tr>
                   <td>{student.full_name}</td>
-                   {date.data.map((date:any) => {
+                   {date.map((date:any) => {
                       console.log(date)
                      return(
                         <> 
