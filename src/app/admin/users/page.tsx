@@ -4,17 +4,13 @@ import React, { useState } from 'react'
 import Modal from "@/app/components/Modals/СreateUser"
 import UpdateUser from "@/app/components/Modals/UpdateUser"
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
-
+import { getUsers } from "@/db/fetch"
 async function getUserall() {
     const session = await getServerSession(authOptions)
-    const users = await fetch(process.env.API +"/api/admin/users",{
-        method:'POST',
-        body: JSON.stringify({email: session?.user?.email}),
-    })
-    const data = await users.json()
+    const data = await getUsers()
     return(<>
         
-            {data.data.users.map((user:any) => {
+            {data.map((user:any) => {
                 return (
                 <>
                 <tr>
