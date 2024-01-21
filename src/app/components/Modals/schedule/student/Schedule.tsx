@@ -8,16 +8,16 @@ import { getLessonfromDate } from "@/app/actions/schedule/getLessonfromDate";
 import { lessonsfromgroup } from "@/app/actions/schedule/lessonsfromgroup";
 import React, { useState } from "react";
 const ScheduleStudent = (data:any) => {
+  console.log(data)
   const [date, setDate] = useState(new Date());
   const [tableviews,setTable] = useState(false)
   const [group,setgroup] =useState("") ;
   const [table,setTables] = useState([{}])
   const [groupmass,setgroupmass] =useState(new Map()) ;
   const m = [1,2,3,4,5,6]
-  const checktable = async()=>{
-    setTables([{}])
-    console.log(date,groupmass.get(group))
-    const lessons2 = await getLessonfromDate(date,groupmass.get(group))
+  const checktable = async(groups:any)=>{
+    console.log(date,groupmass.get(groups))
+    const lessons2 = await getLessonfromDate(date,groupmass.get(groups))
     if(lessons2!=undefined){
       setTables(lessons2)
     }
@@ -38,9 +38,9 @@ const ScheduleStudent = (data:any) => {
 
   }
   const changeGroup = async(group:any)=>{
-    setTables([{}])
+    await setTables([{}])
     await setgroup(group)
-    await checktable()
+    await checktable(group)
     await setTable(true)
   }
   return (
@@ -49,7 +49,7 @@ const ScheduleStudent = (data:any) => {
       <input type='search' list="groups" onChange={(e)=> changeGroup(e.target.value)} placeholder="выберите предмет" className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
       <datalist id="groups">
           <>
-          {data.data.groups.map((group:any,index:any)=> {
+          {data.data.map((group:any,index:any)=> {
             groupmass.set(`${group.group_name}`,group.id)
             return(
               <option key={index}>{group.group_name}</option>
@@ -77,7 +77,7 @@ const ScheduleStudent = (data:any) => {
 
              if(i ==  table.lesson_number){
               return(
-                    <td key={index}>
+                  <td key={index}>
                       {table.specialization.specialization.lesson_name}
                       <br/>{table.specialization.teacher.user.full_name}
                   </td>
