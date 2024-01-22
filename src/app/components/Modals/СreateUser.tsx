@@ -11,7 +11,10 @@ const Modal = () => {
   const handleSubmit = async() =>{
     try {
        setShowModal(false);
-       await createuser(login, full_name,"111111")
+       const createuser = await fetch("http://5.35.93.157:2000/api/header",{
+        method:'POST',
+        body: JSON.stringify({login: login,full_name:full_name,password:"111111"}),
+      })
         
     }catch(err){
         console.log(err)
