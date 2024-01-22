@@ -11,7 +11,7 @@ const Modal = () => {
   const handleSubmit = async() =>{
     try {
        setShowModal(false);
-       const createuser = await fetch(process.env.API+ "/api/user",{
+       const createuser = await fetch("/api/user",{
         method:'POST',
         body: JSON.stringify({login: login,full_name:full_name,password:"111111"}),
       })
