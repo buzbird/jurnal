@@ -9,9 +9,10 @@ const Modal = () => {
   const [full_name,setFullName] = useState('')
 
   const handleSubmit = async() =>{
+    "use server"
     try {
        setShowModal(false);
-       const createuser = await fetch("http://5.35.93.157:2000/api/header",{
+       const createuser = await fetch(process.env.API+ "/api/user",{
         method:'POST',
         body: JSON.stringify({login: login,full_name:full_name,password:"111111"}),
       })
