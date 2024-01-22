@@ -9,7 +9,6 @@ const Modal = () => {
   const [full_name,setFullName] = useState('')
 
   const handleSubmit = async() =>{
-    "use server"
     try {
        setShowModal(false);
        const createuser = await fetch(process.env.API+ "/api/user",{
