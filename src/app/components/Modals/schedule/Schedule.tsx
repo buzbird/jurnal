@@ -46,7 +46,6 @@ const ScheduleTable = (data:any) => {
       body: JSON.stringify({group_id: group_id}),
     })
     let data = await lessonslist.json()
-    console.log(data)
     let lessons = {lessons:[{}]}
     let cab = {cab:[{}]}
     if(data.lesson != undefined){
@@ -61,13 +60,12 @@ const ScheduleTable = (data:any) => {
       body: JSON.stringify({}),
     })
     data = await cabsass.json()
-    console.log(data)
-    // if(lessonslist != undefined){
-    //   cabsass.map((cabinet:any) => {
-    //     cabmass.set(`${cabinet.number}`,cabinet.id)
-    //     cab.cab.push(cabinet.number)
-    //   })
-    // }
+    if(lessonslist != undefined){
+      data.map((cabinet:any) => {
+        cabmass.set(`${cabinet.number}`,cabinet.id)
+        cab.cab.push(cabinet.number)
+      })
+    }
     
     cab.cab.splice(0,1)
     setCabs(cab)
