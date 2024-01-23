@@ -656,6 +656,7 @@ const ScheduleModel = ({lesson_number,group,date}:any) => {
       body: JSON.stringify({date:date,group_id:group_id,lesson_number:lesson_number}),
     })
     let data =await lessons2.json()
+    console.log(data)
     if(lessons2 !=undefined){
       setlessons(data)
     }
