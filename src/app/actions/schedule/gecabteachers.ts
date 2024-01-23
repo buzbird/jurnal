@@ -17,9 +17,9 @@ export const getTeachers = async(date:any) =>{
         lesson_name:string,
         group_name:string,
     }
-    type teachers = {id:number,teacher:string,lessons:Lessons[]}
+    type Teachers = {id:number,teacher:string,lessons:Lessons[]}
     let id = -1;
-    let teachers: teachers[] = []
+    let teachers: Teachers[] = []
     teachers2.teachers.map((teacher: any) => {
         console.log(teacher.specialization.teacher.user.full_name)
         if(teachers.length == 0){
