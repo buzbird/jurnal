@@ -665,7 +665,7 @@ const ScheduleModel = ({lesson_number,group,date}:any) => {
 
 
   const deleteLesson = async(id:any) =>{
-   await fetch("/api/jurnal/getlesson2/",{
+    await fetch("/api/jurnal/getlesson2/",{
       method:'DELETE',
       body: JSON.stringify({id:id}),
     })
@@ -690,7 +690,7 @@ const ScheduleModel = ({lesson_number,group,date}:any) => {
               onClick={() => setmodal(true)}
             >
               <div>
-              {lesson.specialization.specialization.lesson_name}
+              {lesson.specialization?.specialization.lesson_name}
               </div>
               <div>
                 <span>{lesson.specialization?.teacher.user.full_name}</span>
