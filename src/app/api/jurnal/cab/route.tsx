@@ -7,6 +7,6 @@ export async function GET(req: NextRequest) {
 }
 export async function POST(req:NextRequest) {
     const body = await req.json()
-    const lessons = await getcab()
-    return new Response(JSON.stringify(lessons))
+    const cab = await getcab()
+    return new Response(JSON.stringify(cab))
 }
