@@ -4,7 +4,6 @@ import { updateuser } from "@/app/actions/admin/users/updateuser";
 import { Clearcache } from "@/app/actions/clearcache/clearcache";
 import { createDateofLesson } from "@/app/actions/schedule/createDateofLesson";
 import { getcab2,getcab } from "@/app/actions/schedule/gecab";
-import { getTeachers } from "@/app/actions/schedule/gecabteachers";
 import { getLessonId2 } from "@/app/actions/schedule/getlessonid/getlessonid";
 import { DeleteLessons, getLessons2 } from "@/app/actions/schedule/getlessons";
 import { lessonsfromgroup } from "@/app/actions/schedule/lessonsfromgroup";
@@ -317,10 +316,15 @@ const ScheduleTable = (data:any) => {
 const ScheduleModelperTeacher = ({date}:any) => {
   const [showModal, setShowModal] = useState(false);
   const [teachersmass,setcabmasss] =useState(new Map()) ;
-  const [teachers,setTeachers] = useState([{}])
+  const [teachers,setTeachers] = useState({})
   const getteachers =async(modal:any)=>{
-    const teachers = await getTeachers(date)
-    await setTeachers(teachers)
+    const teachers = await fetch("/api/jurnal/getlessonid2/",{
+      method:'POST',
+      body: JSON.stringify({date:date}),
+    })
+    let data = teachers.json()
+    console.log(data)
+    // await setTeachers(data)
     console.log(teachers)
     setShowModal(modal)
   }
@@ -363,7 +367,7 @@ const ScheduleModelperTeacher = ({date}:any) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {teachers.map((teacher:any) => {
+                    {teachers.teachers.map((teacher:any) => {
                         return(
                           <>
                           <tr>
