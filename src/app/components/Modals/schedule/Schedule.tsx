@@ -49,8 +49,8 @@ const ScheduleTable = (data:any) => {
     console.log(data)
     let lessons = {lessons:[{}]}
     let cab = {cab:[{}]}
-    if(lessonslist != undefined){
-      data.map((lesson:any) => {
+    if(data.lesson != undefined){
+      data.lesson.map((lesson:any) => {
         lessonmass.set(`${lesson.specialization.lesson_name}`,lesson.id)
         lessons.lessons.push(lesson.specialization)
       })
