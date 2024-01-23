@@ -111,7 +111,7 @@ const ScheduleTable = (data:any) => {
       })
       let data =await lesson2.json()
       console.log(data)
-      console.log(data.id,lesson_number,date,cabmass.get(cabinet))
+      console.log(data.lesson.id,lesson_number,date,cabmass.get(cabinet))
       // // createDateofLesson(data?.id,lesson_number,date,cabmass.get(cabinet))
       setshowModalgroup(false);
       setShowModal(true);
