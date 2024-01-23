@@ -61,7 +61,7 @@ const ScheduleTable = (data:any) => {
       body: JSON.stringify({}),
     })
     data = await cabsass.json()
-    console.log(cabsass)
+    console.log(data)
     // if(lessonslist != undefined){
     //   cabsass.map((cabinet:any) => {
     //     cabmass.set(`${cabinet.number}`,cabinet.id)
