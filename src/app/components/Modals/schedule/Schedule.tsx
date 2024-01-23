@@ -665,7 +665,7 @@ const ScheduleModel = ({lesson_number,group,date}:any) => {
       setMounted(true);
       getLesson(group.id,lesson_number);// this will fire only on first render
    }
-}, []);
+}, [mounted, true]);
 
 
 
