@@ -156,10 +156,15 @@ const ScheduleTable = (data:any) => {
           return(
           <tr key={index}>
             <td>{i}</td>
-            {data.data.map((group:any,index:any) => { 
-            return(
+            {data.data.map(async(group:any,index:any) => { 
+              const lessonss = await fetch("/api/jurnal/getlesson2/",{
+                method:'POST',
+                body: JSON.stringify({date:date,group_id:group.id,lesson_number:i}),
+              })
+              let data = await lessonss.json()
+              return(
                   <td key={index}>
-                    <ScheduleModel  lesson_number={i} group={group} date={date}/>
+                    <ScheduleModel lessons={data} lesson_number={i} group={group} date={date}/>
                     <button
                 className="bg-blue-200 text-black active:bg-blue-500 
               font-bold px-3 py-1 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
@@ -647,23 +652,18 @@ const ScheduleModelperCab = ({date}:any) => {
   );
 };
 
-const ScheduleModel = ({lesson_number,group,date}:any) => {
-  const [lessonss, setlessons] = useState([{}]);
+const ScheduleModel = ({lessons,lesson_number,group,date}:any) => {
+  const [lessonss, setlessons] = useState(lessons);
   const [modal,setmodal] = useState(false)
-  const getLesson = async(group_id:any,lesson_number:any) =>{
-    const lessons2 = await fetch("/api/jurnal/getlesson2/",{
-      method:'POST',
-      body: JSON.stringify({date:date,group_id:group_id,lesson_number:lesson_number}),
-    })
-    let data =await lessons2.json()
-    console.log(data)
-    setlessons(data)
-  }  
-  useEffect(() => {
-    getLesson(group.id,lesson_number);  // this will fire only on first render
-  }, []);
-
-
+  // const getLesson = async(group_id:any,lesson_number:any) =>{
+  //   const lessons2 = await fetch("/api/jurnal/getlesson2/",{
+  //     method:'POST',
+  //     body: JSON.stringify({date:date,group_id:group_id,lesson_number:lesson_number}),
+  //   })
+  //   let data =await lessons2.json()
+  //   console.log(data)
+  //   setlessons(data)
+  // }
   const deleteLesson = async(id:any) =>{
     await fetch("/api/jurnal/getlesson2/",{
       method:'DELETE',
