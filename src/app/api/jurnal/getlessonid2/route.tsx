@@ -9,5 +9,5 @@ export async function POST(req:NextRequest) {
     const body = await req.json()
     const lesson = await getLessonId2(body.id,body.lesson)
     console.log(lesson)
-    return new Response(JSON.stringify({lesson:lesson}))
+    return new Response(JSON.stringify({lesson}))
 }
