@@ -13,8 +13,7 @@ const UpdateUser = ({login,full_name}:any) => {
        setShowModal(false);
        await fetch("/api/user",{
         method:'DELETE',
-        body: JSON.stringify({login: login}),
-      })
+        body: JSON.stringify({login: login}),})
     }catch(err){
         console.log(err)
     }
@@ -24,7 +23,7 @@ const UpdateUser = ({login,full_name}:any) => {
     try {
        setShowModal(false);
       await fetch("/api/user",{
-        method:'DELETE',
+        method:'UPDATE',
         body: JSON.stringify({login: login,loginnew:loginnew,full_namenew:full_namenew,passwordnew:passwordnew}),
       })
     }catch(err){
