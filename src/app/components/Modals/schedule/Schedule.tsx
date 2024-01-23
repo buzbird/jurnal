@@ -162,6 +162,8 @@ const ScheduleTable = (data:any) => {
                 body: JSON.stringify({date:date,group_id:group.id,lesson_number:i}),
               })
               let data = await lessonss.json()
+              console.log('_____________________')
+              console.log(data)
               return(
                   <td key={index}>
                     <ScheduleModel lessons={data} lesson_number={i} group={group} date={date}/>
