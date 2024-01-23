@@ -2,7 +2,6 @@
 import { deleteuser } from "@/app/actions/admin/users/deleteuser";
 import { updateuser } from "@/app/actions/admin/users/updateuser";
 import { Clearcache } from "@/app/actions/clearcache/clearcache";
-import { getgrouplist } from "@/app/actions/jurnal/teacher/getgrouplist";
 import { createDateofLesson } from "@/app/actions/schedule/createDateofLesson";
 import { getcab2,getcab } from "@/app/actions/schedule/gecab";
 import { getTeachers } from "@/app/actions/schedule/gecabteachers";
@@ -32,7 +31,7 @@ const ScheduleTable = (data:any) => {
   const [lessonmass,setlessonmass] =useState(new Map()) ;
   const [cabmass,setcabmasss] =useState(new Map()) ;
   let groupnmass = new Map();
-  const [groups,Setgroups] = useState([{}])
+  const [groups,Setgroups] = useState({group:[]})
   const [group2,Setgroup] = useState("")
   const [lesson_number,Setlesson_number] = useState(0)
   const [group,Setgroup_id] = useState("")
@@ -77,7 +76,11 @@ const ScheduleTable = (data:any) => {
   const addgroup = async(groupvission:any) =>{
     try {
       setShowModal(false)
-      let data =await getgrouplist()
+      let group =await fetch("/api/jurnal/grouplist/",{
+        method:'POST',
+        body: JSON.stringify({}),
+      })
+      let data =await group.json()
       setshowModalgroup(groupvission)
       if(data != undefined){
         Setgroups(data)
@@ -261,7 +264,7 @@ const ScheduleTable = (data:any) => {
                 <input type="search" list='group' placeholder='Фильтрация по Группам'  onChange={(e) =>{Setgroup_id(e.target.value)}}/>
                 <datalist id="group">
                                   <>
-                                  {groups.map((group:any,index:any)=>{
+                                  {groups.group.map((group:any,index:any)=>{
                                     groupnmass.set(`${group.group_name}`,group.id)
                                     return(
                                       <>
