@@ -95,7 +95,10 @@ const ScheduleTable = (data:any) => {
       console.log(lessonmass)
       console.log(cabmass)
       console.log(lessonmass.get(lesson),cabmass.get(cabinet))
-      createDateofLesson(lessonmass.get(lesson),lesson_number,date,cabmass.get(cabinet))
+      await fetch("/api/jurnal/createdateoflesson/",{
+        method:'POST',
+        body: JSON.stringify({id:lessonmass.get(lesson),lesson_number:lesson_number,date:date,cab:cabmass.get(cabinet)}),
+      })
       setShowModal(false);
     }catch(err){
         console.log(err)
