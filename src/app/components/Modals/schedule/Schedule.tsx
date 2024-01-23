@@ -46,7 +46,7 @@ const ScheduleTable = (data:any) => {
       body: JSON.stringify({group_id: group_id}),
     })
     const data = await lessonslist.json()
-    
+    console.log(data)
     let lessons = {lessons:[{}]}
     let cab = {cab:[{}]}
     if(lessonslist != undefined){
@@ -55,7 +55,7 @@ const ScheduleTable = (data:any) => {
         lessons.lessons.push(lesson.specialization)
       })
     }
-    console.log(lessons)
+   
     const cabsass = await fetch("/api/jurnal/cab",{
       method:'POST',
       body: JSON.stringify({}),
