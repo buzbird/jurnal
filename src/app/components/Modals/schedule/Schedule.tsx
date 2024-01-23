@@ -648,7 +648,7 @@ const ScheduleModelperCab = ({date}:any) => {
 };
 
 const ScheduleModel = ({lesson_number,group,date}:any) => {
-  const wasCalled = useRef(false);
+  const [mounted, setMounted] = useState(false)
   const [lessonss, setlessons] = useState([{}]);
   const [modal,setmodal] = useState(false)
   const getLesson = async(group_id:any,lesson_number:any) =>{
@@ -661,19 +661,16 @@ const ScheduleModel = ({lesson_number,group,date}:any) => {
     setlessons(data)
   }  
   useEffect(() => {
-    if(wasCalled.current) return;
-    wasCalled.current = true;
-    getLesson(group.id,lesson_number);
-     /* CODE THAT SHOULD RUN ONCE */
-
+    if(!mounted) {
+      setMounted(true);
+      getLesson(group.id,lesson_number);// this will fire only on first render
+   }
 }, []);
-  // useEffect(() => {
-  //    // this will fire only on first render
-  // }, [{}]);
+
 
 
   const deleteLesson = async(id:any) =>{
-    wasCalled.current = false;
+
     await fetch("/api/jurnal/getlesson2/",{
       method:'DELETE',
       body: JSON.stringify({id:id}),
@@ -684,6 +681,7 @@ const ScheduleModel = ({lesson_number,group,date}:any) => {
     })
     let data =await lessons2.json()
     setlessons(data)
+    setMounted(false);
   }
   return (
     <>
