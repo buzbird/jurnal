@@ -40,22 +40,30 @@ const ScheduleTable = (data:any) => {
   const [cabs,setCabs] = useState({cab:[{}]})
   const setShowModals = async(modal:any,group_id:any,lesson_numbers:any)=>{
     Setlesson_number(lesson_numbers)
-    const lessonslist = await lessonsfromgroup(group_id)
+    const lessonslist = await fetch("/api/jurnal/lessonfromgroup",{
+      method:'POST',
+      body: JSON.stringify({group_id: group_id}),
+    })
+    console.log(lessonslist)
     let lessons = {lessons:[{}]}
     let cab = {cab:[{}]}
-    if(lessonslist != undefined){
-      lessonslist.map((lesson:any) => {
-        lessonmass.set(`${lesson.specialization.lesson_name}`,lesson.id)
-        lessons.lessons.push(lesson.specialization)
-      })
-    }
-    const cabsass = await getcab()
-    if(lessonslist != undefined){
-      cabsass.map((cabinet:any) => {
-        cabmass.set(`${cabinet.number}`,cabinet.id)
-        cab.cab.push(cabinet.number)
-      })
-    }
+    // if(lessonslist != undefined){
+    //   lessonslist.map((lesson:any) => {
+    //     lessonmass.set(`${lesson.specialization.lesson_name}`,lesson.id)
+    //     lessons.lessons.push(lesson.specialization)
+    //   })
+    // }
+    const cabsass = await fetch("/api/jurnal/cab",{
+      method:'POST',
+      body: JSON.stringify({}),
+    })
+    console.log(cabsass)
+    // if(lessonslist != undefined){
+    //   cabsass.map((cabinet:any) => {
+    //     cabmass.set(`${cabinet.number}`,cabinet.id)
+    //     cab.cab.push(cabinet.number)
+    //   })
+    // }
     
     cab.cab.splice(0,1)
     setCabs(cab)
