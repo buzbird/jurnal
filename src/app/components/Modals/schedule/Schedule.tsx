@@ -694,7 +694,7 @@ const ScheduleModel = ({lesson_number,group,date}:any) => {
               </div>
               <div>
                 <span>{lesson.specialization?.teacher.user.full_name}</span>
-                <span>{lesson.cabinet.number}</span>
+                <span>{lesson.cabinet?.number}</span>
               </div>
                 </button>
 
@@ -715,11 +715,11 @@ const ScheduleModel = ({lesson_number,group,date}:any) => {
                 <div>
                 вы точно хотите удалить?
                 <div>
-              {lesson.specialization.specialization.lesson_name}
+              {lesson.specialization?.specialization.lesson_name}
               </div>
               <div>
-                <span>{lesson.specialization.teacher.user.full_name}</span>
-                <span>{lesson.cabinet.number}</span>
+                <span>{lesson.specialization?.teacher.user.full_name}</span>
+                <span>{lesson.cabinet?.number}</span>
               </div>
                 </div>
                 </div>
