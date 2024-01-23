@@ -14,11 +14,6 @@ export async function POST(req:NextRequest) {
     return new Response()
 }
 
-export async function UPDATE(req:NextRequest) {
-    const body = await req.json()
-    const permission = await updateuser(body.login,body.loginnew, body.full_namenew,body.passwordnew)
-    return new Response()
-}
 export async function DELETE(req:NextRequest) {
     const body = await req.json()
     const permission = await deleteuser(body.login)
