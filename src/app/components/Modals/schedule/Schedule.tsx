@@ -322,7 +322,7 @@ const ScheduleModelperTeacher = ({date}:any) => {
       method:'POST',
       body: JSON.stringify({date:date}),
     })
-    let data = teachers.json()
+    let data = await teachers.json()
     console.log(data)
     // await setTeachers(data)
     console.log(teachers)
