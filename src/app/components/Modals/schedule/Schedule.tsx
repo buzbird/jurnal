@@ -659,9 +659,9 @@ const ScheduleModel = ({lesson_number,group,date}:any) => {
     console.log(data)
     setlessons(data)
   }  
-  useEffect(() => {
-    getLesson(group.id,lesson_number);  // this will fire only on first render
-  }, [{}]);
+  // useEffect(() => {
+  //   getLesson(group.id,lesson_number);  // this will fire only on first render
+  // }, [{}]);
 
 
   const deleteLesson = async(id:any) =>{
