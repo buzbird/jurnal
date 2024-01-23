@@ -529,13 +529,6 @@ const ScheduleModel = ({lesson_number,group,date}:any) => {
     let data =await lessons2.json()
     setlessons(data)
   }
-
-  useEffect(() => {
-    if(!mounted) {
-       setMounted(true);
-       getLesson(group.id,lesson_number)
-    }
- },[getLesson, mounted]);
   return (
     <>
     {lessonss.map((lesson:any,index:any) => {
