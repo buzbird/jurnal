@@ -40,6 +40,7 @@ const ScheduleTable = (data:any) => {
   const [cabs,setCabs] = useState({cab:[{}]})
   const setShowModals = async(modal:any,group_id:any,lesson_numbers:any)=>{
     Setlesson_number(lesson_numbers)
+    console.log(group_id)
     const lessonslist = await fetch("/api/jurnal/lessonfromgroup",{
       method:'POST',
       body: JSON.stringify({group_id: group_id}),
