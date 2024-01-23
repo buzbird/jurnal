@@ -22,8 +22,8 @@ const UpdateUser = ({login,full_name}:any) => {
   const handleSubmit = async() =>{
     try {
        setShowModal(false);
-      await fetch("/api/user",{
-        method:'UPDATE',
+      await fetch("/api/user/update",{
+        method:'POST',
         body: JSON.stringify({login: login,loginnew:loginnew,full_namenew:full_namenew,passwordnew:passwordnew}),
       })
     }catch(err){
