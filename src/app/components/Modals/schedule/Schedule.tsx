@@ -673,6 +673,7 @@ const ScheduleModel = ({lesson_number,group,date}:any) => {
 
 
   const deleteLesson = async(id:any) =>{
+    wasCalled.current = false;
     await fetch("/api/jurnal/getlesson2/",{
       method:'DELETE',
       body: JSON.stringify({id:id}),
