@@ -159,7 +159,7 @@ const ScheduleTable = (data:any) => {
             {data.data.map((group:any,index:any) => { 
             return(
                   <td key={index}>
-                    {/* <ScheduleModel  lesson_number={i} group={group} date={date}/> */}
+                    <ScheduleModel  lesson_number={i} group={group} date={date}/>
                     <button
                 className="bg-blue-200 text-black active:bg-blue-500 
               font-bold px-3 py-1 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
@@ -647,104 +647,112 @@ const ScheduleModelperCab = ({date}:any) => {
   );
 };
 
-// const ScheduleModel = ({lesson_number,group,date}:any) => {
-//   const [lessonss, setlessons] = useState([{}]);
-//   const [modal,setmodal] = useState(false)
-//   const getLesson = async(group_id:any,lesson_number:any) =>{
-//     const lessons2 = await getLessons2(date,group_id,lesson_number)
-//     console.log(lessons2)
-//     if(lessons2 !=undefined){
-//       setlessons(lessons2)
-//     }
-//   }  
-//     useEffect(() => {
-//     getLesson(group.id,lesson_number);  // this will fire only on first render
-//   }, []);
+const ScheduleModel = ({lesson_number,group,date}:any) => {
+  const [lessonss, setlessons] = useState([{}]);
+  const [modal,setmodal] = useState(false)
+  const getLesson = async(group_id:any,lesson_number:any) =>{
+    const lessons2 = await fetch("/api/jurnal/getlesson2/",{
+      method:'POST',
+      body: JSON.stringify({date:date,group_id:group_id,lesson_number:lesson_number}),
+    })
+    let data =await lessons2.json()
+    if(lessons2 !=undefined){
+      setlessons(data)
+    }
+  }  
+  useEffect(() => {
+    getLesson(group.id,lesson_number);  // this will fire only on first render
+  }, []);
 
 
-//   const deleteLesson = async(id:any) =>{
-//     await DeleteLessons(id)
-//     const lessons3 = await getLessons2(date,group.id,lesson_number)
-//     if(lessons3 !=undefined){
-//       setlessons(lessons3)
-//     }
-//   }
-//   return (
-//     <>
-//     {lessonss.map((lesson:any,index:any) => {
-//       console.log(lesson)
-//             return(
-//                 <> 
-//                  <tr key={index}>
-//                  <button
-//               className="bg-blue-200 text-black active:bg-blue-500 
-//             font-bold px-3 py-1 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-//               type="button"
-//               onClick={() => setmodal(true)}
-//             >
-//               <div>
-//               {lesson.specialization.specialization.lesson_name}
-//               </div>
-//               <div>
-//                 <span>{lesson.specialization.teacher.user.full_name}</span>
-//                 <span>{lesson.cabinet.number}</span>
-//               </div>
-//                 </button>
+  const deleteLesson = async(id:any) =>{
+   await fetch("/api/jurnal/getlesson2/",{
+      method:'DELETE',
+      body: JSON.stringify({id:id}),
+    })
+    const lessons2= await fetch("/api/jurnal/getlesson2/",{
+      method:'POST',
+      body: JSON.stringify({date:date,group_id:group.id,lesson_number:lesson_number}),
+    })
+    let data =await lessons2.json()
+    setlessons(data)
+  }
+  return (
+    <>
+    {lessonss.map((lesson:any,index:any) => {
+      console.log(lesson)
+            return(
+                <> 
+                 <tr key={index}>
+                 <button
+              className="bg-blue-200 text-black active:bg-blue-500 
+            font-bold px-3 py-1 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+              type="button"
+              onClick={() => setmodal(true)}
+            >
+              <div>
+              {lesson.specialization.specialization.lesson_name}
+              </div>
+              <div>
+                <span>{lesson.specialization.teacher.user.full_name}</span>
+                <span>{lesson.cabinet.number}</span>
+              </div>
+                </button>
 
-//                 {modal ? (
-//         <>
-//           <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-//             <div className="relative w-auto my-6 mx-auto max-w-3xl">
-//               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-//                 <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t ">
-//                   <h3 className="text-3xl font=semibold">{group.group_name}</h3>
-//                   <button
-//                     className="bg-transparent border-0 text-black float-right"
-//                     onClick={() => setmodal(false)}
-//                   >
-//                   </button>
-//                 </div>
-//                 <div className="relative p-6 flex-auto">
-//                 <div>
-//                 вы точно хотите удалить?
-//                 <div>
-//               {lesson.specialization.specialization.lesson_name}
-//               </div>
-//               <div>
-//                 <span>{lesson.specialization.teacher.user.full_name}</span>
-//                 <span>{lesson.cabinet.number}</span>
-//               </div>
-//                 </div>
-//                 </div>
-//                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                {modal ? (
+        <>
+          <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t ">
+                  <h3 className="text-3xl font=semibold">{group.group_name}</h3>
+                  <button
+                    className="bg-transparent border-0 text-black float-right"
+                    onClick={() => setmodal(false)}
+                  >
+                  </button>
+                </div>
+                <div className="relative p-6 flex-auto">
+                <div>
+                вы точно хотите удалить?
+                <div>
+              {lesson.specialization.specialization.lesson_name}
+              </div>
+              <div>
+                <span>{lesson.specialization.teacher.user.full_name}</span>
+                <span>{lesson.cabinet.number}</span>
+              </div>
+                </div>
+                </div>
+                <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
 
-//                   <button
-//                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
-//                     type="button"
-//                     onClick={() => setmodal(false)}
-//                   >
-//                     закрыть
-//                   </button>
-//                   <button
-//                     className="text-white bg-yellow-500 active:bg-yellow-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-//                     type="button"
-//                     onClick={() =>   deleteLesson(lesson.id)}
-//                   >
-//                     удалить
-//                   </button>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         </>
-//       ) : null}
-//                  </tr>
-//                 </>
-//             );
-//     })} 
-//     </>
-//   );
-// };
+                  <button
+                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
+                    type="button"
+                    onClick={() => setmodal(false)}
+                  >
+                    закрыть
+                  </button>
+                  <button
+                    className="text-white bg-yellow-500 active:bg-yellow-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                    type="button"
+                    onClick={() =>   deleteLesson(lesson.id)}
+                  >
+                    удалить
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : null}
+                 </tr>
+                </>
+            );
+    })} 
+    </>
+  );
+};
 
 export default ScheduleTable;
 
