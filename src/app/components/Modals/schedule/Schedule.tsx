@@ -109,11 +109,10 @@ const ScheduleTable = (data:any) => {
         method:'POST',
         body: JSON.stringify({id:groupnmass.get(group),lesson:lesson}),
       })
-      let data = lesson2.json()
+      let data =await lesson2.json()
       console.log(data)
-
-      // console.log(lesson2?.id,lesson_number,date,cabmass.get(cabinet))
-      // createDateofLesson(lesson2?.id,lesson_number,date,cabmass.get(cabinet))
+      console.log(data?.id,lesson_number,date,cabmass.get(cabinet))
+      // // createDateofLesson(data?.id,lesson_number,date,cabmass.get(cabinet))
       setshowModalgroup(false);
       setShowModal(true);
     }catch(err){
