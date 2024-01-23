@@ -4,6 +4,7 @@ import { getCab,getCab2 } from "@/db/fetch"
 
 export const getcab = async() =>{
     const cab = await getCab()
+    console.log(cab)
     return cab
 }
 export const getcab2 = async(date:any) =>{

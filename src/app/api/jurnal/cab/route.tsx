@@ -8,5 +8,6 @@ export async function GET(req: NextRequest) {
 export async function POST(req:NextRequest) {
     const body = await req.json()
     const cab = await getcab()
+    console.log(cab)
     return new Response(JSON.stringify(cab))
 }
