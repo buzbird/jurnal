@@ -404,6 +404,7 @@ const ScheduleModelperCab = ({date}:any) => {
 };
 
 const ScheduleModel = ({lesson_number,group,date}:any) => {
+  const [mounted, setMounted] = useState(false)
   const [lessonss, setlessons] = useState([{}]);
   const [modal,setmodal] = useState(false)
   const [showModalgroup, setshowModalgroup] = useState(false);
@@ -450,7 +451,6 @@ const ScheduleModel = ({lesson_number,group,date}:any) => {
   } 
   const setShowModals = async(modal:any,group_id:any,lesson_numbers:any)=>{
     console.log(group_id)
-    await getLesson(group_id,lesson_numbers)
     const lessonslist = await fetch("/api/jurnal/lessonfromgroup",{
       method:'POST',
       body: JSON.stringify({group_id: group_id}),
@@ -511,6 +511,7 @@ const ScheduleModel = ({lesson_number,group,date}:any) => {
         body: JSON.stringify({id:lessonmass.get(lesson),lesson_number:lesson_number,date:date,cab:cabmass.get(cabinet)}),
       })
       setShowModal(false);
+      await getLesson(group.id,lesson_number)
     }catch(err){
         console.log(err)
     }
@@ -528,6 +529,13 @@ const ScheduleModel = ({lesson_number,group,date}:any) => {
     let data =await lessons2.json()
     setlessons(data)
   }
+
+  useEffect(() => {
+    if(!mounted) {
+       setMounted(true);
+       getLesson(group.id,lesson_number)
+    }
+ },[getLesson, mounted]);
   return (
     <>
     {lessonss.map((lesson:any,index:any) => {
