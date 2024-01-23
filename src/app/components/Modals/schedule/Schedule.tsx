@@ -485,8 +485,12 @@ const ScheduleModelperCab = ({date}:any) => {
   const [cabmass,setcabmasss] =useState(new Map()) ;
   const [cabs,setCabs] = useState([{}])
   const getcabs =async(modal:any)=>{
-    const cabsass = await getcab2(date)
-    await setCabs(cabsass)
+    const cabs2 = await fetch("/api/jurnal/cab2/",{
+        method:'POST',
+        body: JSON.stringify({date:date}),
+      })
+    let data = await cabs2.json()
+    await setCabs(data)
     setShowModal(modal)
   }
   

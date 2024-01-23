@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import { getCab,getCab2 } from "@/db/fetch"
 
 export const getcab = async() =>{
+    revalidatePath("/schedule")
     const cab = await getCab()
     console.log(cab)
     return cab
