@@ -657,9 +657,7 @@ const ScheduleModel = ({lesson_number,group,date}:any) => {
     })
     let data =await lessons2.json()
     console.log(data)
-    if(lessons2 !=undefined){
-      setlessons(data)
-    }
+    setlessons(data)
   }  
   useEffect(() => {
     getLesson(group.id,lesson_number);  // this will fire only on first render
@@ -695,7 +693,7 @@ const ScheduleModel = ({lesson_number,group,date}:any) => {
               {lesson.specialization.specialization.lesson_name}
               </div>
               <div>
-                <span>{lesson.specialization.teacher.user.full_name}</span>
+                <span>{lesson.specialization?.teacher.user.full_name}</span>
                 <span>{lesson.cabinet.number}</span>
               </div>
                 </button>
