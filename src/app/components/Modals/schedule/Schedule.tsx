@@ -316,7 +316,7 @@ const ScheduleTable = (data:any) => {
 const ScheduleModelperTeacher = ({date}:any) => {
   const [showModal, setShowModal] = useState(false);
   const [teachersmass,setcabmasss] =useState(new Map()) ;
-  const [teachers,setTeachers] = useState({})
+  const [teachers,setTeachers] = useState({teachers:[]})
   const getteachers =async(modal:any)=>{
     const teachers = await fetch("/api/jurnal/getlessonid2/",{
       method:'POST',
