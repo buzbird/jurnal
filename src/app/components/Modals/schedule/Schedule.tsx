@@ -45,7 +45,7 @@ const ScheduleTable = (data:any) => {
       method:'POST',
       body: JSON.stringify({group_id: group_id}),
     })
-    const data = await lessonslist.json()
+    let data = await lessonslist.json()
     console.log(data)
     let lessons = {lessons:[{}]}
     let cab = {cab:[{}]}
@@ -60,7 +60,7 @@ const ScheduleTable = (data:any) => {
       method:'POST',
       body: JSON.stringify({}),
     })
-
+    data = await cabsass.json()
     console.log(cabsass)
     // if(lessonslist != undefined){
     //   cabsass.map((cabinet:any) => {
