@@ -45,19 +45,22 @@ const ScheduleTable = (data:any) => {
       method:'POST',
       body: JSON.stringify({group_id: group_id}),
     })
-    console.log(lessonslist)
+    const data = await lessonslist.json()
+    
     let lessons = {lessons:[{}]}
     let cab = {cab:[{}]}
-    // if(lessonslist != undefined){
-    //   lessonslist.map((lesson:any) => {
-    //     lessonmass.set(`${lesson.specialization.lesson_name}`,lesson.id)
-    //     lessons.lessons.push(lesson.specialization)
-    //   })
-    // }
+    if(lessonslist != undefined){
+      data.map((lesson:any) => {
+        lessonmass.set(`${lesson.specialization.lesson_name}`,lesson.id)
+        lessons.lessons.push(lesson.specialization)
+      })
+    }
+    console.log(lessons)
     const cabsass = await fetch("/api/jurnal/cab",{
       method:'POST',
       body: JSON.stringify({}),
     })
+
     console.log(cabsass)
     // if(lessonslist != undefined){
     //   cabsass.map((cabinet:any) => {
