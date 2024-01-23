@@ -316,7 +316,7 @@ const ScheduleTable = (data:any) => {
 const ScheduleModelperTeacher = ({date}:any) => {
   const [showModal, setShowModal] = useState(false);
   const [teachersmass,setcabmasss] =useState(new Map()) ;
-  const [teachers,setTeachers] = useState({teachers:[]})
+  const [teachers,setTeachers] = useState([{}])
   const getteachers =async(modal:any)=>{
     const teachers = await fetch("/api/jurnal/getteachers/",{
       method:'POST',
@@ -367,7 +367,7 @@ const ScheduleModelperTeacher = ({date}:any) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {teachers.teachers.map((teacher:any) => {
+                    {teachers.map((teacher:any) => {
                         return(
                           <>
                           <tr>
