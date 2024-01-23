@@ -8,7 +8,7 @@ import { getLessonId2 } from "@/app/actions/schedule/getlessonid/getlessonid";
 import { DeleteLessons, getLessons2 } from "@/app/actions/schedule/getlessons";
 import { lessonsfromgroup } from "@/app/actions/schedule/lessonsfromgroup";
 import { getLessonId } from "@/db/fetch";
-import React, { use, useEffect, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 const ScheduleTable = (data:any) => {
   console.log(data)
   const [date, setDate] = useState(new Date());
@@ -648,6 +648,7 @@ const ScheduleModelperCab = ({date}:any) => {
 };
 
 const ScheduleModel = ({lesson_number,group,date}:any) => {
+  const wasCalled = useRef(false);
   const [lessonss, setlessons] = useState([{}]);
   const [modal,setmodal] = useState(false)
   const getLesson = async(group_id:any,lesson_number:any) =>{
@@ -659,8 +660,15 @@ const ScheduleModel = ({lesson_number,group,date}:any) => {
     console.log(data)
     setlessons(data)
   }  
+  useEffect(() => {
+    if(wasCalled.current) return;
+    wasCalled.current = true;
+    getLesson(group.id,lesson_number);
+     /* CODE THAT SHOULD RUN ONCE */
+
+}, []);
   // useEffect(() => {
-  //   getLesson(group.id,lesson_number);  // this will fire only on first render
+  //    // this will fire only on first render
   // }, [{}]);
 
 
