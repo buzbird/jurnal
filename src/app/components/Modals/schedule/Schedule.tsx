@@ -5,7 +5,6 @@ import { Clearcache } from "@/app/actions/clearcache/clearcache";
 import { createDateofLesson } from "@/app/actions/schedule/createDateofLesson";
 import { getcab2,getcab } from "@/app/actions/schedule/gecab";
 import { getTeachers } from "@/app/actions/schedule/gecabteachers";
-import { getLessonId2 } from "@/app/actions/schedule/getlessonid/getlessonid";
 import { DeleteLessons, getLessons2 } from "@/app/actions/schedule/getlessons";
 import { lessonsfromgroup } from "@/app/actions/schedule/lessonsfromgroup";
 import { getLessonId } from "@/db/fetch";
@@ -104,9 +103,14 @@ const ScheduleTable = (data:any) => {
   const createDateLesson2= async() =>{
     try {
       console.log(group2,groupnmass.get(group2),lesson)
-      const lesson2 = await getLessonId2(groupnmass.get(group),lesson)
-      console.log(lesson2?.id,lesson_number,date,cabmass.get(cabinet))
-      createDateofLesson(lesson2?.id,lesson_number,date,cabmass.get(cabinet))
+      const lesson2 = await fetch("/api/jurnal/getlessonid2/",{
+        method:'POST',
+        body: JSON.stringify({}),
+      })
+      let data = lesson2.json()
+      console.log(data)
+      // console.log(data?.id,lesson_number,date,cabmass.get(cabinet))
+      // createDateofLesson(data?.id,lesson_number,date,cabmass.get(cabinet))
       setshowModalgroup(false);
       setShowModal(true);
     }catch(err){
