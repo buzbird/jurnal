@@ -8,5 +8,5 @@ export async function GET(req: NextRequest) {
 export async function POST(req:NextRequest) {
     const body = await req.json()
     const lessons = await lessonsfromgroup(body.group_id)
-    return new Response(JSON.stringify(lessons))
+    return new Response(JSON.stringify({lesson:lessons}))
 }
