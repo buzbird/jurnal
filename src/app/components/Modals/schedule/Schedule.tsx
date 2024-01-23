@@ -103,6 +103,7 @@ const ScheduleTable = (data:any) => {
   }
   const createDateLesson2= async() =>{
     try {
+      console.log("data")
       console.log(group2,groupnmass.get(group2),lesson)
       const lesson2 = await fetch("/api/jurnal/getlessonid2/",{
         method:'POST',
