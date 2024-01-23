@@ -7,11 +7,14 @@ const UpdateUser = ({login,full_name}:any) => {
   const [showModal, setShowModal] = useState(false);
   const [loginnew,setLogin] = useState(login)
   const [full_namenew,setFullName] = useState(full_name)
-  const [passwordnew,setPassword] = useState('')
+  const [passwordnew,setPassword] = useState('111111')
   const deleteusers = async() =>{
     try {
        setShowModal(false);
-       await deleteuser(login)
+       await fetch("/api/user",{
+        method:'DELETE',
+        body: JSON.stringify({login: login}),
+      })
     }catch(err){
         console.log(err)
     }
@@ -20,7 +23,10 @@ const UpdateUser = ({login,full_name}:any) => {
   const handleSubmit = async() =>{
     try {
        setShowModal(false);
-      await updateuser(login,loginnew, full_namenew,passwordnew)
+      await fetch("/api/user",{
+        method:'DELETE',
+        body: JSON.stringify({login: login,loginnew:loginnew,full_namenew:full_namenew,passwordnew:passwordnew}),
+      })
     }catch(err){
         console.log(err)
     }
