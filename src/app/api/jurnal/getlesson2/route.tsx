@@ -9,6 +9,7 @@ export async function GET(req: NextRequest) {
 export async function POST(req:NextRequest) {
     const body = await req.json()
     const lessons = await getLessons2(body.date,body.group_id,body.lesson_number)
+    console.log(lessons)
     return new Response(JSON.stringify(lessons))
 }
 export async function DELETE(req:NextRequest) {
