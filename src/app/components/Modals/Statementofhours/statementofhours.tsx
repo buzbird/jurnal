@@ -258,6 +258,9 @@ function Statementofhour() {
             <tbody>
             {data2.map((data:any) => {
               console.log(data.group.is_y)
+              console.log("-----------------")
+              console.log("data:",data)
+              console.log("-----------------")
             return (
                     <>
                     <tr className='border-solid border-2 border border-slate-500 table-auto hover:bg-sky-200'>
