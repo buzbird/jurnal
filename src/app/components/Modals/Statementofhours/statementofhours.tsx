@@ -1,5 +1,4 @@
 'use client'
-import { Clearcache } from '@/app/actions/clearcache/clearcache';
 import React, { useContext, useState } from 'react'
 function Dates(month: any){
   const dates: Date[] = [];
@@ -121,7 +120,6 @@ function Statementofhour() {
   const [data2,SetData] =useState([])
 
   const TeaherHandler = async(teacher:any) =>{
-    Clearcache("/admin/studying/statementofhours")
     teacher = await teachermass.get(teacher)
     Setteaher(teacher)
     const lessons = await fetch("/api/admin/statementofhours/",{
@@ -133,7 +131,6 @@ function Statementofhour() {
     SetData(data)
   }
   const LessonHandler = async(lesson:any) =>{
-    Clearcache("/admin/studying/statementofhours")
     lesson = await lessonmass.get(lesson)
     Setlesson_id(lesson)
     const lessons = await fetch("/api/admin/statementofhours/",{
@@ -144,7 +141,6 @@ function Statementofhour() {
     SetData(data)
   }
   const DateHandler = async(date:any) =>{
-    Clearcache("/admin/studying/statementofhours")
     SetDate(date)
     const lessons = await fetch("/api/admin/statementofhours/",{
       method:'POST',
@@ -154,7 +150,6 @@ function Statementofhour() {
     SetData(data)
   }
   const GroupHandler = async(group:any) =>{
-    Clearcache("/admin/studying/statementofhours")
     group = await groupnmass.get(group)
     Setgroup(group)
     const lessons = await fetch("/api/admin/statementofhours/",{
@@ -165,7 +160,6 @@ function Statementofhour() {
     SetData(data)
   }
   const start = async() =>{
-    Clearcache("/admin/studying/statementofhours")
     let json = await fetch("/api/admin/statementofhours/",{
       method:'POST',
       body: JSON.stringify({teacher:teacher,group:group,lesson:lesson_id,date:date}),
