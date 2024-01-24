@@ -3,6 +3,7 @@
  @tailwind utilities;
  *{
     margin: 0;
+    background-color: bisque;
  }
 header{
     width: 100%;
