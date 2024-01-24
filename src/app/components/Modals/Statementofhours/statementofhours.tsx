@@ -132,6 +132,8 @@ function Statementofhour() {
   }
   const LessonHandler = async(lesson:any) =>{
     lesson = await lessonmass.get(lesson)
+    console.log(lessonmass)
+    console.log(lesson)
     Setlesson_id(lesson)
     const lessons = await fetch("/api/admin/statementofhours/",{
       method:'POST',

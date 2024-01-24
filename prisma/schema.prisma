@@ -104,7 +104,7 @@ model DateOfLessons{
 }
 model Cabinetnumber{
   id Int @id
-  number Int
+  number String
   dateofLesson DateOfLessons[]
 }
 model AssessmentOfLessons{
