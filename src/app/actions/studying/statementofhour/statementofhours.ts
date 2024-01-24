@@ -13,9 +13,13 @@ const Statementofhours = async(teacher_id:any,group_id:any,lesson_id:any,date:Da
       }catch(err){
         console.log(err);
     }
-    
     let id2 =0;
     date = new Date(date)
+    console.log("Statement")
+
+    console.log(statement)
+    console.log("дата")
+    console.log(date)
     const year = date.getFullYear();
     const month = date.getMonth();
     const startDate = new Date(year, month, 1);
