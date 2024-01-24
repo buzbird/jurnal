@@ -38,7 +38,7 @@ model Teachers{
 }
 model Lessonteached {
   id Int @id
-  teacher_id Int 
+  teacher_id Int?
   teacher Teachers? @relation(fields:[teacher_id],references: [teacher_id])
   group_id Int? 
   group Group? @relation(fields:[group_id],references: [id])
