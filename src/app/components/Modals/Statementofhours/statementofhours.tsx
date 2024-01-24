@@ -172,7 +172,6 @@ function Statementofhour() {
     })
     let data = await json.json()
     console.log(data)
-    console.log(data)
     await SetData(data)
     json = await fetch("/api/admin/statementofhours/grouplist/",{
       method:'POST',
@@ -187,14 +186,14 @@ function Statementofhour() {
     })
     data = await json.json()
     console.log(data)
-    Setlessons(data)
+    await Setlessons(data)
     json = await fetch("/api/admin/statementofhours/allteacher/",{
       method:'POST',
       body: JSON.stringify({teacher:teacher,group:group,lesson:lesson_id,date:date}),
     })
     data = await json.json()
     console.log(data)
-    Setteahers(data)
+    await Setteahers(data)
    
     Settableviews(true)
   }

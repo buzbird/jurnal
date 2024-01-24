@@ -11,6 +11,6 @@ export async function GET(req: NextRequest) {
 }
 export async function POST(req:NextRequest) {
     const body = await req.json()
-    const data = Statementofhours(body.teacher,body.group,body.lesson_id,body.date)
+    const data = await Statementofhours(body.teacher,body.group,body.lesson_id,body.date)
     return new Response(JSON.stringify(data))
 }

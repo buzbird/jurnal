@@ -8,6 +8,6 @@ export async function GET(req: NextRequest) {
 }
 export async function POST(req:NextRequest) {
     const body = await req.json()
-    const data = getAllTeachers2()
+    const data = await getAllTeachers2()
     return new Response(JSON.stringify(data))
 }
