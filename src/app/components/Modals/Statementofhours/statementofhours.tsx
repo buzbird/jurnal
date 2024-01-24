@@ -1,9 +1,5 @@
 'use client'
-import { getAllTeachers2 } from '@/app/actions/admin/getTeachers/getallTeachers';
-import { getAllLesson } from '@/app/actions/admin/lessons/getalllessons';
 import { Clearcache } from '@/app/actions/clearcache/clearcache';
-import { getgrouplist } from '@/app/actions/jurnal/teacher/getgrouplist';
-import Statementofhours from '@/app/actions/studying/statementofhour/statementofhours';
 import React, { useContext, useState } from 'react'
 function Dates(month: any){
   const dates: Date[] = [];
@@ -128,39 +124,72 @@ function Statementofhour() {
     Clearcache("/admin/studying/statementofhours")
     teacher = await teachermass.get(teacher)
     Setteaher(teacher)
-    const data = await Statementofhours(teacher,group,lesson_id,date)
+    const lessons = await fetch("/api/admin/statementofhours/",{
+      method:'POST',
+      body: JSON.stringify({teacher:teacher,group:group,lesson_id:lesson_id,date:date}),
+    })
+    let data = await lessons.json()
+    
     SetData(data)
   }
   const LessonHandler = async(lesson:any) =>{
     Clearcache("/admin/studying/statementofhours")
     lesson = await lessonmass.get(lesson)
     Setlesson_id(lesson)
-    const data = await Statementofhours(teacher,group,lesson,date)
+    const lessons = await fetch("/api/admin/statementofhours/",{
+      method:'POST',
+      body: JSON.stringify({teacher:teacher,group:group,lesson:lesson_id,date:date}),
+    })
+    let data = await lessons.json()
     SetData(data)
   }
   const DateHandler = async(date:any) =>{
     Clearcache("/admin/studying/statementofhours")
     SetDate(date)
-    const data = await Statementofhours(teacher,group,lesson_id,date)
+    const lessons = await fetch("/api/admin/statementofhours/",{
+      method:'POST',
+      body: JSON.stringify({teacher:teacher,group:group,lesson:lesson_id,date:date}),
+    })
+    let data = await lessons.json()
     SetData(data)
   }
   const GroupHandler = async(group:any) =>{
     Clearcache("/admin/studying/statementofhours")
     group = await groupnmass.get(group)
     Setgroup(group)
-    const data = await Statementofhours(teacher,group,lesson_id,date)
+    const lessons = await fetch("/api/admin/statementofhours/",{
+      method:'POST',
+      body: JSON.stringify({teacher:teacher,group:group,lesson:lesson_id,date:date}),
+    })
+    let data = await lessons.json()
     SetData(data)
   }
   const start = async() =>{
     Clearcache("/admin/studying/statementofhours")
-    let data = await Statementofhours(teacher,group,lesson_id,date)
+    let json = await fetch("/api/admin/statementofhours/",{
+      method:'POST',
+      body: JSON.stringify({teacher:teacher,group:group,lesson:lesson_id,date:date}),
+    })
+    let data = await json.json()
     console.log(data)
-    SetData(data)
-    data =await getgrouplist()
-    Setgroups(data)
-    data = await getAllLesson()
+    await SetData(data)
+    json = await fetch("/api/admin/statementofhours/grouplist/",{
+      method:'POST',
+      body: JSON.stringify({teacher:teacher,group:group,lesson:lesson_id,date:date}),
+    })
+    data = await json.json()
+    await Setgroups(data)
+    json = await fetch("/api/admin/statementofhours/alllesson/",{
+      method:'POST',
+      body: JSON.stringify({teacher:teacher,group:group,lesson:lesson_id,date:date}),
+    })
+    data = await json.json()
     Setlessons(data)
-    data = await getAllTeachers2()
+    json = await fetch("/api/admin/statementofhours/allteacher/",{
+      method:'POST',
+      body: JSON.stringify({teacher:teacher,group:group,lesson:lesson_id,date:date}),
+    })
+    data = await json.json()
     Setteahers(data)
    
     Settableviews(true)
