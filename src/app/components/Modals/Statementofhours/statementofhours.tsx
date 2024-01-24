@@ -135,7 +135,7 @@ function Statementofhour() {
     Setlesson_id(lesson)
     const lessons = await fetch("/api/admin/statementofhours/",{
       method:'POST',
-      body: JSON.stringify({teacher:teacher,group:group,lesson:lesson_id,date:date}),
+      body: JSON.stringify({teacher:teacher,group:group,lesson:lesson,date:date}),
     })
     let data = await lessons.json()
     SetData(data)
