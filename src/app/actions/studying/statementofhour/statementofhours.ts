@@ -6,15 +6,16 @@ const Statementofhours = async(teacher_id:any,group_id:any,lesson_id:any,date:Da
     Clearcache("/admin/studying/statementofhours")
     Clearcache("/api/admin/studying/statementofhours")
     console.log("пишу пишу")
+    console.log(teacher_id,group_id,lesson_id)
     let statement:any;
     try{
-        statement  = await GetAllStatemnt(teacher_id,group_id,lesson_id)
-
+        statement = await GetAllStatemnt(teacher_id,group_id,lesson_id)
       }catch(err){
         console.log(err);
     }
     
     let id2 =0;
+    date = new Date(date)
     const year = date.getFullYear();
     const month = date.getMonth();
     const startDate = new Date(year, month, 1);
