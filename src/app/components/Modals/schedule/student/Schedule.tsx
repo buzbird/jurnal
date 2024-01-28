@@ -82,28 +82,16 @@ const ScheduleStudent = (data:any) => {
                     </thead>
                     <tbody>
                     {m.map((i:any,index:any)=>{
-                      let rowspanx =1;
+                      let rowspanx =2;
                       return(
                         <>
-                        <tr >
-                            <td rowSpan={rowspanx}>
-                              {i}
-                            </td>
+                        <tr>
+                          <td rowSpan={rowspanx}>{i}</td>
+                          <td>предмет</td>
+                          <td rowSpan={rowspanx}>304</td>
                         </tr>
-                        <tr >
-                            <td >
-                               предмет 1
-                            </td>
-                        </tr>
-                        <tr >
-                            <td >
-                              препододаватель
-                            </td>
-                        </tr>
-                        <tr >
-                            <td rowSpan={rowspanx}>
-                              302
-                            </td>
+                        <tr>
+                          <td>преподаватель</td>
                         </tr>
                         </>
                       )
