@@ -14,10 +14,14 @@ const getHeader = async(session:any) =>{
 }
 
 export default async function TheHeader(){
+    let data = [];
     const session = await getServerSession(authOptions)
     const log = session==undefined
-    const data = await getHeader(session)
-    console.log(log)
+    if(log){
+        data= []
+    }else{
+        data = await getHeader(session)
+    }
     console.log(data)
     return (
             <>
