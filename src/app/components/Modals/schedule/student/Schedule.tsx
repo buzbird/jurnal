@@ -75,6 +75,9 @@ const ScheduleStudent = (data:any) => {
                         <th>
                           предмет
                         </th>
+                        <th>
+                          кабинет
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -85,8 +88,8 @@ const ScheduleStudent = (data:any) => {
                           if(i==lesson.lesson_number){
                             rowspanx = rowspanx +1
                           }
-                          if(i>= 3){
-                            i = i+ 1
+                          if(rowspanx>= 3){
+                            rowspanx = rowspanx+ 1
                           }
                         })
                         return(
