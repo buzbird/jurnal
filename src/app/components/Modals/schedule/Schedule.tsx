@@ -29,7 +29,6 @@ const ScheduleTable = (data:any) => {
     console.log(group== undefined)
     console.log(group!= undefined)
     if(group != undefined){
-      
       await getLesson(group)
     }
   }
