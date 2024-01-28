@@ -158,10 +158,10 @@ const ScheduleTable = (data:any) => {
                               type="button"
                               onClick={() => setmodalDelete(lesson)}>
                               <div>
-                              {lesson.specialization?.specialization.lesson_name}
+                              {lesson.specialization?.specialization?.lesson_name}
                               </div>
                               <div>
-                                <span>{lesson.specialization?.teacher.user.full_name}</span>
+                                <span>{lesson.specialization?.teacher?.user?.full_name}</span>
                                 <span>{lesson.cabinet?.number}</span>
                               </div>
                             </button></td>
@@ -228,8 +228,7 @@ const ScheduleTable = (data:any) => {
                   <button
                     className="text-white bg-yellow-500 active:bg-yellow-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
                     type="button"
-                    onClick={() =>   deleteLesson(lessonmodaldelete.id,lessonmodaldelete.lesson_number)}
-                  >
+                    onClick={() =>   deleteLesson(lessonmodaldelete.id,lessonmodaldelete.lesson_number)}>
                     удалить
                   </button>
                 </div>
