@@ -82,56 +82,32 @@ const ScheduleStudent = (data:any) => {
                     </thead>
                     <tbody>
                     {m.map((i:any,index:any)=>{
-                        let rowspanx = 1;
-                        table.map((lesson:any)=>{
-                          console.log(lesson)
-                          if(i==lesson.lesson_number){
-                            rowspanx = rowspanx +1
-                          }
-                          if(rowspanx>= 3){
-                            rowspanx = rowspanx+ 1
-                          }
-                        })
-                        return(
-                          <>
-                          <tr >
+                      let rowspanx =1;
+                      return(
+                        <>
+                        <tr >
                             <td rowSpan={rowspanx}>
                               {i}
                             </td>
-                          </tr>
-                          {table.map((lesson:any)=>{
-                          if(i==lesson.lesson_number){
-                          return(
-                            <>
-                            <tr>
-                              <td>
-                                {lesson.specialization?.specialization?.full_name}
-                              </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                {lesson.specialization?.teacher?.user?.full_name}
-                                </td>
-                            </tr>
-                            </>
-                          )
-                          }
-                        })}
-                        {table.map((lesson:any)=>{
-                          if(i==lesson.lesson_number){
-                          return(
-                            <>
-                            <tr>
-                              <td rowSpan={rowspanx}>
-                                {lesson.cabinet?.number}
-                              </td>
-                            </tr> 
-                            </>
-                          )
-                          }
-                        })}
-                          </>
-                        )
+                        </tr>
+                        <tr >
+                            <td >
+                               предмет 1
+                            </td>
+                        </tr>
+                        <tr >
+                            <td >
+                              препододаватель
+                            </td>
+                        </tr>
+                        <tr >
+                            <td rowSpan={rowspanx}>
+                              302
+                            </td>
+                        </tr>
+                        </>
+                      )
+                        
                       })}
                       
                     </tbody>
