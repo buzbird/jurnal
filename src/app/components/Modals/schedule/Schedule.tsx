@@ -29,9 +29,10 @@ const ScheduleTable = (data:any) => {
     await getLesson()
   }
   const getLesson = async() =>{
+    const  group_id = await groupmass.get(group)
     const lessons2 = await fetch("/api/jurnal/getlesson2/",{
       method:'POST',
-      body: JSON.stringify({date:date,group_id:groupmass.get(group)}),
+      body: JSON.stringify({date:date,group_id:group_id}),
     })
     console.log(date,groupmass.get(group))
     let data =await lessons2.json()
