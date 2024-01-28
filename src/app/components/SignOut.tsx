@@ -6,7 +6,7 @@ const SignOut = () => {
     useEffect(()=>{
         signOut({
             redirect: true,
-            callbackUrl:'/',
+            callbackUrl:'http://5.35.93.157:3000/',
         });
     },[])
   return (
