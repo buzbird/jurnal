@@ -119,52 +119,50 @@ const ScheduleTable = (data:any) => {
                             rowspanx = rowspanx +1 
                           }
                         })
-                        if(rowspanx ==1){
+                        return(
+                          <>
+                          <tr>
+                            <td rowSpan={rowspanx}>
+                              {i}
+                            </td>
+                          </tr>
+                          {lessons.map((lesson:any)=>{
+                          if(i==lesson.lesson_number){
                           return(
                             <>
                             <tr>
-                              <td rowSpan={rowspanx}>
-                                {i}
-                              </td>
+                              <td><button
+                              className="bg-blue-200 text-black active:bg-blue-500 
+                            font-bold px-3 py-1 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                              type="button"
+                              onClick={() => setmodal(true)}
+                            >
+                              <div>
+                              {lesson.specialization?.specialization.lesson_name}
+                              </div>
+                              <div>
+                                <span>{lesson.specialization?.teacher.user.full_name}</span>
+                                <span>{lesson.cabinet?.number}</span>
+                              </div>
+                            </button></td>
                             </tr>
-                            {lessons.map((lesson:any)=>{
-                            if(i==lesson.lesson_number){
-                            return(
-                              <>
-                              <tr>
-                                <td><button
-                                className="bg-blue-200 text-black active:bg-blue-500 
-                              font-bold px-3 py-1 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                                type="button"
-                                onClick={() => setmodal(true)}
-                              >
-                                <div>
-                                {lesson.specialization?.specialization.lesson_name}
-                                </div>
-                                <div>
-                                  <span>{lesson.specialization?.teacher.user.full_name}</span>
-                                  <span>{lesson.cabinet?.number}</span>
-                                </div>
-                              </button></td>
-                              </tr>
-                              </>
-                            )
-                            }
-                          })}
-                          <tr>
-                            <td>
-                            <button
-                            className="bg-blue-200 text-black active:bg-blue-500 
-                          font-bold px-3 py-1 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                            type="button"
-                            onClick={() => setShowModals(true,i)}
-                          >+
-                        </button> 
-                            </td>
-                          </tr>
                             </>
                           )
-                        }
+                          }
+                        })}
+                        <tr>
+                          <td>
+                          <button
+                          className="bg-blue-200 text-black active:bg-blue-500 
+                        font-bold px-3 py-1 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                          type="button"
+                          onClick={() => setShowModals(true,i)}
+                        >+
+                      </button> 
+                          </td>
+                        </tr>
+                          </>
+                        )
                       })}
                       
                     </tbody>
