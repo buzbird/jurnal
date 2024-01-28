@@ -26,14 +26,17 @@ const ScheduleTable = (data:any) => {
   
   const handleGroup = async(group:any) =>{
     await setGroup(group)
-    if(group != undefined && group !=""){
-      await getLesson(group)
+    let group_id = await groupmass.get(group)
+    if(group_id != undefined){
+      await getLesson(group_id)
+    }else{
+      setlessons([{}])
     }
   }
-  const getLesson = async(group:any) =>{
+  const getLesson = async(group_id:any) =>{
     const lessons2 = await fetch("/api/jurnal/getlesson2/",{
       method:'POST',
-      body: JSON.stringify({date:date,group_id:groupmass.get(group)}),
+      body: JSON.stringify({date:date,group_id:group_id}),
     })
     console.log(date,groupmass.get(group))
     let data =await lessons2.json()
