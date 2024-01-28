@@ -33,6 +33,7 @@ const ScheduleTable = (data:any) => {
       method:'POST',
       body: JSON.stringify({date:date,group_id:groupmass.get(group)}),
     })
+    console.log(date,groupmass.get(group))
     let data =await lessons2.json()
     console.log(data)
     setlessons(data)
