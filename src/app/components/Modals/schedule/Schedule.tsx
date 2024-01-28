@@ -34,10 +34,8 @@ const ScheduleTable = (data:any) => {
   const [group2,Setgroup] = useState("")
 
   const changDate = (date:any)=>{
-    Clearcache("/schedule/")
     setDate(new Date(date))
     setTable(true)
-    
   }
   const setmodalDelete = async(lesson:any)=>{
     setlessonmodaldelete(lesson)
@@ -132,7 +130,7 @@ const ScheduleTable = (data:any) => {
     })
     let data = await lessonslist.json()
     console.log("---------------")
-    console.log(data)
+   
     let lessons = {lessons:[{}]}
     let cab = {cab:[{}]}
     if(data.lesson != undefined){
@@ -141,21 +139,21 @@ const ScheduleTable = (data:any) => {
         lessons.lessons.push(lesson.specialization)
       })
     }
-   
+    console.log(lessonmass)
     const cabsass = await fetch("/api/jurnal/cab",{
       method:'POST',
       body: JSON.stringify({}),
     })
     data = await cabsass.json()
     console.log("---------------")
-    console.log(data)
+
     if(data != undefined){
       data.map((cabinet:any) => {
         cabmass.set(`${cabinet.number}`,cabinet.id)
         cab.cab.push(cabinet.number)
       })
     }
-    
+    console.log(cabmass)
     cab.cab.splice(0,1)
     setCabs(cab)
     setLessons2(lessons)
