@@ -11,9 +11,9 @@ import { getLessonId } from "@/db/fetch";
 import React, { use, useEffect, useRef, useState } from "react";
 const ScheduleTable = (data:any) => {
   console.log(data)
-  let cabmass =new Map();
-  let lessonmass = new Map();
   let groupmass = new Map();
+  const [lessonmass, setlessonmass] = useState(new Map());
+  const [cabmass, setcabmass] = useState(new Map());
   const [date, setDate] = useState(new Date());
   const [group,setGroup] = useState("");
   const [tableviews,setTable] = useState(false);
@@ -139,6 +139,7 @@ const ScheduleTable = (data:any) => {
         lessons.lessons.push(lesson.specialization)
       })
     }
+    setlessonmass(lessonmass)
     console.log(lessonmass)
     const cabsass = await fetch("/api/jurnal/cab",{
       method:'POST',
@@ -153,8 +154,10 @@ const ScheduleTable = (data:any) => {
         cab.cab.push(cabinet.number)
       })
     }
-    console.log(cabmass)
+    
     cab.cab.splice(0,1)
+    setcabmass(cabmass)
+    console.log()
     setCabs(cab)
     setLessons2(lessons)
     setShowModal(true)
