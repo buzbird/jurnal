@@ -38,8 +38,8 @@ const ScheduleTable = (data:any) => {
           <div>{group}</div>
           <input type='search' list="groups" placeholder="Выберите группу" onChange={(e)=> handleGroup(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
           <datalist id="groups">
-            <>
-            {data.map((group:any,index:any) => {
+            <> 
+            {data.data.map((group:any,index:any) => {
                     groupmass.set(`${group.group_name}`,group.id)
             return (
                 <option key={index}>{group?.group_name} </option>
