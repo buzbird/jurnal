@@ -81,25 +81,25 @@ const ScheduleStudent = (data:any) => {
            <tr key={index}>
            <td>{i}</td>
             {table.map((table:any,index:any) => {
-
+              console.log(table)
              if(i ==  table.lesson_number){
-              return(
-                  <td key={index}>
-                      {table.specialization.specialization.lesson_name}
-                      <br/>{table.specialization.teacher.user.full_name}
-                  </td>
+              return(<></>
+                  // <td key={index}>
+                  //     {table.specialization.specialization.lesson_name}
+                  //     <br/>{table.specialization.teacher.user.full_name}
+                  // </td>
             );
              }
             })} 
-            {table.map((table:any,index:any) => {
+            {/* {table.map((table:any,index:any) => {
              if(i ==  table.lesson_number){
-              return(
-                  <td key={index}>
-                      {table.cabinet.number}
-                  </td>
+              return(<></>
+                  // <td key={index}>
+                  //     {table.cabinet.number}
+                  // </td>
             );
              }
-            })} 
+            })}  */}
            </tr>
           )
         })}
