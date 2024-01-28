@@ -106,7 +106,7 @@ const ScheduleTable = (data:any) => {
       console.log(lesson)
       let a = await lessonmass.get(lesson)
       let b = await cabmass.get(cabinet)
-      console.log(lesson)
+      console.log(a,b)
       // await fetch("/api/jurnal/createdateoflesson/",{
       //   method:'POST',
       //   body: JSON.stringify({id:lessonmass.get(lesson),lesson_number:lesson_number,date:date,cab:cabmass.get(cabinet)}),
