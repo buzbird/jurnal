@@ -102,7 +102,7 @@ const ScheduleTable = (data:any) => {
     try {
       let les= await lessonmass.get(lesson)
       let cab = await cabmass.get(cabinet)
-      await fetch("/api/student/jurnal/",{
+      await fetch("/api/jurnal/createdateoflesson/",{
         method:'POST',
         body: JSON.stringify({id:les,lesson_number:lesson_number,date:date,cab:cab}),
       })

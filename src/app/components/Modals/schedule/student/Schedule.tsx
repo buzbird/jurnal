@@ -17,7 +17,7 @@ const ScheduleStudent = (data:any) => {
   const m = [1,2,3,4,5,6]
   const checktable = async(groups:any)=>{
     console.log(date,groupmass.get(groups))
-    const lessons2 = await fetch("/api/jurnal/createdateoflesson/",{
+    const lessons2 = await fetch("/api/student/jurnal/",{
       method:'POST',
       body: JSON.stringify({date:date,group_id:groupmass.get(groups)}),
     })
@@ -34,7 +34,7 @@ const ScheduleStudent = (data:any) => {
     if(groupmass.get(group) == undefined){
       lessons2 = [{}]
     }else{
-      data = await fetch("/api/jurnal/createdateoflesson/",{
+      data = await fetch("/api/student/jurnal/",{
         method:'POST',
         body: JSON.stringify({date:date,group_id:groupmass.get(group)}),
       })
