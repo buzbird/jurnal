@@ -91,7 +91,7 @@ const ScheduleStudent = (data:any) => {
                           rowspanx = rowspanx +1
                         }
                       })
-                     
+                     console.log(rowspanx)
                       if(rowspanx == 2){
                         return(
                           <>
