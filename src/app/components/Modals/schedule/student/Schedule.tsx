@@ -82,19 +82,66 @@ const ScheduleStudent = (data:any) => {
                     </thead>
                     <tbody>
                     {m.map((i:any,index:any)=>{
-                      let rowspanx =2;
-                      return(
-                        <>
-                        <tr>
-                          <td rowSpan={rowspanx}>{i}</td>
-                          <td>предмет</td>
-                          <td rowSpan={rowspanx}>304</td>
-                        </tr>
-                        <tr>
-                          <td>преподаватель</td>
-                        </tr>
-                        </>
-                      )
+                      let rowspanx =  1;
+                      table.map((lesson:any)=>{
+                        if(i==lesson.lesson_number){
+                          rowspanx = rowspanx +1 
+                        }
+                        if(rowspanx>=3){
+                          rowspanx = rowspanx +1
+                        }
+                      })
+                     
+                      if(rowspanx == 2){
+                        return(
+                          <>
+                           {
+                            table.map((lesson:any)=>{
+                              return(
+                                <>
+                                <tr>
+                                  <td rowSpan={rowspanx}>{i}</td>
+                                  <td>{lesson.specialization?.specialization?.lesson_name}</td>
+                                  <td rowSpan={rowspanx}>{lesson.cabinet?.number}</td>
+                                </tr>
+                                <tr>
+                                  <td>{lesson.specialization?.teacher?.user?.full_name}</td>
+                                </tr>
+                                </>
+
+                              )
+                            })
+                          }
+                          
+                          </>
+                        )
+                      }
+                      if(rowspanx == 4){
+                        return(
+                          <>
+                          <tr>
+                            <td rowSpan={rowspanx}>{i}</td>
+                          </tr>
+                          {
+                            table.map((lesson:any)=>{
+                              return(
+                                <>
+                                <tr>
+                                  <td>{lesson.specialization?.specialization?.lesson_name}</td>
+                                  <td rowSpan={rowspanx/2}>{lesson.cabinet?.number}</td>
+                                </tr>
+                                <tr>
+                                  <td>{lesson.specialization?.teacher?.user?.full_name}</td>
+                                </tr>
+                                </>
+
+                              )
+                            })
+                          }
+                         
+                          </>
+                        )
+                      }
                         
                       })}
                       
