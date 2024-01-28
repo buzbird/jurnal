@@ -79,11 +79,14 @@ const ScheduleStudent = (data:any) => {
                     </thead>
                     <tbody>
                     {m.map((i:any,index:any)=>{
-                        let rowspanx = 0;
+                        let rowspanx = 1;
                         table.map((lesson:any)=>{
                           console.log(lesson)
                           if(i==lesson.lesson_number){
-                            rowspanx = rowspanx +2
+                            rowspanx = rowspanx +1
+                          }
+                          if(i>= 3){
+                            i = i+ 1
                           }
                         })
                         return(
