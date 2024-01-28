@@ -11,6 +11,8 @@ import { getLessonId } from "@/db/fetch";
 import React, { use, useEffect, useRef, useState } from "react";
 const ScheduleTable = (data:any) => {
   console.log(data)
+  let cabmass =new Map();
+  let lessonmass = new Map();
   let groupmass = new Map();
   const [date, setDate] = useState(new Date());
   const [group,setGroup] = useState("");
@@ -18,6 +20,21 @@ const ScheduleTable = (data:any) => {
   const [modal,setModal] = useState(false);
   const [lessonmodaldelete,setlessonmodaldelete] = useState({lesson_number:1,id:0,cabinet:{number:""},specialization:{specialization:{lesson_name:""},teacher:{user:{full_name:""}}}});
   const [lessons,setlessons]= useState([{}]);
+  const [lesson2,setLessons2] = useState({lessons:[{}]})
+  const [cabs,setCabs] = useState({cab:[{}]})
+  const [showModal, setShowModal] = useState(false);
+  const [mounted, setMounted] = useState(false)
+  const [lessonss, setlessons2] = useState([{}]);
+  const [lesson_number, setlesson_number] = useState(0);
+  
+  const [showModalgroup, setshowModalgroup] = useState(false);
+
+  const [lesson,setLesson] = useState("");
+  const [cabinet,setCabinet] = useState("");
+  // запрос кабинетов
+  const [groups,Setgroups] = useState({group:[]})
+  const [group2,Setgroup] = useState("")
+
   const changDate = (date:any)=>{
     Clearcache("/schedule/")
     setDate(new Date(date))
@@ -47,43 +64,99 @@ const ScheduleTable = (data:any) => {
     console.log(data)
     setlessons(data)
   } 
+  const createDateLesson2= async() =>{
+    try {
+      console.log("data")
+      console.log(group,groupmass.get(group2),lesson)
+      const lesson2 = await fetch("/api/jurnal/getlessonid2/",{
+        method:'POST',
+        body: JSON.stringify({id:groupmass.get(group2),lesson:lesson}),
+      })
+      let data =await lesson2.json()
+      await fetch("/api/jurnal/createdateoflesson/",{
+        method:'POST',
+        body: JSON.stringify({id:data.lesson.id,lesson_number:lesson_number,date:date,cab:cabmass.get(cabinet)}),
+      })
+      setshowModalgroup(false);
+      setShowModal(true);
+    }catch(err){
+        console.log(err)
+    }
+  }
+  
+
+  const addgroup = async(groupvission:any) =>{
+    try {
+      setShowModal(false)
+      let group =await fetch("/api/jurnal/grouplist/",{
+        method:'POST',
+        body: JSON.stringify({}),
+      })
+      let data =await group.json()
+      setshowModalgroup(groupvission)
+      if(data != undefined){
+        Setgroups(data)
+      }
+      
+    }catch(err){
+        console.log(err)
+    }
+  }
+  const createDateLesson = async() =>{
+    try {
+      console.log(lessonmass)
+      console.log(cabmass)
+      console.log(lessonmass.get(lesson),cabmass.get(cabinet))
+      await fetch("/api/jurnal/createdateoflesson/",{
+        method:'POST',
+        body: JSON.stringify({id:lessonmass.get(lesson),lesson_number:lesson_number,date:date,cab:cabmass.get(cabinet)}),
+      })
+      setShowModal(false);
+      await getLesson(1)
+    }catch(err){
+        console.log(err)
+    }
+  }
+
+
+
   const m = [1,2,3,4,5,6]
 
   const setShowModals = async(lesson_numbers:any)=>{
     let group_id = await  groupmass.get(group);
+    setlesson_number(lesson_numbers)
     console.log(group_id,lesson_numbers)
-    // console.log(group_id)
-    // const lessonslist = await fetch("/api/jurnal/lessonfromgroup",{
-    //   method:'POST',
-    //   body: JSON.stringify({group_id: group_id}),
-    // })
-    // let data = await lessonslist.json()
-    // let lessons = {lessons:[{}]}
-    // let cab = {cab:[{}]}
-    // if(data.lesson != undefined){
-    //   data.lesson.map((lesson:any) => {
-    //     lessonmass.set(`${lesson.specialization.lesson_name}`,lesson.id)
-    //     lessons.lessons.push(lesson.specialization)
-    //   })
-    // }
+    const lessonslist = await fetch("/api/jurnal/lessonfromgroup",{
+      method:'POST',
+      body: JSON.stringify({group_id: group_id}),
+    })
+    let data = await lessonslist.json()
+    let lessons = {lessons:[{}]}
+    let cab = {cab:[{}]}
+    if(data.lesson != undefined){
+      data.lesson.map((lesson:any) => {
+        lessonmass.set(`${lesson.specialization.lesson_name}`,lesson.id)
+        lessons.lessons.push(lesson.specialization)
+      })
+    }
    
-    // const cabsass = await fetch("/api/jurnal/cab",{
-    //   method:'POST',
-    //   body: JSON.stringify({}),
-    // })
-    // data = await cabsass.json()
-    // if(lessonslist != undefined){
-    //   data.map((cabinet:any) => {
-    //     cabmass.set(`${cabinet.number}`,cabinet.id)
-    //     cab.cab.push(cabinet.number)
-    //   })
-    // }
+    const cabsass = await fetch("/api/jurnal/cab",{
+      method:'POST',
+      body: JSON.stringify({}),
+    })
+    data = await cabsass.json()
+    if(lessonslist != undefined){
+      data.map((cabinet:any) => {
+        cabmass.set(`${cabinet.number}`,cabinet.id)
+        cab.cab.push(cabinet.number)
+      })
+    }
     
-    // cab.cab.splice(0,1)
-    // setCabs(cab)
-    // setLessons(lessons)
-    // setShowModal(modal)
-    // console.log(cabs)
+    cab.cab.splice(0,1)
+    setCabs(cab)
+    setLessons2(lessons)
+    setShowModal(true)
+    console.log(cabs)
   }
 
   const deleteLesson = async(id:any,lesson_number:any) =>{
@@ -231,6 +304,138 @@ const ScheduleTable = (data:any) => {
                     type="button"
                     onClick={() =>   deleteLesson(lessonmodaldelete.id,lessonmodaldelete.lesson_number)}>
                     удалить
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : null}
+          {showModal ? (
+        <>
+          <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t ">
+                  <h3 className="text-3xl font=semibold"></h3>
+                  <button
+                    className="bg-transparent border-0 text-black float-right"
+                    onClick={() => setShowModal(false)}
+                  >
+                  </button>
+                </div>
+                <div className="relative p-6 flex-auto">
+                <div>
+                <form className="bg-gray-200 shadow-md rounded px-8 pt-6 pb-8 w-full">
+
+                  <div>
+                  1 урок
+                  <input type='search' list="lessons" onChange={(e)=> setLesson(e.target.value)} placeholder="выберите предмет" className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
+                  <datalist id="lessons">
+                      <>
+                      {lesson2.lessons.map((lesson:any,index:any) => {
+                      return (
+                          <option key={index}>{lesson.lesson_name}</option>
+
+                      );
+                      })}
+                      </>
+                  </datalist>
+                  <input type='search' list="cab" onChange={(e)=> setCabinet(e.target.value)} placeholder="свободные кабинеты" className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
+                  <datalist id="cab">
+                  <>
+                      {cabs.cab.map((cab:any,index:any) => {
+                      return (
+                          <option key={index}>{cab}</option>
+
+                      );
+                      })}
+                      </>
+                  </datalist>
+                  </div>
+                </form>
+                </div>
+                </div>
+                <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+
+                  <button
+                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    закрыть
+                  </button>
+
+                  <button
+                    className="text-white bg-yellow-500 active:bg-yellow-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                    type="button"
+                    onClick={() => addgroup(true)}
+                  >
+                    добавить группу
+                  </button>
+                  <button
+                    className="text-white bg-yellow-500 active:bg-yellow-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                    type="button"
+                    onClick={() => createDateLesson()}
+                  >
+                    добавить предмет
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : null}
+
+            
+{showModalgroup ? (
+        <>
+          <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-1 z-101 outline-none focus:outline-none">
+            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t ">
+                  <h3 className="text-3xl font=semibold">выберите группу</h3>
+                  <button
+                    className="bg-transparent border-0 text-black float-right"
+                    onClick={() => setShowModal(false)}
+                  >
+                  </button>
+                </div>
+                <div className="relative p-6 flex-auto">
+                <div>
+                <form className="bg-gray-200 shadow-md rounded px-8 pt-6 pb-8 w-full">
+                <input type="search" list='group' placeholder='Фильтрация по Группам'  onChange={(e) =>{Setgroup(e.target.value)}}/>
+                <datalist id="group">
+                                  <>
+                                  {groups.group.map((group:any,index:any)=>{
+                                    groupmass.set(`${group.group_name}`,group.id)
+                                    return(
+                                      <>
+                                        <option key={index}>{group.group_name}</option>
+                                      </>
+                                    )
+                                  })
+                                  }
+                                  </>
+                </datalist>
+                </form>
+                </div>
+                </div>
+                <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+
+                  <button
+                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
+                    type="button"
+                    onClick={() => setshowModalgroup(false)}
+                  >
+                    закрыть
+                  </button>
+                  <button
+                    className="text-white bg-yellow-500 active:bg-yellow-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                    type="button"
+                    onClick={() => createDateLesson2()}
+                  >
+                    добавить предмет
                   </button>
                 </div>
               </div>
@@ -577,85 +782,9 @@ const ScheduleModelperCab = ({date}:any) => {
 };
 
 const ScheduleModel = ({lesson_number,group,date}:any) => {
-  const [mounted, setMounted] = useState(false)
-  const [lessonss, setlessons] = useState([{}]);
 
-  const [showModalgroup, setshowModalgroup] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [lesson,setLesson] = useState("");
-  const [cabinet,setCabinet] = useState("");
-  // запрос кабинетов
-  const [lessonmass,setlessonmass] =useState(new Map()) ;
-  const [cabmass,setcabmasss] =useState(new Map()) ;
-  let groupnmass = new Map();
-  const [groups,Setgroups] = useState({group:[]})
-  const [group2,Setgroup] = useState("")
-  const [lessons,setLessons] = useState({lessons:[{}]})
-  const [cabs,setCabs] = useState({cab:[{}]})
 
-  const createDateLesson2= async() =>{
-    try {
-      console.log("data")
-      console.log(group,groupnmass.get(group2),lesson)
-      const lesson2 = await fetch("/api/jurnal/getlessonid2/",{
-        method:'POST',
-        body: JSON.stringify({id:groupnmass.get(group2),lesson:lesson}),
-      })
-      let data =await lesson2.json()
-      await fetch("/api/jurnal/createdateoflesson/",{
-        method:'POST',
-        body: JSON.stringify({id:data.lesson.id,lesson_number:lesson_number,date:date,cab:cabmass.get(cabinet)}),
-      })
-      setshowModalgroup(false);
-      setShowModal(true);
-    }catch(err){
-        console.log(err)
-    }
-  }
-  
-  const getLesson = async(group_id:any,lesson_number:any) =>{
-    const lessons2 = await fetch("/api/jurnal/getlesson2/",{
-      method:'POST',
-      body: JSON.stringify({date:date,group_id:group_id,lesson_number:lesson_number}),
-    })
-    let data =await lessons2.json()
-    console.log(data)
-    setlessons(data)
-  } 
-  
-  
-  const addgroup = async(groupvission:any) =>{
-    try {
-      setShowModal(false)
-      let group =await fetch("/api/jurnal/grouplist/",{
-        method:'POST',
-        body: JSON.stringify({}),
-      })
-      let data =await group.json()
-      setshowModalgroup(groupvission)
-      if(data != undefined){
-        Setgroups(data)
-      }
-      
-    }catch(err){
-        console.log(err)
-    }
-  }
-  const createDateLesson = async(lesson_number:any) =>{
-    try {
-      console.log(lessonmass)
-      console.log(cabmass)
-      console.log(lessonmass.get(lesson),cabmass.get(cabinet))
-      await fetch("/api/jurnal/createdateoflesson/",{
-        method:'POST',
-        body: JSON.stringify({id:lessonmass.get(lesson),lesson_number:lesson_number,date:date,cab:cabmass.get(cabinet)}),
-      })
-      setShowModal(false);
-      await getLesson(group.id,lesson_number)
-    }catch(err){
-        console.log(err)
-    }
-  }
+ 
 
  
 };
