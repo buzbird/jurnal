@@ -116,7 +116,7 @@ const ScheduleStudent = (data:any) => {
                           </>
                         )
                       }
-                      if(rowspanx == 4){
+                      if(rowspanx == 5){
                         return(
                           <>
                           <tr>
