@@ -9,8 +9,6 @@ import Header2 from './Header';
 export default async function TheHeader(){
     const session = await getServerSession(authOptions)
     const log = session ==undefined
-
-    console.log(data)
     return (
             <>
             <header>
