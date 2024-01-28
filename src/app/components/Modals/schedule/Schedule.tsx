@@ -208,11 +208,11 @@ const ScheduleTable = (data:any) => {
                 <div>
                    вы точно хотите удалить?
                 <div>
-                  {lessonmodaldelete.specialization.specialization?.lesson_name}
+                  {lessonmodaldelete.specialization?.specialization?.lesson_name}
               </div>
               <div>
-                <span>{lessonmodaldelete.specialization.teacher.user.full_name}</span>
-                <span>{lessonmodaldelete.cabinet.number}</span>
+                <span>{lessonmodaldelete.specialization?.teacher?.user?.full_name}</span>
+                <span>{lessonmodaldelete.cabinet?.number}</span>
               </div>
                 </div>
                 </div>
