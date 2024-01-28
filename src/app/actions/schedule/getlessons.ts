@@ -2,10 +2,10 @@
 import { revalidatePath } from "next/cache";
 import { getLessons,DeleteLessonsSchedule } from "@/db/fetch"
 
-export const getLessons2 = async(date:any,group_id:any,lesson_number:any) =>{
+export const getLessons2 = async(date:any,group_id:any) =>{
     revalidatePath('/api/schedule/getLessons/')
     try{
-      const data = await getLessons(date,group_id,lesson_number)
+      const data = await getLessons(date,group_id)
       revalidatePath('/schedule')
       return data
     }catch(err){

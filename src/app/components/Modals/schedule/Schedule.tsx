@@ -15,16 +15,28 @@ const ScheduleTable = (data:any) => {
   let groupmass = new Map();
   const[group,setGroup] = useState("");
   const [tableviews,setTable] = useState(false);
+
+  const [lessons,setlessons]= useState([{}]);
   const changDate = (date:any)=>{
     Clearcache("/schedule/")
     setDate(new Date(date))
     setTable(true)
     
   }
-  const [lessons,GetLessons]= useState([{}]);
+  
   const handleGroup = async(group:any) =>{
-    setGroup(group)
+    await setGroup(group)
+    await getLesson()
   }
+  const getLesson = async() =>{
+    const lessons2 = await fetch("/api/jurnal/getlesson2/",{
+      method:'POST',
+      body: JSON.stringify({date:date,group_id:groupmass.get(group)}),
+    })
+    let data =await lessons2.json()
+    console.log(data)
+    setlessons(data)
+  } 
   const m = [1,2,3,4,5,6]
 
   return (
@@ -63,14 +75,16 @@ const ScheduleTable = (data:any) => {
                     </thead>
                     <tbody>
                       {m.map((i:any,index:any)=>{
+                        let rowspanx = 0;
+                        let rowspany = 0;
+                        lessons.map((lesson:any)=>{
+                          console.log(lesson)
+                        })
                         return(
                           <>
                           <tr>
                             <td>
                               {i}
-                            </td>
-                            <td>
-                              
                             </td>
                           </tr>
                           </>

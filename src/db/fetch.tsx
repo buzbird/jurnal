@@ -532,14 +532,13 @@ export async function getAllTeachers() {
   )
   return data
 }
-export async function getLessons(date:any,group_id:any,lesson_number:any) {
+export async function getLessons(date:any,group_id:any) {
   const data = await prisma.dateOfLessons.findMany({
     where:{
       date:new Date(date),
       specialization:{
         group_id: group_id,
-      },
-      lesson_number: Number(lesson_number)
+      }
     },
     include:{
       specialization:{
