@@ -12,12 +12,17 @@ import React, { use, useEffect, useRef, useState } from "react";
 const ScheduleTable = (data:any) => {
   console.log(data)
   const [date, setDate] = useState(new Date());
-  const [tableviews,setTable] = useState(false)
+  let groupmass = new Map();
+  const[group,setGroup] = useState("");
+  const [tableviews,setTable] = useState(false);
   const changDate = (date:any)=>{
     Clearcache("/schedule/")
     setDate(new Date(date))
     setTable(true)
     
+  }
+  const handleGroup = async(group:any) =>{
+    setGroup(group)
   }
   const m = [1,2,3,4,5,6]
 
@@ -30,8 +35,22 @@ const ScheduleTable = (data:any) => {
         <div>
           <ScheduleModelperCab date={date}/>
           <ScheduleModelperTeacher date={date}/>
+          <div>{group}</div>
+          <input type='search' list="groups" placeholder="Выберите группу" onChange={(e)=> handleGroup(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
+          <datalist id="groups">
+            <>
+            {data.map((group:any,index:any) => {
+                    groupmass.set(`${group.group_name}`,group.id)
+            return (
+                <option key={index}>{group?.group_name} </option>
+
+            );
+            })}
+            </>
+        </datalist>
         </div>
-        <table>
+
+        {/* <table>
         <thead>
           <tr>
           <th></th>
@@ -59,7 +78,7 @@ const ScheduleTable = (data:any) => {
           );
       })}
         </tbody> 
-      </table>
+      </table> */}
         </>
       ):null
 
