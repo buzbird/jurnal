@@ -27,7 +27,7 @@ const ScheduleTable = (data:any) => {
   const handleGroup = async(group:any) =>{
     await setGroup(group)
     console.log(group)
-    console.log(group== undefined)
+    console.log(group== "")
     console.log(group!= undefined)
     if(group != undefined){
       await getLesson(group)
