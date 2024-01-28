@@ -97,6 +97,7 @@ const ScheduleStudent = (data:any) => {
                           <>
                            {
                             table.map((lesson:any)=>{
+                             if(i == lesson.lesson_number){
                               return(
                                 <>
                                 <tr>
@@ -110,6 +111,7 @@ const ScheduleStudent = (data:any) => {
                                 </>
 
                               )
+                             }
                             })
                           }
                           
@@ -124,18 +126,20 @@ const ScheduleStudent = (data:any) => {
                           </tr>
                           {
                             table.map((lesson:any)=>{
-                              return(
-                                <>
-                                <tr>
-                                  <td>{lesson.specialization?.specialization?.lesson_name}</td>
-                                  <td rowSpan={rowspanx/2}>{lesson.cabinet?.number}</td>
-                                </tr>
-                                <tr>
-                                  <td>{lesson.specialization?.teacher?.user?.full_name}</td>
-                                </tr>
-                                </>
-
-                              )
+                              if(i == lesson.lesson_number){
+                                return(
+                                  <>
+                                  <tr>
+                                    <td>{lesson.specialization?.specialization?.lesson_name}</td>
+                                    <td rowSpan={rowspanx/2}>{lesson.cabinet?.number}</td>
+                                  </tr>
+                                  <tr>
+                                    <td>{lesson.specialization?.teacher?.user?.full_name}</td>
+                                  </tr>
+                                  </>
+  
+                                )
+                              }
                             })
                           }
                          
