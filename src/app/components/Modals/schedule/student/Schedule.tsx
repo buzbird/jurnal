@@ -79,16 +79,16 @@ const ScheduleStudent = (data:any) => {
                     </thead>
                     <tbody>
                     {m.map((i:any,index:any)=>{
-                        let rowspanx = 2;
+                        let rowspanx = 0;
                         table.map((lesson:any)=>{
                           console.log(lesson)
                           if(i==lesson.lesson_number){
-                            rowspanx = rowspanx +1 
+                            rowspanx = rowspanx +2
                           }
                         })
                         return(
                           <>
-                          <tr>
+                          <tr >
                             <td rowSpan={rowspanx}>
                               {i}
                             </td>
@@ -97,12 +97,33 @@ const ScheduleStudent = (data:any) => {
                           if(i==lesson.lesson_number){
                           return(
                             <>
-                            
+                            <tr>
+                              <td>
+                                {lesson.specialization?.specialization?.full_name}
+                              </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                {lesson.specialization?.teacher?.user?.full_name}
+                                </td>
+                            </tr>
                             </>
                           )
                           }
                         })}
-                       
+                        {table.map((lesson:any)=>{
+                          if(i==lesson.lesson_number){
+                          return(
+                            <>
+                            <tr>
+                              <td rowSpan={rowspanx}>
+                                {lesson.cabinet?.number}
+                              </td>
+                            </tr> 
+                            </>
+                          )
+                          }
+                        })}
                           </>
                         )
                       })}
