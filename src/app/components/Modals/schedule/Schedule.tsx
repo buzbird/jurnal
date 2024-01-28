@@ -23,8 +23,6 @@ const ScheduleTable = (data:any) => {
   const [lesson2,setLessons2] = useState({lessons:[{}]})
   const [cabs,setCabs] = useState({cab:[{}]})
   const [showModal, setShowModal] = useState(false);
-  const [mounted, setMounted] = useState(false)
-  const [lessonss, setlessons2] = useState([{}]);
   const [lesson_number, setlesson_number] = useState(0);
   
   const [showModalgroup, setshowModalgroup] = useState(false);
@@ -131,6 +129,8 @@ const ScheduleTable = (data:any) => {
       body: JSON.stringify({group_id: group_id}),
     })
     let data = await lessonslist.json()
+    console.log("---------------")
+    console.log(data)
     let lessons = {lessons:[{}]}
     let cab = {cab:[{}]}
     if(data.lesson != undefined){
@@ -145,7 +145,9 @@ const ScheduleTable = (data:any) => {
       body: JSON.stringify({}),
     })
     data = await cabsass.json()
-    if(lessonslist != undefined){
+    console.log("---------------")
+    console.log(data)
+    if(data != undefined){
       data.map((cabinet:any) => {
         cabmass.set(`${cabinet.number}`,cabinet.id)
         cab.cab.push(cabinet.number)
