@@ -100,17 +100,14 @@ const ScheduleTable = (data:any) => {
   }
   const createDateLesson = async() =>{
     try {
-      console.log(cabinet)
-      console.log(lesson)
-      let a = await lessonmass.get(lesson)
-      let b = await cabmass.get(cabinet)
-      console.log(a,b)
-      // await fetch("/api/jurnal/createdateoflesson/",{
-      //   method:'POST',
-      //   body: JSON.stringify({id:lessonmass.get(lesson),lesson_number:lesson_number,date:date,cab:cabmass.get(cabinet)}),
-      // })
+      let les= await lessonmass.get(lesson)
+      let cab = await cabmass.get(cabinet)
+      await fetch("/api/jurnal/createdateoflesson/",{
+        method:'POST',
+        body: JSON.stringify({id:les,lesson_number:lesson_number,date:date,cab:cab}),
+      })
       setShowModal(false);
-      // await getLesson(1)
+      getLesson(1)
     }catch(err){
         console.log(err)
     }
