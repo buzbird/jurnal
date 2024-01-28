@@ -91,7 +91,6 @@ const ScheduleStudent = (data:any) => {
                           rowspanx = rowspanx +1
                         }
                       })
-                     console.log(rowspanx)
                       if(rowspanx == 2){
                         return(
                           <>
@@ -103,7 +102,7 @@ const ScheduleStudent = (data:any) => {
                                 <tr>
                                   <td rowSpan={rowspanx}>{i}</td>
                                   <td>{lesson.specialization?.specialization?.lesson_name}</td>
-                                  <td rowSpan={rowspanx}>{lesson.cabinet?.number}</td>
+                                  <td rowSpan={rowspanx/2}>{lesson.cabinet?.number}</td>
                                 </tr>
                                 <tr>
                                   <td>{lesson.specialization?.teacher?.user?.full_name}</td>
