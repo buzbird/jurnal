@@ -15,7 +15,7 @@ const ScheduleTable = (data:any) => {
   let groupmass = new Map();
   const[group,setGroup] = useState("");
   const [tableviews,setTable] = useState(false);
-
+  const [modal,setmodal] = useState(false)
   const [lessons,setlessons]= useState([{}]);
   const changDate = (date:any)=>{
     Clearcache("/schedule/")
@@ -39,6 +39,43 @@ const ScheduleTable = (data:any) => {
     setlessons(data)
   } 
   const m = [1,2,3,4,5,6]
+
+  const setShowModals = async(modal:any,lesson_numbers:any)=>{
+    // let group_id =await  groupmass.get(group);
+    // console.log(group_id)
+    // const lessonslist = await fetch("/api/jurnal/lessonfromgroup",{
+    //   method:'POST',
+    //   body: JSON.stringify({group_id: group_id}),
+    // })
+    // let data = await lessonslist.json()
+    // let lessons = {lessons:[{}]}
+    // let cab = {cab:[{}]}
+    // if(data.lesson != undefined){
+    //   data.lesson.map((lesson:any) => {
+    //     lessonmass.set(`${lesson.specialization.lesson_name}`,lesson.id)
+    //     lessons.lessons.push(lesson.specialization)
+    //   })
+    // }
+   
+    // const cabsass = await fetch("/api/jurnal/cab",{
+    //   method:'POST',
+    //   body: JSON.stringify({}),
+    // })
+    // data = await cabsass.json()
+    // if(lessonslist != undefined){
+    //   data.map((cabinet:any) => {
+    //     cabmass.set(`${cabinet.number}`,cabinet.id)
+    //     cab.cab.push(cabinet.number)
+    //   })
+    // }
+    
+    // cab.cab.splice(0,1)
+    // setCabs(cab)
+    // setLessons(lessons)
+    // setShowModal(modal)
+    // console.log(cabs)
+  }
+
 
   return (
     <>
@@ -75,21 +112,59 @@ const ScheduleTable = (data:any) => {
                       </tr>
                     </thead>
                     <tbody>
-                      {m.map((i:any,index:any)=>{
-                        let rowspanx = 0;
-                        let rowspany = 0;
+                    {m.map((i:any,index:any)=>{
+                        let rowspanx = 2;
                         lessons.map((lesson:any)=>{
-                          console.log(lesson)
+                          if(i==lesson.lesson_number){
+                            rowspanx = rowspanx +1 
+                          }
                         })
-                        return(
-                          <>
+                        if(rowspanx ==1){
+                          return(
+                            <>
+                            <tr>
+                              <td rowSpan={rowspanx}>
+                                {i}
+                              </td>
+                            </tr>
+                            {lessons.map((lesson:any)=>{
+                            if(i==lesson.lesson_number){
+                            return(
+                              <>
+                              <tr>
+                                <td><button
+                                className="bg-blue-200 text-black active:bg-blue-500 
+                              font-bold px-3 py-1 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                                type="button"
+                                onClick={() => setmodal(true)}
+                              >
+                                <div>
+                                {lesson.specialization?.specialization.lesson_name}
+                                </div>
+                                <div>
+                                  <span>{lesson.specialization?.teacher.user.full_name}</span>
+                                  <span>{lesson.cabinet?.number}</span>
+                                </div>
+                              </button></td>
+                              </tr>
+                              </>
+                            )
+                            }
+                          })}
                           <tr>
                             <td>
-                              {i}
+                            <button
+                            className="bg-blue-200 text-black active:bg-blue-500 
+                          font-bold px-3 py-1 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                            type="button"
+                            onClick={() => setShowModals(true,i)}
+                          >+
+                        </button> 
                             </td>
                           </tr>
-                          </>
-                        )
+                            </>
+                          )
+                        }
                       })}
                       
                     </tbody>
@@ -98,7 +173,53 @@ const ScheduleTable = (data:any) => {
       ):null
 
       }
+{modal ? (
+        <>
+          <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t ">
+                  <h3 className="text-3xl font=semibold">{group}</h3>
+                  <button
+                    className="bg-transparent border-0 text-black float-right"
+                    onClick={() => setmodal(false)}
+                  >
+                  </button>
+                </div>
+                <div className="relative p-6 flex-auto">
+                <div>
+                вы точно хотите удалить?
+                <div>
+              название предмета
+              </div>
+              <div>
+                <span>преподаватель</span>
+                <span>кабинет</span>
+              </div>
+                </div>
+                </div>
+                <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
 
+                  <button
+                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
+                    type="button"
+                    onClick={() => setmodal(false)}
+                  >
+                    закрыть
+                  </button>
+                  {/* <button
+                    className="text-white bg-yellow-500 active:bg-yellow-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                    type="button"
+                    onClick={() =>   deleteLesson(undefined)}
+                  >
+                    удалить
+                  </button> */}
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : null}
     </>
   );
 };
@@ -440,7 +561,7 @@ const ScheduleModelperCab = ({date}:any) => {
 const ScheduleModel = ({lesson_number,group,date}:any) => {
   const [mounted, setMounted] = useState(false)
   const [lessonss, setlessons] = useState([{}]);
-  const [modal,setmodal] = useState(false)
+
   const [showModalgroup, setshowModalgroup] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [lesson,setLesson] = useState("");
@@ -483,40 +604,7 @@ const ScheduleModel = ({lesson_number,group,date}:any) => {
     console.log(data)
     setlessons(data)
   } 
-  const setShowModals = async(modal:any,group_id:any,lesson_numbers:any)=>{
-    console.log(group_id)
-    const lessonslist = await fetch("/api/jurnal/lessonfromgroup",{
-      method:'POST',
-      body: JSON.stringify({group_id: group_id}),
-    })
-    let data = await lessonslist.json()
-    let lessons = {lessons:[{}]}
-    let cab = {cab:[{}]}
-    if(data.lesson != undefined){
-      data.lesson.map((lesson:any) => {
-        lessonmass.set(`${lesson.specialization.lesson_name}`,lesson.id)
-        lessons.lessons.push(lesson.specialization)
-      })
-    }
-   
-    const cabsass = await fetch("/api/jurnal/cab",{
-      method:'POST',
-      body: JSON.stringify({}),
-    })
-    data = await cabsass.json()
-    if(lessonslist != undefined){
-      data.map((cabinet:any) => {
-        cabmass.set(`${cabinet.number}`,cabinet.id)
-        cab.cab.push(cabinet.number)
-      })
-    }
-    
-    cab.cab.splice(0,1)
-    setCabs(cab)
-    setLessons(lessons)
-    setShowModal(modal)
-    console.log(cabs)
-  }
+  
   
   const addgroup = async(groupvission:any) =>{
     try {
@@ -570,81 +658,16 @@ const ScheduleModel = ({lesson_number,group,date}:any) => {
             return(
                 <> 
                  <tr key={index}>
-                 <button
-              className="bg-blue-200 text-black active:bg-blue-500 
-            font-bold px-3 py-1 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-              type="button"
-              onClick={() => setmodal(true)}
-            >
-              <div>
-              {lesson.specialization?.specialization.lesson_name}
-              </div>
-              <div>
-                <span>{lesson.specialization?.teacher.user.full_name}</span>
-                <span>{lesson.cabinet?.number}</span>
-              </div>
-                </button>
+                 
 
-                {modal ? (
-        <>
-          <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="relative w-auto my-6 mx-auto max-w-3xl">
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t ">
-                  <h3 className="text-3xl font=semibold">{group.group_name}</h3>
-                  <button
-                    className="bg-transparent border-0 text-black float-right"
-                    onClick={() => setmodal(false)}
-                  >
-                  </button>
-                </div>
-                <div className="relative p-6 flex-auto">
-                <div>
-                вы точно хотите удалить?
-                <div>
-              {lesson.specialization?.specialization.lesson_name}
-              </div>
-              <div>
-                <span>{lesson.specialization?.teacher.user.full_name}</span>
-                <span>{lesson.cabinet?.number}</span>
-              </div>
-                </div>
-                </div>
-                <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-
-                  <button
-                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                    onClick={() => setmodal(false)}
-                  >
-                    закрыть
-                  </button>
-                  <button
-                    className="text-white bg-yellow-500 active:bg-yellow-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                    onClick={() =>   deleteLesson(lesson.id)}
-                  >
-                    удалить
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </>
-      ) : null}
+                
 
 
                  </tr>
                 </>
             );
     })}
-    <button
-                className="bg-blue-200 text-black active:bg-blue-500 
-              font-bold px-3 py-1 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                type="button"
-                onClick={() => setShowModals(true,group.id,lesson_number)}
-              >+
-    </button> 
+  
    
     </>
   );
