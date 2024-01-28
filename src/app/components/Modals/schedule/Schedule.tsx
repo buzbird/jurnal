@@ -21,6 +21,7 @@ const ScheduleTable = (data:any) => {
     setTable(true)
     
   }
+  const [lessons,GetLessons]= useState([{}]);
   const handleGroup = async(group:any) =>{
     setGroup(group)
   }
@@ -49,36 +50,35 @@ const ScheduleTable = (data:any) => {
             </>
         </datalist>
         </div>
-
-        {/* <table>
-        <thead>
-          <tr>
-          <th></th>
-          {data.data.map((group:any,index:any) => {
-            return(
-              <th key={index}>{group.group_name}</th>
-            );
-            })}   
-          </tr>  
-        </thead>
-        <tbody>
-      {m.map((i:any,index:any)=>{
-          return(
-          <tr key={index}>
-            <td>{i}</td>
-            {data.data.map((group:any,index:any) => { 
-            return(
-                  <td key={index}>
-                    <ScheduleModel  lesson_number={i} group={group} date={date}/>
-                    
-                  </td>
-            );
-            })} 
-          </tr>
-          );
-      })}
-        </tbody> 
-      </table> */}
+        <table>
+                    <thead>
+                      <tr>
+                        <th>
+                          номер пары
+                        </th>
+                        <th>
+                          предмет
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {m.map((i:any,index:any)=>{
+                        return(
+                          <>
+                          <tr>
+                            <td>
+                              {i}
+                            </td>
+                            <td>
+                              
+                            </td>
+                          </tr>
+                          </>
+                        )
+                      })}
+                      
+                    </tbody>
+                  </table>
         </>
       ):null
 
@@ -617,6 +617,8 @@ const ScheduleModel = ({lesson_number,group,date}:any) => {
           </div>
         </>
       ) : null}
+
+
                  </tr>
                 </>
             );
@@ -628,138 +630,7 @@ const ScheduleModel = ({lesson_number,group,date}:any) => {
                 onClick={() => setShowModals(true,group.id,lesson_number)}
               >+
     </button> 
-    {showModal ? (
-        <>
-          <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="relative w-auto my-6 mx-auto max-w-3xl">
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t ">
-                  <h3 className="text-3xl font=semibold"></h3>
-                  <button
-                    className="bg-transparent border-0 text-black float-right"
-                    onClick={() => setShowModal(false)}
-                  >
-                  </button>
-                </div>
-                <div className="relative p-6 flex-auto">
-                <div>
-                <form className="bg-gray-200 shadow-md rounded px-8 pt-6 pb-8 w-full">
-
-                  <div>
-                  1 урок
-                  <input type='search' list="lessons" onChange={(e)=> setLesson(e.target.value)} placeholder="выберите предмет" className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
-                  <datalist id="lessons">
-                      <>
-                      {lessons.lessons.map((lesson:any,index:any) => {
-                      return (
-                          <option key={index}>{lesson.lesson_name}</option>
-
-                      );
-                      })}
-                      </>
-                  </datalist>
-                  <input type='search' list="cab" onChange={(e)=> setCabinet(e.target.value)} placeholder="свободные кабинеты" className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
-                  <datalist id="cab">
-                  <>
-                      {cabs.cab.map((cab:any,index:any) => {
-                      return (
-                          <option key={index}>{cab}</option>
-
-                      );
-                      })}
-                      </>
-                  </datalist>
-                  </div>
-                </form>
-                </div>
-                </div>
-                <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-
-                  <button
-                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
-                    закрыть
-                  </button>
-
-                  <button
-                    className="text-white bg-yellow-500 active:bg-yellow-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                    onClick={() => addgroup(true)}
-                  >
-                    добавить группу
-                  </button>
-                  <button
-                    className="text-white bg-yellow-500 active:bg-yellow-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                    onClick={() => createDateLesson(lesson_number)}
-                  >
-                    добавить предмет
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </>
-      ) : null}
-
-            
-{showModalgroup ? (
-        <>
-          <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-1 z-101 outline-none focus:outline-none">
-            <div className="relative w-auto my-6 mx-auto max-w-3xl">
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t ">
-                  <h3 className="text-3xl font=semibold">выберите группу</h3>
-                  <button
-                    className="bg-transparent border-0 text-black float-right"
-                    onClick={() => setShowModal(false)}
-                  >
-                  </button>
-                </div>
-                <div className="relative p-6 flex-auto">
-                <div>
-                <form className="bg-gray-200 shadow-md rounded px-8 pt-6 pb-8 w-full">
-                <input type="search" list='group' placeholder='Фильтрация по Группам'  onChange={(e) =>{Setgroup(e.target.value)}}/>
-                <datalist id="group">
-                                  <>
-                                  {groups.group.map((group:any,index:any)=>{
-                                    groupnmass.set(`${group.group_name}`,group.id)
-                                    return(
-                                      <>
-                                        <option key={index}>{group.group_name}</option>
-                                      </>
-                                    )
-                                  })
-                                  }
-                                  </>
-                </datalist>
-                </form>
-                </div>
-                </div>
-                <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-
-                  <button
-                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                    onClick={() => setshowModalgroup(false)}
-                  >
-                    закрыть
-                  </button>
-                  <button
-                    className="text-white bg-yellow-500 active:bg-yellow-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                    onClick={() => createDateLesson2()}
-                  >
-                    добавить предмет
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </>
-      ) : null}
+   
     </>
   );
 };
