@@ -49,8 +49,9 @@ const ScheduleTable = (data:any) => {
   } 
   const m = [1,2,3,4,5,6]
 
-  const setShowModals = async(modal:any,lesson_numbers:any)=>{
+  const setShowModals = async(lesson_numbers:any)=>{
     let group_id = await  groupmass.get(group);
+    console.log(group_id,lesson_numbers)
     // console.log(group_id)
     // const lessonslist = await fetch("/api/jurnal/lessonfromgroup",{
     //   method:'POST',
@@ -176,7 +177,7 @@ const ScheduleTable = (data:any) => {
                           className="bg-blue-200 text-black active:bg-blue-500 
                         font-bold px-3 py-1 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
                           type="button"
-                          onClick={() => setShowModals(true,i)}
+                          onClick={() => setShowModals(i)}
                         >+
                       </button> 
                           </td>
