@@ -17,9 +17,13 @@ const ScheduleStudent = (data:any) => {
   const m = [1,2,3,4,5,6]
   const checktable = async(groups:any)=>{
     console.log(date,groupmass.get(groups))
-    const lessons2 = await getLessonfromDate(date,groupmass.get(groups))
-    if(lessons2!=undefined){
-      setTables(lessons2)
+    const lessons2 = await fetch("/api/jurnal/createdateoflesson/",{
+      method:'POST',
+      body: JSON.stringify({date:date,group_id:groupmass.get(groups)}),
+    })
+    let data = await lessons2.json()
+    if(data!=undefined){
+      setTables(data)
     }
     await setTable(true)
     await console.log(table)
@@ -30,7 +34,11 @@ const ScheduleStudent = (data:any) => {
     if(groupmass.get(group) == undefined){
       lessons2 = [{}]
     }else{
-      lessons2 = await getLessonfromDate(date,groupmass.get(group))
+      data = await fetch("/api/jurnal/createdateoflesson/",{
+        method:'POST',
+        body: JSON.stringify({date:date,group_id:groupmass.get(group)}),
+      })
+      lessons2 = data.json()
     }
     if(lessons2!= undefined){
       setTables(lessons2)
@@ -38,7 +46,6 @@ const ScheduleStudent = (data:any) => {
 
   }
   const changeGroup = async(group:any)=>{
-    await setTables([{}])
     await setgroup(group)
     await checktable(group)
     await setTable(true)
