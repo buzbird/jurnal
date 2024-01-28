@@ -88,7 +88,7 @@ const ScheduleStudent = (data:any) => {
                           rowspanx = rowspanx +1 
                         }
                         if(rowspanx>=3){
-                          rowspanx = rowspanx +1
+                          rowspanx = rowspanx +2
                         }
                       })
                       if(rowspanx == 2){
@@ -102,7 +102,7 @@ const ScheduleStudent = (data:any) => {
                                 <tr>
                                   <td rowSpan={rowspanx}>{i}</td>
                                   <td>{lesson.specialization?.specialization?.lesson_name}</td>
-                                  <td rowSpan={rowspanx/2}>{lesson.cabinet?.number}</td>
+                                  <td rowSpan={rowspanx}>{lesson.cabinet?.number}</td>
                                 </tr>
                                 <tr>
                                   <td>{lesson.specialization?.teacher?.user?.full_name}</td>
@@ -113,7 +113,6 @@ const ScheduleStudent = (data:any) => {
                              }
                             })
                           }
-                          
                           </>
                         )
                       }
