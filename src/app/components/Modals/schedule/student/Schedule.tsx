@@ -67,44 +67,48 @@ const ScheduleStudent = (data:any) => {
       {tableviews ? (
         <>
         <table>
-        <thead>
-          <tr>
-            <th>№</th>
-            <th>предмет</th>
-            <th>кабинет</th>
-          </tr>
-            
-        </thead>
-        <tbody>
-        {m.map((i:any,index:any) =>{
-          return(
-           <tr key={index}>
-           <td>{i}</td>
-            {table.map((table:any,index:any) => {
-              console.log(table)
-             if(i ==  table.lesson_number){
-              return(<></>
-                  // <td key={index}>
-                  //     {table.specialization.specialization.lesson_name}
-                  //     <br/>{table.specialization.teacher.user.full_name}
-                  // </td>
-            );
-             }
-            })} 
-            {/* {table.map((table:any,index:any) => {
-             if(i ==  table.lesson_number){
-              return(<></>
-                  // <td key={index}>
-                  //     {table.cabinet.number}
-                  // </td>
-            );
-             }
-            })}  */}
-           </tr>
-          )
-        })}
-        </tbody> 
-      </table>
+                    <thead>
+                      <tr>
+                        <th>
+                          номер пары
+                        </th>
+                        <th>
+                          предмет
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {m.map((i:any,index:any)=>{
+                        let rowspanx = 2;
+                        table.map((lesson:any)=>{
+                          console.log(lesson)
+                          if(i==lesson.lesson_number){
+                            rowspanx = rowspanx +1 
+                          }
+                        })
+                        return(
+                          <>
+                          <tr>
+                            <td rowSpan={rowspanx}>
+                              {i}
+                            </td>
+                          </tr>
+                          {table.map((lesson:any)=>{
+                          if(i==lesson.lesson_number){
+                          return(
+                            <>
+                            
+                            </>
+                          )
+                          }
+                        })}
+                       
+                          </>
+                        )
+                      })}
+                      
+                    </tbody>
+                  </table>
         </>
       ):null}
     </>
