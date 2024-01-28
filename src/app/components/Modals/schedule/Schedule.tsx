@@ -11,11 +11,12 @@ import { getLessonId } from "@/db/fetch";
 import React, { use, useEffect, useRef, useState } from "react";
 const ScheduleTable = (data:any) => {
   console.log(data)
-  const [date, setDate] = useState(new Date());
   let groupmass = new Map();
-  const[group,setGroup] = useState("");
+  const [date, setDate] = useState(new Date());
+  const [group,setGroup] = useState("");
   const [tableviews,setTable] = useState(false);
-  const [modal,setmodal] = useState(false)
+  const [modal,setModal] = useState(false);
+  const [lessonmodaldelete,setlessonmodaldelete] = useState({lesson_number:1,id:0,cabinet:{number:""},specialization:{specialization:{lesson_name:""},teacher:{user:{full_name:""}}}});
   const [lessons,setlessons]= useState([{}]);
   const changDate = (date:any)=>{
     Clearcache("/schedule/")
@@ -23,7 +24,10 @@ const ScheduleTable = (data:any) => {
     setTable(true)
     
   }
-  
+  const setmodalDelete = async(lesson:any)=>{
+    setlessonmodaldelete(lesson)
+    setModal(true)
+  }
   const handleGroup = async(group:any) =>{
     await setGroup(group)
     let group_id = await groupmass.get(group)
@@ -46,7 +50,7 @@ const ScheduleTable = (data:any) => {
   const m = [1,2,3,4,5,6]
 
   const setShowModals = async(modal:any,lesson_numbers:any)=>{
-    // let group_id =await  groupmass.get(group);
+    let group_id = await  groupmass.get(group);
     // console.log(group_id)
     // const lessonslist = await fetch("/api/jurnal/lessonfromgroup",{
     //   method:'POST',
@@ -81,7 +85,19 @@ const ScheduleTable = (data:any) => {
     // console.log(cabs)
   }
 
-
+  const deleteLesson = async(id:any,lesson_number:any) =>{
+    let group_id = await  groupmass.get(group);
+    await fetch("/api/jurnal/getlesson2/",{
+      method:'DELETE',
+      body: JSON.stringify({id:id}),
+    })
+    const lessons2= await fetch("/api/jurnal/getlesson2/",{
+      method:'POST',
+      body: JSON.stringify({date:date,group_id:group_id,lesson_number:lesson_number}),
+    })
+    let data =await lessons2.json()
+    setlessons(data)
+  }
   return (
     <>
       <input type="date" onChange={(e)=> changDate(e.target.value)} />
@@ -140,8 +156,7 @@ const ScheduleTable = (data:any) => {
                               className="bg-blue-200 text-black active:bg-blue-500 
                             font-bold px-3 py-1 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
                               type="button"
-                              onClick={() => setmodal(true)}
-                            >
+                              onClick={() => setmodalDelete(lesson)}>
                               <div>
                               {lesson.specialization?.specialization.lesson_name}
                               </div>
@@ -185,19 +200,19 @@ const ScheduleTable = (data:any) => {
                   <h3 className="text-3xl font=semibold">{group}</h3>
                   <button
                     className="bg-transparent border-0 text-black float-right"
-                    onClick={() => setmodal(false)}
+                    onClick={() => setModal(false)}
                   >
                   </button>
                 </div>
                 <div className="relative p-6 flex-auto">
                 <div>
-                вы точно хотите удалить?
+                   вы точно хотите удалить?
                 <div>
-              название предмета
+                  {lessonmodaldelete.specialization.specialization?.lesson_name}
               </div>
               <div>
-                <span>преподаватель</span>
-                <span>кабинет</span>
+                <span>{lessonmodaldelete.specialization.teacher.user.full_name}</span>
+                <span>{lessonmodaldelete.cabinet.number}</span>
               </div>
                 </div>
                 </div>
@@ -206,17 +221,17 @@ const ScheduleTable = (data:any) => {
                   <button
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
                     type="button"
-                    onClick={() => setmodal(false)}
+                    onClick={() => setModal(false)}
                   >
                     закрыть
                   </button>
-                  {/* <button
+                  <button
                     className="text-white bg-yellow-500 active:bg-yellow-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
                     type="button"
-                    onClick={() =>   deleteLesson(undefined)}
+                    onClick={() =>   deleteLesson(lessonmodaldelete.id,lessonmodaldelete.lesson_number)}
                   >
                     удалить
-                  </button> */}
+                  </button>
                 </div>
               </div>
             </div>
@@ -641,39 +656,8 @@ const ScheduleModel = ({lesson_number,group,date}:any) => {
         console.log(err)
     }
   }
-  const deleteLesson = async(id:any) =>{
 
-    await fetch("/api/jurnal/getlesson2/",{
-      method:'DELETE',
-      body: JSON.stringify({id:id}),
-    })
-    const lessons2= await fetch("/api/jurnal/getlesson2/",{
-      method:'POST',
-      body: JSON.stringify({date:date,group_id:group.id,lesson_number:lesson_number}),
-    })
-    let data =await lessons2.json()
-    setlessons(data)
-  }
-  return (
-    <>
-    {lessonss.map((lesson:any,index:any) => {
-      console.log(lesson)
-            return(
-                <> 
-                 <tr key={index}>
-                 
-
-                
-
-
-                 </tr>
-                </>
-            );
-    })}
-  
-   
-    </>
-  );
+ 
 };
 
 export default ScheduleTable;
