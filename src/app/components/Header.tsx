@@ -1,12 +1,24 @@
+'use client'
 import { getServerSession } from 'next-auth';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { authOptions } from '../api/auth/[...nextauth]/route';
+const getHeader = async(session:any) =>{
+    const header = await fetch("/api/header",{
+        method:'POST',
+        body: JSON.stringify({email: session?.user?.email}),
+    })
+    const data = await header.json()
+    console.log(data)
+    return data
+}
 
 
 
 
-export default async function Header2(data: any){
+export default async function Header2(session: any){
+    console.log(session)
+    const data = await getHeader(session)
     console.log(data)
     return (
             <>
