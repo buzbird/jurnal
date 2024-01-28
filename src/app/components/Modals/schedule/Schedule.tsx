@@ -26,7 +26,9 @@ const ScheduleTable = (data:any) => {
   
   const handleGroup = async(group:any) =>{
     await setGroup(group)
-    await getLesson(group)
+    if(group != undefined){
+      await getLesson(group)
+    }
   }
   const getLesson = async(group:any) =>{
     const lessons2 = await fetch("/api/jurnal/getlesson2/",{
