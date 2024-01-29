@@ -37,13 +37,17 @@ const SignInForm = () => {
     }
   },[status])// eslint-disable-line react-hooks/exhaustive-deps
   return (
-    <div className='flex w-full h-full justify-center content-center'>
+    <div className='flex w-full h-svh justify-center content-center'>
        <form className='loginform'>
        <div>
           <input type='text' value={email} onChange={(e)=> setEmail(e.target.value)}/>
         </div>
-        <input type='password'value={password} onChange={(e)=> setPassword(e.target.value)}/>
-        <button className='' onClick={handleSubmit}>войти</button>
+        <div>
+          <input type='password'value={password} onChange={(e)=> setPassword(e.target.value)}/>
+        </div>
+        <div>
+          <button className='' onClick={handleSubmit}>войти</button>
+        </div>
        </form>
         <p>{message}</p>
     </div>
