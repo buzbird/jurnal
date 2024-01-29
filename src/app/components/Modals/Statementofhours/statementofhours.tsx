@@ -15,7 +15,7 @@ function Dates(month: any){
           const day = new Date(date).getDate()
           return(
             <>
-            <th  >{day}</th>
+            <th>{day}</th>
             </>
           )
         })
@@ -38,7 +38,7 @@ function Stateinday({month,dateoflessons}:any){
         dates.map((date:any) =>{
           if(new Date(date).getDay() == 0){
             return(
-              <><td  >в</td></>
+              <><td className='pn'>в</td></>
             )
           }else{
             let count = 0;
@@ -50,13 +50,13 @@ function Stateinday({month,dateoflessons}:any){
           if(count == 0){
             return(
               <>
-              <td  ></td>
+              <td className='pn'></td>
               </>
             )
           }else{
             return(
               <>
-              <td>
+              <td className='pn'>
                 {count*2 }
               </td>
               </>
@@ -78,7 +78,7 @@ function Itog({month,data}:any){
   let a=0,b=0,c;
   data.map((data:any) => {
     if(data.group.is_y){}else{
-      a=a+ data.hours
+      a= a + data.hours
       b = b + data.dm *2
     }
 
@@ -86,21 +86,21 @@ function Itog({month,data}:any){
   c = a -b
   return(
     <>
-      <td></td>
-      <td></td>
-      <td>итого</td>
-      <td >{a}</td>
+      <td className='pn'></td>
+      <td className='pn'></td>
+      <td className='pn'>итого</td>
+      <td className='pn'>{a}</td>
       {
         dates.map((date:any) =>{
           return(
             <>
-            <td ></td>
+            <td className='pn'></td>
             </>
           )
         })
       }
-      <td>{b}</td>
-      <td>{c}</td>
+      <td className='pn'>{b}</td>
+      <td className='pn'>{c}</td>
     </>
   )
 }
@@ -260,13 +260,13 @@ function Statementofhour() {
             return (
                     <>
                     <tr>
-                       <td  > {data.group.group_name}</td>
-                       <td  >{data.specialization.lesson_name}</td>
-                       <td  >{data.teacher.user.full_name}</td>
-                       <td  >{data.hours}</td>
+                       <td  className='pn'> {data.group.group_name}</td>
+                       <td  className='pn'>{data.specialization.lesson_name}</td>
+                       <td  className='pn'>{data.teacher.user.full_name}</td>
+                       {data.group.is_y ? (<><td className='pn'>0</td></>) : (<><td  className='pn'>{data.hours}</td></>)}
                        <Stateinday month={date.getMonth()} dateoflessons={data.dateoflessons}/>
-                       {data.group.is_y ? (<><td>0</td></>) : (<><td>{data.dm *2}</td></>)}
-                       <td  >{data.ost}</td>
+                       {data.group.is_y ? (<><td className='pn'>0</td></>) : (<><td className='pn'>{data.dm *2}</td></>)}
+                       <td className='pn'>{data.ost}</td>
                     </tr>
                     </>
                     );
@@ -279,7 +279,7 @@ function Statementofhour() {
       </>
 
     ): (<>
-      <button onClick={start}>загрузить</button>
+      <button className='load' onClick={start}>загрузить</button>
     </>)}
     </>
   )
