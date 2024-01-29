@@ -37,7 +37,7 @@ const SignInForm = () => {
     }
   },[status])// eslint-disable-line react-hooks/exhaustive-deps
   return (
-    <div>
+    <div className='flex w-full h-full justify-center content-center'>
        <form className='loginform'>
        <div>
           <input type='text' value={email} onChange={(e)=> setEmail(e.target.value)}/>
