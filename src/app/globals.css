@@ -109,8 +109,37 @@ table.tab th {
     font-weight: 600;
     background: #39383d;
 }
+.dsc {
+    font-weight: 600;
+    background: #5c5b63;
+}
+
+.pn {
+    font-weight: 600;
+    background: #39383d;
+}
+
+.cab {
+    font-weight: 600;
+    background: #5c5b63;
+}
+
+.prepod {
+    background: #39383d;
+}
 
 
+input{
+    display: block;
+    height: 50px;
+    width: 150px;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
 
 
 /* форма входа */
@@ -159,6 +188,7 @@ table.tab th {
     font-size: 14px;
     font-weight: 300;
 }
+
 ::placeholder{
     color: #e5e5e5;
 }
@@ -176,24 +206,6 @@ table.tab th {
 
 
 
-.dsc {
-    font-weight: 600;
-    background: #5c5b63;
-}
-
-.pn {
-    font-weight: 600;
-    background: #39383d;
-}
-
-.cab {
-    font-weight: 600;
-    background: #5c5b63;
-}
-
-.prepod {
-    background: #39383d;
-}
 
  
  

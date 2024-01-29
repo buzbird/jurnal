@@ -66,16 +66,15 @@ const ScheduleStudent = (data:any) => {
       </datalist>
       {tableviews ? (
         <>
-        <table>
+        <table className="tab">
                     <thead>
                       <tr>
                         <th>
-                          номер пары
                         </th>
-                        <th>
+                        <th className="hdg">
                           предмет
                         </th>
-                        <th>
+                        <th className="hdg">
                           кабинет
                         </th>
                       </tr>
@@ -101,12 +100,12 @@ const ScheduleStudent = (data:any) => {
                               return(
                                 <>
                                 <tr>
-                                  <td rowSpan={rowspanx}>{i}</td>
-                                  <td>{lesson.specialization?.specialization?.lesson_name}</td>
-                                  <td rowSpan={rowspanx}>{lesson.cabinet?.number}</td>
+                                  <td rowSpan={rowspanx} className="pn">{i}</td>
+                                  <td className="dsc">{lesson.specialization?.specialization?.lesson_name}</td>
+                                  <td rowSpan={rowspanx} className="cab">{lesson.cabinet?.number}</td>
                                 </tr>
                                 <tr>
-                                  <td>{lesson.specialization?.teacher?.user?.full_name}</td>
+                                  <td className="prepod">{lesson.specialization?.teacher?.user?.full_name}</td>
                                 </tr>
                                 </>
 
@@ -121,7 +120,7 @@ const ScheduleStudent = (data:any) => {
                         return(
                           <>
                           <tr>
-                            <td rowSpan={rowspanx}>{i}</td>
+                            <td rowSpan={rowspanx} className="pn">{i}</td>
                           </tr>
                           {
                             table.map((lesson:any)=>{
@@ -129,11 +128,11 @@ const ScheduleStudent = (data:any) => {
                                 return(
                                   <>
                                   <tr>
-                                    <td>{lesson.specialization?.specialization?.lesson_name}</td>
-                                    <td rowSpan={rowspanx/2}>{lesson.cabinet?.number}</td>
+                                    <td className="dsc">{lesson.specialization?.specialization?.lesson_name}</td>
+                                    <td rowSpan={rowspanx/2} className="cab">{lesson.cabinet?.number}</td>
                                   </tr>
                                   <tr>
-                                    <td>{lesson.specialization?.teacher?.user?.full_name}</td>
+                                    <td className="prepod">{lesson.specialization?.teacher?.user?.full_name}</td>
                                   </tr>
                                   </>
   
@@ -147,7 +146,7 @@ const ScheduleStudent = (data:any) => {
                       }
                       return(
                         <tr>
-                          <td>{i}</td>
+                          <td className="pn">{i}</td>
                           <td></td>
                           <td></td>
                         </tr>
