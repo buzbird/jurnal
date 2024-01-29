@@ -27,7 +27,6 @@ export default async function TheHeader(){
             <>
             <header className='top-menu'>
             <ul className="menu-main">
-           
             
             <li className="menu-item"><Link href="/">Главная</Link></li>
 

@@ -67,6 +67,62 @@
  body {
      background-color: black;
  }
+
+ table.tab{
+    border-spacing: 5px;
+    color: white;
+    letter-spacing: 1px;
+    font-family: 'Arimo', sans-serif;
+    margin: 10px;
+    border-radius: 10px;
+    background-color: black;
+}
+table.tab,table.tab td, table.tab th {
+	border: px solid black;
+}
+table.tab td,table.tab th {
+	padding: 10px;
+    height: 20px;
+    /*background: #39383d;*/
+    border-radius: 5px
+}
+table.tab th {
+	background: #347c99; 
+	color: #fff;
+}
+.hdg {
+    text-align: center;
+    font-weight: 600;
+    background: #39383d;
+}
+
+
+
+
+
+
+
+
+
+.dsc {
+    font-weight: 600;
+    background: #5c5b63;
+}
+
+.pn {
+    font-weight: 600;
+    background: #39383d;
+}
+
+.cab {
+    font-weight: 600;
+    background: #5c5b63;
+}
+
+.prepod {
+    background: #39383d;
+}
+
  
  
  

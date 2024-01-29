@@ -4,9 +4,11 @@ import Link from 'next/link'
 const Admin = () => {
   return (
     <div>
-        <li><Link href="/admin/users">Пользователи</Link></li>
-        <li><Link href="/admin/group">Группа</Link></li>
-        <li><Link href="/admin/studying">Учебный процесс</Link></li>
+        <ul>
+          <li className="menu-item"><Link href="/admin/users">Пользователи</Link></li>
+          <li className="menu-item"><Link href="/admin/group">Группа</Link></li>
+          <li className="menu-item"><Link href="/admin/studying">Учебный процесс</Link></li>
+        </ul>
     </div>
   )
 }
