@@ -46,7 +46,7 @@ const SignInForm = () => {
           <input type='password' placeholder='Пароль' value={password} onChange={(e)=> setPassword(e.target.value)}/>
         </div>
         <div className='h-auto'>
-          <button className='' onClick={handleSubmit}>войти</button>
+          <button onClick={handleSubmit}>войти</button>
         </div>
        </form>
         <p>{message}</p>
