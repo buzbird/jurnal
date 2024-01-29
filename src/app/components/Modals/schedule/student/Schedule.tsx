@@ -84,6 +84,7 @@ const ScheduleStudent = (data:any) => {
                     {m.map((i:any,index:any)=>{
                       let rowspanx =  1;
                       table.map((lesson:any)=>{
+                        console.log(lesson.lesson_number)
                         if(i==lesson.lesson_number){
                           rowspanx = rowspanx +1 
                         }
