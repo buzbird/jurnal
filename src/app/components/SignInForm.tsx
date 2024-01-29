@@ -39,13 +39,13 @@ const SignInForm = () => {
   return (
     <div className='flex w-full h-svh justify-center content-center'>
        <form className='loginform'>
-       <div>
-          <input type='text' value={email} onChange={(e)=> setEmail(e.target.value)}/>
+       <div className='h-auto'>
+          <input type='text' placeholder='Логин' value={email} onChange={(e)=> setEmail(e.target.value)}/>
         </div>
-        <div>
-          <input type='password'value={password} onChange={(e)=> setPassword(e.target.value)}/>
+        <div className='h-auto'>
+          <input type='password' placeholder='Пароль' value={password} onChange={(e)=> setPassword(e.target.value)}/>
         </div>
-        <div>
+        <div className='h-auto'>
           <button className='' onClick={handleSubmit}>войти</button>
         </div>
        </form>
