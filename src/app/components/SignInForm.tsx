@@ -48,8 +48,9 @@ const SignInForm = () => {
         <div className='h-auto'>
           <button  onClick={handleSubmit}>войти</button>
         </div>
-       </div>
         <p>{message}</p>
+       </div>
+       
     </div>
   )
 }
