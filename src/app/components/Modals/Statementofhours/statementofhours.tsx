@@ -15,7 +15,7 @@ function Dates(month: any){
           const day = new Date(date).getDate()
           return(
             <>
-            <th className='border-solid border-2 border border-slate-500'>{day}</th>
+            <th  >{day}</th>
             </>
           )
         })
@@ -38,7 +38,7 @@ function Stateinday({month,dateoflessons}:any){
         dates.map((date:any) =>{
           if(new Date(date).getDay() == 0){
             return(
-              <><td className='border-solid border-2 border border-slate-500'>в</td></>
+              <><td  >в</td></>
             )
           }else{
             let count = 0;
@@ -50,7 +50,7 @@ function Stateinday({month,dateoflessons}:any){
           if(count == 0){
             return(
               <>
-              <td className='border-solid border-2 border border-slate-500'></td>
+              <td  ></td>
               </>
             )
           }else{
@@ -88,8 +88,8 @@ function Itog({month,data}:any){
     <>
       <td></td>
       <td></td>
-      <td className='border-solid border-2 border border-slate-500'>итого</td>
-      <td className='border-solid border-2 border border-slate-500'>{a}</td>
+      <td>итого</td>
+      <td >{a}</td>
       {
         dates.map((date:any) =>{
           return(
@@ -99,8 +99,8 @@ function Itog({month,data}:any){
           )
         })
       }
-      <td className='border-solid border-2 border border-slate-500'>{b}</td>
-      <td className='border-solid border-2 border border-slate-500'>{c}</td>
+      <td>{b}</td>
+      <td>{c}</td>
     </>
   )
 }
@@ -239,16 +239,16 @@ function Statementofhour() {
   </datalist>
     <input type="month" onChange={(e) =>{DateHandler(new Date(e.target.value))}}/>
     </div>
-    <table className='border-solid border-2 border border-slate-500 table-auto'>
-            <thead className='border-solid border-2 border border-slate-500 table-auto'>
+    <table >
+            <thead>
                 <tr>
-                    <th  className='border-solid border-2 border border-slate-500'>Группы</th>
-                    <th className='border-solid border-2 border border-slate-500'>Учебная дисциплина</th>
-                    <th className='border-solid border-2 border border-slate-500'>ФИО преподавателя</th>
-                    <th className='border-solid border-2 border border-slate-500'>ВП</th>
+                    <th >Группы</th>
+                    <th>Учебная дисциплина</th>
+                    <th>ФИО преподавателя</th>
+                    <th>ВП</th>
                     <Dates month={date.getMonth()}/>
-                    <th className='border-solid border-2 border border-slate-500'>ДМ</th>
-                    <th className='border-solid border-2 border border-slate-500'>Ост</th>
+                    <th>ДМ</th>
+                    <th>Ост</th>
                 </tr>
             </thead>
             <tbody>
@@ -260,13 +260,13 @@ function Statementofhour() {
             return (
                     <>
                     <tr className='border-solid border-2 border border-slate-500 table-auto hover:bg-sky-200'>
-                       <td className='border-solid border-2 border border-slate-500'> {data.group.group_name}</td>
-                       <td className='border-solid border-2 border border-slate-500'>{data.specialization.lesson_name}</td>
-                       <td className='border-solid border-2 border border-slate-500'>{data.teacher.user.full_name}</td>
-                       <td className='border-solid border-2 border border-slate-500'>{data.hours}</td>
+                       <td  > {data.group.group_name}</td>
+                       <td  >{data.specialization.lesson_name}</td>
+                       <td  >{data.teacher.user.full_name}</td>
+                       <td  >{data.hours}</td>
                        <Stateinday month={date.getMonth()} dateoflessons={data.dateoflessons}/>
                        {data.group.is_y ? (<><td>0</td></>) : (<><td>{data.dm *2}</td></>)}
-                       <td className='border-solid border-2 border border-slate-500'>{data.ost}</td>
+                       <td  >{data.ost}</td>
                     </tr>
                     </>
                     );
