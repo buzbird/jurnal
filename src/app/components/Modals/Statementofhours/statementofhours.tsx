@@ -239,7 +239,7 @@ function Statementofhour() {
   </datalist>
     <input type="month" onChange={(e) =>{DateHandler(new Date(e.target.value))}}/>
     </div>
-    <table >
+    <table className='tab'>
             <thead>
                 <tr>
                     <th >Группы</th>
@@ -259,7 +259,7 @@ function Statementofhour() {
               console.log("-----------------")
             return (
                     <>
-                    <tr className='border-solid border-2 border border-slate-500 table-auto hover:bg-sky-200'>
+                    <tr>
                        <td  > {data.group.group_name}</td>
                        <td  >{data.specialization.lesson_name}</td>
                        <td  >{data.teacher.user.full_name}</td>
