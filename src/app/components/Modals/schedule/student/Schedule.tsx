@@ -140,11 +140,13 @@ const ScheduleStudent = (data:any) => {
                         )
                       }
                       return(
+                        <>
                         <tr>
                           <td className="pn">{i}</td>
                           <td></td>
                           <td></td>
                         </tr>
+                        </>
                       )
                       })}
                       
