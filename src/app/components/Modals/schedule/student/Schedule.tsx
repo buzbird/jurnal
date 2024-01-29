@@ -92,65 +92,68 @@ const ScheduleStudent = (data:any) => {
                         }
                       })
                       console.log(rowspanx)
-                      if(rowspanx == 2){
-                        return(
-                          <>
-                           {
+                      return(
+                        <>
+                        {
                             table.map((lesson:any)=>{
-                             if(i == lesson.lesson_number){
-                              return(
-                                <>
-                                <tr>
-                                  <td rowSpan={rowspanx}>{i}</td>
-                                  <td>{lesson.specialization?.specialization?.lesson_name}</td>
-                                  <td rowSpan={rowspanx}>{lesson.cabinet?.number}</td>
-                                </tr>
-                                <tr>
-                                  <td>{lesson.specialization?.teacher?.user?.full_name}</td>
-                                </tr>
-                                </>
-
-                              )
-                             }
-                            })
-                          }
-                          </>
-                        )
-                      }
-                      if(rowspanx == 5){
-                        return(
-                          <>
-                          <tr>
-                            <td rowSpan={rowspanx}>{i}</td>
-                          </tr>
-                          {
-                            table.map((lesson:any)=>{
-                              if(i == lesson.lesson_number){
-                                return(
-                                  <>
-                                  <tr>
-                                    <td>{lesson.specialization?.specialization?.lesson_name}</td>
-                                    <td rowSpan={rowspanx/2}>{lesson.cabinet?.number}</td>
+                              if(rowspanx == 2){
+                                if(i == lesson.lesson_number){
+                                  return(
+                                    <>
+                                    <tr>
+                                      <td rowSpan={rowspanx}>{i}</td>
+                                      <td>{lesson.specialization?.specialization?.lesson_name}</td>
+                                      <td rowSpan={rowspanx}>{lesson.cabinet?.number}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>{lesson.specialization?.teacher?.user?.full_name}</td>
+                                    </tr>
+                                    </>
+    
+                                  )
+                                 } 
+                              }else{
+                                if(rowspanx == 5){
+                                  return(
+                                    <>
+                                    <tr>
+                                      <td rowSpan={rowspanx}>{i}</td>
+                                    </tr>
+                                    {
+                                      table.map((lesson:any)=>{
+                                        if(i == lesson.lesson_number){
+                                          return(
+                                            <>
+                                            <tr>
+                                              <td>{lesson.specialization?.specialization?.lesson_name}</td>
+                                              <td rowSpan={rowspanx/2}>{lesson.cabinet?.number}</td>
+                                            </tr>
+                                            <tr>
+                                              <td>{lesson.specialization?.teacher?.user?.full_name}</td>
+                                            </tr>
+                                            </>
+            
+                                          )
+                                        }
+                                      })
+                                    }
+                                   
+                                    </>
+                                  )
+                                }else{
+                                  return(<>
+                                   <tr>
+                                    <td>{i}</td>
+                                    <td></td>
+                                    <td></td>
                                   </tr>
-                                  <tr>
-                                    <td>{lesson.specialization?.teacher?.user?.full_name}</td>
-                                  </tr>
-                                  </>
-  
-                                )
+                                  </>)
+                                }
                               }
                             })
                           }
-                         
-                          </>
-                        )
-                      }
-                      return(
-                        <tr>
-                          <td>{i}</td>
-                          <td></td>
-                          <td></td>
-                        </tr>
+                        </>
+                       
                       )
                       })}
                       
