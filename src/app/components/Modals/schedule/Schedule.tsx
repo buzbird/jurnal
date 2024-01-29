@@ -107,7 +107,7 @@ const ScheduleTable = (data:any) => {
         body: JSON.stringify({id:les,lesson_number:lesson_number,date:date,cab:cab}),
       })
       setShowModal(false);
-      getLesson(1)
+      getLesson(groupmass.get(group))
     }catch(err){
         console.log(err)
     }
