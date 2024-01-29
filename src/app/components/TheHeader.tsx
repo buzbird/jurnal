@@ -25,15 +25,18 @@ export default async function TheHeader(){
     console.log(data)
     return (
             <>
-            <header>
-        <div className='fc'><Link href="/">Home</Link></div>
+            <header className='top-menu'>
+            <ul className="menu-main">
+           
+            
+            <li className="menu-item"><Link href="/">Главная</Link></li>
 
         {data.map((data:any)=>{
             return(
                 <>
                 {data.permission.map((permission:any)=>{
                 if (permission.permission_id == 1){
-                    return (<><div className='fc'><Link href="/admin/">Администратор</Link></div></>)
+                    return (<><li className="menu-item"><Link href="/admin/">Администратор</Link></li></>)
                 }
             })}
                 </>
@@ -45,7 +48,7 @@ export default async function TheHeader(){
             <>
             {data.permission.map((permission:any)=>{
                 if (permission.permission_id == 3){
-                    <div className='fc'><Link href="/teacher/">Куратор</Link></div>
+                    <li className="menu-item"><Link href="/teacher/">Куратор</Link></li>
                 }
             })} 
             </>
@@ -55,7 +58,7 @@ export default async function TheHeader(){
             return(<>
             {data.permission.map((permission:any,index:any)=>{
                 if (permission.permission_id == 2){
-                    return(<div key={index} ><Link href="/schedule/">Составитель расписания</Link></div>);
+                    return(<li className="menu-item"><Link href="/schedule/">Составитель расписания</Link></li>);
                 }
             })}
             </>
@@ -64,21 +67,22 @@ export default async function TheHeader(){
         {data.map((data:any)=>{
             return(<>
             {data.permission.map((permission:any)=>{
-                 if (permission.permission_id == 4){<div ><Link href="/teacher/">Преподаватель</Link></div>}
+                 if (permission.permission_id == 4){<li className="menu-item"><Link href="/teacher/">Преподаватель</Link></li>}
             })}</>)
         })}
         {data.map((data:any)=>{
             return(<>
             {data.permission.map((permission:any,index:any)=>{
                 if (permission.permission_id == 5){
-                    return (<div key={index}><Link href="/Admin/">студентов</Link></div>);
+                    return (<li className="menu-item"><Link href="/Admin/">студентов</Link></li>);
             }
         })}
             </>
             )
         })}
-                <div><Link href="/schedule/student">расписание</Link></div>
-        {log ? (<div ><Link href="/auth/signin">войти</Link></div>):(<div><Link href="/auth/signout">выйти</Link></div>)}
+                <li className="menu-item"><Link href="/schedule/student">расписание</Link></li>
+        {log ? (<li className="menu-item"><Link href="/auth/signin">войти</Link></li>):(<li className="menu-item"><Link href="/auth/signout">выйти</Link></li>)}
+        </ul>
     </header>
             </>
     )
