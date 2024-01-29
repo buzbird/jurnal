@@ -8,7 +8,6 @@ import { getLessonfromDate } from "@/app/actions/schedule/getLessonfromDate";
 import { lessonsfromgroup } from "@/app/actions/schedule/lessonsfromgroup";
 import React, { useState } from "react";
 const ScheduleStudent = (data:any) => {
-  console.log(data)
   const [date, setDate] = useState(new Date());
   const [tableviews,setTable] = useState(false)
   const [group,setgroup] =useState("") ;
@@ -16,7 +15,6 @@ const ScheduleStudent = (data:any) => {
   const [groupmass,setgroupmass] =useState(new Map()) ;
   const m = [1,2,3,4,5,6]
   const checktable = async(groups:any)=>{
-    console.log(date,groupmass.get(groups))
     const lessons2 = await fetch("/api/student/jurnal/",{
       method:'POST',
       body: JSON.stringify({date:date,group_id:groupmass.get(groups)}),
@@ -26,7 +24,6 @@ const ScheduleStudent = (data:any) => {
       setTables(data)
     }
     await setTable(true)
-    await console.log(table)
   }
   const changDate = async(date:any)=>{
     let lessons2 = undefined;
@@ -83,7 +80,6 @@ const ScheduleStudent = (data:any) => {
                     {m.map((i:any,index:any)=>{
                       let rowspanx =  1;
                       table.map((lesson:any)=>{
-                        console.log(lesson)
                         if(i==lesson.lesson_number){
                           rowspanx = rowspanx +1 
                         }
@@ -91,7 +87,6 @@ const ScheduleStudent = (data:any) => {
                       if(rowspanx>=3){
                         rowspanx = rowspanx +2
                       }
-                      console.log("row:",rowspanx)
                       if(rowspanx == 2){
                         return(
                           <>

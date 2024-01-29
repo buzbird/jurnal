@@ -31,7 +31,6 @@ function Stateinday({month,dateoflessons}:any){
     dates.push(new Date(currentDate));
     currentDate.setDate(currentDate.getDate() + 1);
   }
-  console.log(dateoflessons)
   return(
     <>
       {
@@ -132,8 +131,6 @@ function Statementofhour() {
   }
   const LessonHandler = async(lesson:any) =>{
     lesson = await lessonmass.get(lesson)
-    console.log(lessonmass)
-    console.log(lesson)
     Setlesson_id(lesson)
     const lessons = await fetch("/api/admin/statementofhours/",{
       method:'POST',
@@ -167,28 +164,24 @@ function Statementofhour() {
       body: JSON.stringify({teacher:teacher,group:group,lesson:lesson_id,date:date}),
     })
     let data = await json.json()
-    console.log(data)
     await SetData(data)
     json = await fetch("/api/admin/statementofhours/grouplist/",{
       method:'POST',
       body: JSON.stringify({teacher:teacher,group:group,lesson:lesson_id,date:date}),
     })
     data = await json.json()
-    console.log(data)
     await Setgroups(data)
     json = await fetch("/api/admin/statementofhours/alllesson/",{
       method:'POST',
       body: JSON.stringify({teacher:teacher,group:group,lesson:lesson_id,date:date}),
     })
     data = await json.json()
-    console.log(data)
     await Setlessons(data)
     json = await fetch("/api/admin/statementofhours/allteacher/",{
       method:'POST',
       body: JSON.stringify({teacher:teacher,group:group,lesson:lesson_id,date:date}),
     })
     data = await json.json()
-    console.log(data)
     await Setteahers(data)
    
     Settableviews(true)
@@ -253,10 +246,6 @@ function Statementofhour() {
             </thead>
             <tbody>
             {data2.map((data:any) => {
-              console.log(data.group.is_y)
-              console.log("-----------------")
-              console.log("data:",data)
-              console.log("-----------------")
             return (
                     <>
                     <tr>

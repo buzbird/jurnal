@@ -10,7 +10,6 @@ import { lessonsfromgroup } from "@/app/actions/schedule/lessonsfromgroup";
 import { getLessonId } from "@/db/fetch";
 import React, { use, useEffect, useRef, useState } from "react";
 const ScheduleTable = (data:any) => {
-  console.log(data)
   let groupmass = new Map();
   const [lessonmass, setlessonmass] = useState(new Map());
   const [cabmass, setcabmass] = useState(new Map());
@@ -55,15 +54,11 @@ const ScheduleTable = (data:any) => {
       method:'POST',
       body: JSON.stringify({date:date,group_id:group_id}),
     })
-    console.log(date,groupmass.get(group))
     let data =await lessons2.json()
-    console.log(data)
     setlessons(data)
   } 
   const createDateLesson2= async() =>{
     try {
-      console.log("data")
-      console.log(group,groupmass.get(group2),lesson)
       const lesson2 = await fetch("/api/jurnal/getlessonid2/",{
         method:'POST',
         body: JSON.stringify({id:groupmass.get(group2),lesson:lesson}),
@@ -121,14 +116,11 @@ const ScheduleTable = (data:any) => {
   const setShowModals = async(lesson_numbers:any)=>{
     let group_id = await  groupmass.get(group);
     setlesson_number(lesson_numbers)
-    console.log(group_id,lesson_numbers)
     const lessonslist = await fetch("/api/jurnal/lessonfromgroup",{
       method:'POST',
       body: JSON.stringify({group_id: group_id}),
     })
     let data = await lessonslist.json()
-    console.log("---------------")
-   
     let lessons = {lessons:[{}]}
     let cab = {cab:[{}]}
     if(data.lesson != undefined){
@@ -138,13 +130,12 @@ const ScheduleTable = (data:any) => {
       })
     }
     setlessonmass(lessonmass)
-    console.log(lessonmass)
+
     const cabsass = await fetch("/api/jurnal/cab",{
       method:'POST',
       body: JSON.stringify({}),
     })
     data = await cabsass.json()
-    console.log("---------------")
 
     if(data != undefined){
       data.map((cabinet:any) => {
@@ -155,11 +146,11 @@ const ScheduleTable = (data:any) => {
     
     cab.cab.splice(0,1)
     setcabmass(cabmass)
-    console.log()
+
     setCabs(cab)
     setLessons2(lessons)
     setShowModal(true)
-    console.log(cabs)
+
   }
 
   const deleteLesson = async(id:any,lesson_number:any) =>{
@@ -460,9 +451,8 @@ const ScheduleModelperTeacher = ({date}:any) => {
       body: JSON.stringify({date:date}),
     })
     let data = await teachers.json()
-    console.log(data)
+
     await setTeachers(data)
-    console.log(teachers)
     setShowModal(modal)
   }
   
@@ -513,7 +503,7 @@ const ScheduleModelperTeacher = ({date}:any) => {
                             </td>
                             <td>
                             {teacher.lessons.map((lesson:any) =>{
-                                console.log(lesson)
+
                               if(lesson.lesson_number === 1){
                                 return(
                                   <>
@@ -527,7 +517,6 @@ const ScheduleModelperTeacher = ({date}:any) => {
                             </td>
                             <td>
                             {teacher.lessons.map((lesson:any) =>{
-                                console.log(lesson)
                               if(lesson.lesson_number === 2){
                                 return(
                                   <>
@@ -541,7 +530,6 @@ const ScheduleModelperTeacher = ({date}:any) => {
                             </td>
                             <td>
                             {teacher.lessons.map((lesson:any) =>{
-                                console.log(lesson)
                               if(lesson.lesson_number === 3){
                                 return(
                                   <>
@@ -555,7 +543,6 @@ const ScheduleModelperTeacher = ({date}:any) => {
                             </td>
                             <td>
                             {teacher.lessons.map((lesson:any) =>{
-                                console.log(lesson)
                               if(lesson.lesson_number === 4){
                                 return(
                                   <>
@@ -569,7 +556,6 @@ const ScheduleModelperTeacher = ({date}:any) => {
                             </td>
                             <td>
                             {teacher.lessons.map((lesson:any) =>{
-                                console.log(lesson)
                               if(lesson.lesson_number === 5){
                                 return(
                                   <>
@@ -583,7 +569,6 @@ const ScheduleModelperTeacher = ({date}:any) => {
                             </td>
                             <td>
                             {teacher.lessons.map((lesson:any) =>{
-                                console.log(lesson)
                               if(lesson.lesson_number === 6){
                                 return(
                                   <>

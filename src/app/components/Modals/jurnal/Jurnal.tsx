@@ -47,12 +47,10 @@ const JurnalModal = (lessons: any) => {
       if(lesson ==="Выберите предмет"){
       }else{
         setLesson(lesson);
-        console.log("точка входа")
         const groups2 = await getgrouplist(teacher_id,lessonmass.get(lesson))
         if(groups2!=undefined){
           setGroups(groups2)
         }
-        console.log("точка выхода")
         
         
       } 
@@ -74,8 +72,6 @@ const JurnalModal = (lessons: any) => {
         if(date != undefined){
           setDate(date)
         }
-        console.log("группа")
-        console.log(assessmentgroup)
 
       } 
     }catch(err){
@@ -84,7 +80,6 @@ const JurnalModal = (lessons: any) => {
   }
   const giveModal= async(date_id: any,student_id: any,student_name:any,date:any) =>{
     try {
-      console.log(student_name)
       setassessmentStudent({assessments: []});
       setstudentName(student_name);
       setstudentId(student_id)
@@ -125,8 +120,6 @@ const JurnalModal = (lessons: any) => {
   const createassesment = async(number:any) =>{
     try {
       setShowmodal(false); 
-      console.log("d")
-      console.log(number,studentid,dateid);
       await CreateAssesment2(number,studentid,dateid)
       const assessmentgroup = await Getassessmentgroup(teacher_id,lessonmass.get(lesson),groupmass.get(group))
         setShowtable(true)
@@ -199,7 +192,6 @@ const JurnalModal = (lessons: any) => {
                   <tr>
                   <td>{student.full_name}</td>
                    {date.map((date:any) => {
-                      console.log(date)
                      return(
                         <> 
                         <td>
@@ -285,8 +277,6 @@ const JurnalModal = (lessons: any) => {
                    <label>оценки</label>
                    </div>
                    {assessmentStudent.assessments ? (assessmentStudent.assessments.map((data:any) => {
-                     console.log("циферки")
-                     console.log(data)
                      return(
                         <> 
                           <button type="button" onClick={() => deleteassesment(data.id)} className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-3 px-3 border border-gray-400 rounded shadow">          

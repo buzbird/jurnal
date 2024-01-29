@@ -16,19 +16,15 @@ const ScheduleTeacher = ({teacher_id}:any) => {
   const [groupmass,setgroupmass] =useState(new Map()) ;
   const checktable = async()=>{
     setTables([{}])
-    console.log(date,groupmass.get(group))
     const lessons2 = await getLessonsTeachers(date,teacher_id)
     if(lessons2 !=undefined){
       setTables(lessons2)
     }
-    console.log(lessons2)
     await setTable(true)
-    await console.log(table)
   }
   const changDate = async(date:any)=>{
     setDate(new Date(date))
     const lessons2 = await getLessonsTeachers(date,teacher_id)
-    console.log(lessons2)
     setTables(lessons2)
     await setTable(true)
   }

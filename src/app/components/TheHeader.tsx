@@ -22,7 +22,6 @@ export default async function TheHeader(){
     }else{
         data = await getHeader(session)
     }
-    console.log(data)
     return (
             <>
             <header className='top-menu'>
