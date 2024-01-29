@@ -81,7 +81,9 @@
  body {
      background-color: black;
  }
-
+ table.tab,table.tab td, table.tab th {
+	border: 5px solid black;
+}
  table.tab{
     border-spacing: 5px;
     color: white;
@@ -91,17 +93,14 @@
     border-radius: 10px;
     background-color: black;
 }
-table.tab,table.tab td, table.tab th {
-	border: px solid black;
-}
+
 table.tab td,table.tab th {
 	padding: 10px;
     height: 20px;
-    /*background: #39383d;*/
-    border-radius: 5px
+    border-radius: 5px;
 }
 table.tab th {
-	background: #347c99; 
+    background: #39383d;
 	color: #fff;
 }
 .hdg {
@@ -136,6 +135,7 @@ input{
     background-color: rgba(255,255,255,0.07);
     border-radius: 3px;
     padding: 0 10px;
+    color: white;
     margin-top: 8px;
     font-size: 14px;
     font-weight: 300;
