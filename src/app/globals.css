@@ -3,7 +3,7 @@
  @tailwind utilities;
  @import url('https://fonts.googleapis.com/css?family=Arimo');
  .top-menu {
-   background: #ffffff;
+   background: #f2f2f7;
    padding: 20px;
    border-radius: 15px;
  }

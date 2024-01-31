@@ -141,8 +141,8 @@ const ScheduleStudent = (data:any) => {
                         <>
                         <tr >
                           <td className="pn">{i}</td>
-                          <td></td>
-                          <td></td>
+                          <td>-</td>
+                          <td>-</td>
                         </tr>
                         </>
                       )
