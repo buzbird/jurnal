@@ -17,7 +17,7 @@ const ScheduleStudent = (data:any) => {
   const checktable = async(groups:any)=>{
     const lessons2 = await fetch("/api/student/jurnal/",{
       method:'POST',
-      body: JSON.stringify({date:date,group_id:groupmass.get(groups)}),
+      body: JSON.stringify({date:new Date(date),group_id:groupmass.get(groups)}),
     })
     let data = await lessons2.json()
     if(data!=undefined){
@@ -25,17 +25,18 @@ const ScheduleStudent = (data:any) => {
     }
     await setTable(true)
   }
-  const changDate = async(date:any)=>{
+  const changDate = async(date2:any)=>{
     let lessons2 = undefined;
-    setDate(new Date(date))
+    
+    await setDate(new Date(date2))
     if(groupmass.get(group) == undefined){
       lessons2 = [{}]
     }else{
       data = await fetch("/api/student/jurnal/",{
         method:'POST',
-        body: JSON.stringify({date:date,group_id:groupmass.get(group)}),
+        body: JSON.stringify({date:new Date(date2),group_id:groupmass.get(group)}),
       })
-      lessons2 = data.json()
+      lessons2 = await data.json()
     }
     if(lessons2!= undefined){
       setTables(lessons2)
@@ -44,13 +45,14 @@ const ScheduleStudent = (data:any) => {
   }
   const changeGroup = async(group:any)=>{
     await setgroup(group)
+    console.log(date)
     await checktable(group)
     await setTable(true)
   }
   return (
     <>
       <input type="date" onChange={(e)=> changDate(e.target.value)} />
-      <input type='search' list="groups" onChange={(e)=> changeGroup(e.target.value)} placeholder="выберите предмет" className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
+      <input type='search' list="groups" onChange={(e)=> changeGroup(e.target.value)} placeholder="выберите группу"/>
       <datalist id="groups">
           <>
           {data.data.map((group:any,index:any)=> {
