@@ -14,9 +14,8 @@ const ScheduleStudent = (data:any) => {
   const [table,setTables] = useState([{}])
   const [groupmass,setgroupmass] =useState(new Map()) ;
   const m = [1,2,3,4,5,6]
-  console.log(date)
   const checktable = async(groups:any)=>{
-    let date2 = new Date(date)
+    let date2 = new Date(date.toISOString().slice(0,10))
     const lessons2 = await fetch("/api/student/jurnal/",{
       method:'POST',
       body: JSON.stringify({date:date2,group_id:groupmass.get(groups)}),
@@ -51,7 +50,7 @@ const ScheduleStudent = (data:any) => {
   }
   return (
     <>
-      <input type="date" onChange={(e)=> changDate(e.target.value)} />
+      <input type="date" value={date.toISOString().slice(0,10)} onChange={(e)=> changDate(e.target.value)} />
       <input type='search' list="groups" onChange={(e)=> changeGroup(e.target.value)} placeholder="выберите группу"/>
       <datalist id="groups">
           <>
