@@ -43,7 +43,7 @@ function Stateinday({month,dateoflessons}:any){
             let count = 0;
           dateoflessons.map((dateoflesson:any)=>{
             if(new Date(dateoflesson.date).getDate()=== date.getDate()){
-              count = dateoflesson.count
+              count += 1
             }
           })
           if(count == 0){
@@ -90,10 +90,20 @@ function Itog({month,data}:any){
       <td className='pn'>итого</td>
       <td className='pn'>{a}</td>
       {
-        dates.map((date:any) =>{
+        dates.map((date2:any) =>{
+          let k =0;
+          data.map((data:any) => {
+            if(data.group.is_y){}else{
+              data.dateoflessons.map((date:any) => {
+                if(new Date(date.date).getDate()=== new Date(date2).getDate()){
+                 k+=2
+                }
+              })
+            }
+          })
           return(
             <>
-            <td className='pn'></td>
+            <td className='pn'>{k}</td>
             </>
           )
         })
