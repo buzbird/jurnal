@@ -14,10 +14,12 @@ const ScheduleStudent = (data:any) => {
   const [table,setTables] = useState([{}])
   const [groupmass,setgroupmass] =useState(new Map()) ;
   const m = [1,2,3,4,5,6]
+  console.log(date)
   const checktable = async(groups:any)=>{
+    let date2 = new Date(date)
     const lessons2 = await fetch("/api/student/jurnal/",{
       method:'POST',
-      body: JSON.stringify({date:new Date(date),group_id:groupmass.get(groups)}),
+      body: JSON.stringify({date:date2,group_id:groupmass.get(groups)}),
     })
     let data = await lessons2.json()
     if(data!=undefined){
@@ -45,9 +47,7 @@ const ScheduleStudent = (data:any) => {
   }
   const changeGroup = async(group:any)=>{
     await setgroup(group)
-    console.log(date)
     await checktable(group)
-    await setTable(true)
   }
   return (
     <>
@@ -64,7 +64,6 @@ const ScheduleStudent = (data:any) => {
           </>
       </datalist>
       {tableviews ? (
-        <>
         <table className="tab">
                     <thead>
                       <tr>
@@ -92,16 +91,16 @@ const ScheduleStudent = (data:any) => {
                       if(rowspanx == 2){
                         return(
                           <>
-                           {table.map((lesson:any)=>{
+                           {table.map((lesson:any,index:any)=>{
                              if(i == lesson.lesson_number){
                               return(
                                 <>
-                                <tr>
+                                <tr key={index}>
                                   <td rowSpan={rowspanx} className="pn">{i}</td>
                                   <td className="dsc">{lesson.specialization?.specialization?.lesson_name}</td>
                                   <td rowSpan={rowspanx} className="cab">{lesson.cabinet?.number}</td>
                                 </tr>
-                                <tr>
+                                <tr  key={index+1}>
                                   <td className="prepod">{lesson.specialization?.teacher?.user?.full_name}</td>
                                 </tr>
                                 </>
@@ -143,7 +142,7 @@ const ScheduleStudent = (data:any) => {
                       }
                       return(
                         <>
-                        <tr>
+                        <tr >
                           <td className="pn">{i}</td>
                           <td></td>
                           <td></td>
@@ -154,7 +153,6 @@ const ScheduleStudent = (data:any) => {
                       
                     </tbody>
                   </table>
-        </>
       ):null}
     </>
   );
