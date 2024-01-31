@@ -90,8 +90,7 @@ const ScheduleStudent = (data:any) => {
                       }
                       if(rowspanx == 2){
                         return(
-                          <>
-                           {table.map((lesson:any,index:any)=>{
+                          table.map((lesson:any,index:any)=>{
                              if(i == lesson.lesson_number){
                               return(
                                 <>
@@ -108,8 +107,7 @@ const ScheduleStudent = (data:any) => {
                               )
                              }
                             })
-                          }
-                          </>
+                          
                         )
                       }
                       if(rowspanx == 5){
