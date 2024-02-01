@@ -6,7 +6,7 @@ const Schedule = async() => {
     return (
       <>
       <div>
-        <ScheduleTeacher teacher_id={1}/> 
+        <ScheduleTeacher teacher_id={38}/> 
       </div>
       </>
     )

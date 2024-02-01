@@ -78,8 +78,18 @@ export default async function TheHeader(){
             </>
             )
         })}
-                <li className="menu-item"><Link href="/schedule/student">расписание</Link></li>
-        {log ? (<li className="menu-item"><Link href="/auth/signin">войти</Link></li>):(<li className="menu-item"><Link href="/auth/signout">выйти</Link></li>)}
+        {data.map((data:any)=>{
+            return(<>
+            {data.permission.map((permission:any,index:any)=>{
+                if (permission.permission_id == 5){
+                    return (<li key={index} className="menu-item"><Link href="/Admin/">студентов</Link></li>);
+            }
+        })}
+            </>
+            )
+        })}
+                <li className="menu-item"><Link href="/schedule/student">Расписание</Link></li>
+        {log ? (<li className="menu-item"><Link href="/auth/signin">Войти</Link></li>):(<li className="menu-item"><Link href="/auth/signout">Выйти</Link></li>)}
         </ul>
     </header>
             </>
