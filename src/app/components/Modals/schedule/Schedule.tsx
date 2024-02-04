@@ -229,6 +229,7 @@ const ScheduleTable = (data:any) => {
         <div>
           <ScheduleModelperCab date={date}/>
           <ScheduleModelperTeacher date={date}/>
+          <ScheduleModelperGroup date={date}/>
           <div className="flex">
             <div>
                 {data.data.map((group:any,index:any) => {
@@ -825,6 +826,89 @@ const ScheduleModelperCab = ({date}:any) => {
                           </tr>
                           </>
                         );
+                      })}
+                  </tbody>
+                </table>
+                </div>
+                </div>
+                <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+
+                  <button
+                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    закрыть
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : null}
+    </>
+  );
+};
+const ScheduleModelperGroup = ({date}:any) => {
+  const [showModal, setShowModal] = useState(false);
+  const [cabmass,setcabmasss] =useState(new Map()) ;
+  const [groups,setCabs] = useState([{}])
+  const getgroups =async(modal:any)=>{
+    const groups = await fetch("/api/jurnal/group/",{
+        method:'POST',
+        body: JSON.stringify({date:date}),
+      })
+    let data = await groups.json()
+    await setCabs(data)
+    setShowModal(modal)
+  }
+  
+  return (
+    <>
+      <button
+        className="bg-blue-200 text-black active:bg-blue-500 
+      font-bold px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+        type="button"
+        onClick={() => getgroups(true)}
+      >
+        показать по кабинетам
+      </button>
+      {showModal ? (
+        <>
+          <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+            <div className="relative w-auto my-6 mx-auto ">
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t ">
+                  <h3 className="text-3xl font=semibold">расписание по кабинетам</h3>
+                  <button
+                    className="bg-transparent border-0 text-black float-right"
+                    onClick={() => setShowModal(false)}
+                  >
+                  </button>
+                </div>
+                <div className="relative p-6 flex-auto">
+                <div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Кабинеты</th>
+                      <th>1</th>
+                      <th>2</th>
+                      <th>3</th>
+                      <th>4</th>
+                      <th>5</th>
+                      <th>6</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      {groups.map((group:any,index:any)=>{
+                        return(
+                          <>
+                          <tr>
+                            {group.group}
+                          </tr>
+                          </>
+                        )
                       })}
                   </tbody>
                 </table>
