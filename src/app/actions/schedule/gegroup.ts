@@ -1,13 +1,13 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import { getCab,getCab2 } from "@/db/fetch"
+import { getCab,getGroup2 } from "@/db/fetch"
 
 
 export const getgroup = async(date:any) =>{
     revalidatePath("/schedule")
     let cabs1= {cab:[{}]};
     try{
-        const cab = await getCab2(date)
+        const cab = await getGroup2(date)
         cabs1 = {cab:cab}
         revalidatePath("/schedule")
       }catch(err){

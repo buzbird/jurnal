@@ -494,7 +494,7 @@ export async function getGroup2(date:any) {
     },
     
     orderBy:[
-      {cabinet_number: 'asc'},{specialization:{group:{group_name:'asc'}}},{lesson_number:'asc'},
+      {id: 'asc'},{specialization:{group:{group_name:'asc'}}},{lesson_number:'asc'},
     ]
   }
   )
