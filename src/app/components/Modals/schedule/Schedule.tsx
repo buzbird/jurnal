@@ -69,6 +69,7 @@ const ScheduleTable = (data:any) => {
     cab.cab.splice(0,1)
     setcabmass(cabmass)
     setLesson(lesson.specialization?.specialization?.lesson_name)
+    setlesson_number(lesson.lesson_numbers)
     setCabinet(lesson.cabinet?.number)
     setCabs(cab)
     setLessons2(lessons)
