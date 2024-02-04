@@ -466,6 +466,40 @@ export async function getCab2(date:any) {
   )
   return data
 }
+export async function getGroup2(date:any) {
+  const data = await prisma.dateOfLessons.findMany({
+    where:{
+      date:new Date(date),
+    },
+    select:{
+      cabinet:{
+        select:{
+          number:true
+        }
+      },
+      specialization:{
+        include:{
+          specialization:{
+            select:{
+              lesson_name:true
+            }
+          },
+          group:{
+            select:{group_name:true}
+          }
+        }
+      },
+      lesson_number: true,
+      cabinet_number: true,
+    },
+    
+    orderBy:[
+      {cabinet_number: 'asc'},{specialization:{group:{group_name:'asc'}}},{lesson_number:'asc'},
+    ]
+  }
+  )
+  return data
+}
 export async function getTeacher2(date:any) {
   const data = await prisma.dateOfLessons.findMany({
     where:{
