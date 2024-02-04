@@ -269,7 +269,7 @@ const ScheduleTable = (data:any) => {
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t ">
-                  <h3 className="text-3xl font=semibold">{group}</h3>
+                  <h3 className="text-3xl font=semibold"></h3>
                   <button
                     className="bg-transparent border-0 text-black float-right"
                     onClick={() => setModal(false)}
@@ -280,9 +280,9 @@ const ScheduleTable = (data:any) => {
                 <form className="bg-gray-200 shadow-md rounded px-8 pt-6 pb-8 w-full">
 
                   <div>
-                    
-                  <input type='number' value={lesson_number} onChange={(e)=> setLesson(e.target.value)} placeholder="выберите предмет" className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
-                  <input type='search' list="lessons" onChange={(e)=> setLesson(e.target.value)} placeholder="выберите предмет" className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
+                  <label>номер пары</label>
+                  <input type='number' value={lesson_number} onChange={(e)=> setlesson_number(Number(e.target.value))} placeholder="выберите предмет" className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
+                  <input type='search' value={lesson} list="lessons" onChange={(e)=> setLesson(e.target.value)} placeholder="выберите предмет" className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
                   <datalist id="lessons">
                       <>
                       {lesson2.lessons.map((lesson:any,index:any) => {
@@ -293,7 +293,7 @@ const ScheduleTable = (data:any) => {
                       })}
                       </>
                   </datalist>
-                  <input type='search' list="cab" onChange={(e)=> setCabinet(e.target.value)} placeholder="свободные кабинеты" className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
+                  <input type='search' list="cab" value={cabinet} onChange={(e)=> setCabinet(e.target.value)} placeholder="свободные кабинеты" className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
                   <datalist id="cab">
                   <>
                       {cabs.cab.map((cab:any,index:any) => {
