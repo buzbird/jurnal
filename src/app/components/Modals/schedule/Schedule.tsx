@@ -229,21 +229,18 @@ const ScheduleTable = (data:any) => {
         <div>
           <ScheduleModelperCab date={date}/>
           <ScheduleModelperTeacher date={date}/>
-          <div>{group}</div>
-          <input type='search' list="groups" placeholder="Выберите группу" onChange={(e)=> handleGroup(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
-          <datalist id="groups">
-            <> 
-            {data.data.map((group:any,index:any) => {
+          <div className="flex">
+            <div>
+              {data.data.map((group:any,index:any) => {
                     groupmass.set(`${group.group_name}`,group.id)
             return (
-                <option key={index}>{group?.group_name} </option>
-
+                <div key={index}><button onClick={()=> handleGroup(group?.group_name)}>{group?.group_name}</button></div>
             );
             })}
-            </>
-        </datalist>
-        </div>
-        <table >
+            </div>
+          </div>
+            <div>
+            <table >
                     <thead>
                       <tr>
                         <th>
@@ -309,6 +306,9 @@ const ScheduleTable = (data:any) => {
                       
                     </tbody>
                   </table>
+            </div>
+        </div>
+        
         </>
       ):null
 
