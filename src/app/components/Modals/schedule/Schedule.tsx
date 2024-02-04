@@ -239,9 +239,9 @@ const ScheduleTable = (data:any) => {
             })}
             </div>
             <div>
-            <table >
+            <table  className="border-2">
                     <thead>
-                      <tr>
+                      <tr className="border-2">
                         <th>
                           номер пары
                         </th>
@@ -260,7 +260,7 @@ const ScheduleTable = (data:any) => {
                         })
                         return(
                           <>
-                          <tr>
+                          <tr className="border-2">
                             <td rowSpan={rowspanx}>
                               {i}
                             </td>
@@ -269,7 +269,7 @@ const ScheduleTable = (data:any) => {
                           if(i==lesson.lesson_number){
                           return(
                             <>
-                            <tr>
+                            <tr className="border-2">
                               <td><button
                               className="bg-blue-200 text-black active:bg-blue-500 
                             font-bold px-3 py-1 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
@@ -288,7 +288,7 @@ const ScheduleTable = (data:any) => {
                           )
                           }
                         })}
-                        <tr>
+                        <tr className="border-2">
                           <td>
                           <button
                           className="bg-blue-200 text-black active:bg-blue-500 
