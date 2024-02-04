@@ -282,7 +282,7 @@ const ScheduleTable = (data:any) => {
                   <div>
                   <label>номер пары</label>
                   <input type='number' value={lesson_number} onChange={(e)=> setlesson_number(Number(e.target.value))} placeholder="выберите предмет" className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
-                  <input type='search' value={lessonmodaldelete.specialization?.specialization?.lesson_name} list="lessons" onChange={(e)=> setLesson(e.target.value)} placeholder="выберите предмет" className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
+                  <input type='search' placeholder={lessonmodaldelete.specialization?.specialization?.lesson_name} list="lessons" onChange={(e)=> setLesson(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
                   <datalist id="lessons">
                       <>
                       {lesson2.lessons.map((lesson:any,index:any) => {
@@ -292,7 +292,7 @@ const ScheduleTable = (data:any) => {
                       })}
                       </>
                   </datalist>
-                  <input type='search' list="cab" value={lessonmodaldelete.cabinet?.number} onChange={(e)=> setCabinet(e.target.value)} placeholder="свободные кабинеты" className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
+                  <input type='search' list="cab" placeholder={lessonmodaldelete.cabinet?.number} onChange={(e)=> setCabinet(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
                   <datalist id="cab">
                   <>
                       {cabs.cab.map((cab:any,index:any) => {
