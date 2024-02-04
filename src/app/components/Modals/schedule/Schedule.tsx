@@ -167,8 +167,8 @@ const ScheduleTable = (data:any) => {
     setModal(false)
     setlessons(data)
   }
-  const updateDateLesson = async() =>{
-    console.log("обновляем")
+  const updateDateLesson = async(id:any) =>{
+    console.log(id)
   }
   return (
     <>
@@ -288,7 +288,6 @@ const ScheduleTable = (data:any) => {
                       {lesson2.lessons.map((lesson:any,index:any) => {
                       return (
                           <option key={index}>{lesson.lesson_name}</option>
-
                       );
                       })}
                       </>
@@ -325,7 +324,7 @@ const ScheduleTable = (data:any) => {
                   <button
                     className="text-white bg-yellow-500 active:bg-yellow-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
                     type="button"
-                    onClick={() => updateDateLesson()}
+                    onClick={() => updateDateLesson(lessonmodaldelete.id)}
                   >
                     обновить
                   </button>
