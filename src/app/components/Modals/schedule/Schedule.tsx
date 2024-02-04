@@ -203,7 +203,7 @@ const ScheduleTable = (data:any) => {
     setlessons(data)
   }
   const updateDateLesson = async(id:any,) =>{
-    console.log(id)
+    console.log(id,lesson,cabinet)
   }
   return (
     <>
