@@ -167,6 +167,9 @@ const ScheduleTable = (data:any) => {
     setModal(false)
     setlessons(data)
   }
+  const updateDateLesson = async() =>{
+    console.log("обновляем")
+  }
   return (
     <>
       <input type="date" onChange={(e)=> changDate(e.target.value)} />
@@ -274,16 +277,35 @@ const ScheduleTable = (data:any) => {
                   </button>
                 </div>
                 <div className="relative p-6 flex-auto">
-                <div>
-                   вы точно хотите удалить?
-                <div>
-                  {lessonmodaldelete.specialization?.specialization?.lesson_name}
-              </div>
-              <div>
-                <span>{lessonmodaldelete.specialization?.teacher?.user?.full_name}</span>
-                <span>{lessonmodaldelete.cabinet?.number}</span>
-              </div>
-                </div>
+                <form className="bg-gray-200 shadow-md rounded px-8 pt-6 pb-8 w-full">
+
+                  <div>
+                    
+                  <input type='number' value={} onChange={(e)=> setLesson(e.target.value)} placeholder="выберите предмет" className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
+                  <input type='search' list="lessons" onChange={(e)=> setLesson(e.target.value)} placeholder="выберите предмет" className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
+                  <datalist id="lessons">
+                      <>
+                      {lesson2.lessons.map((lesson:any,index:any) => {
+                      return (
+                          <option key={index}>{lesson.lesson_name}</option>
+
+                      );
+                      })}
+                      </>
+                  </datalist>
+                  <input type='search' list="cab" onChange={(e)=> setCabinet(e.target.value)} placeholder="свободные кабинеты" className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
+                  <datalist id="cab">
+                  <>
+                      {cabs.cab.map((cab:any,index:any) => {
+                      return (
+                          <option key={index}>{cab}</option>
+
+                      );
+                      })}
+                      </>
+                  </datalist>
+                  </div>
+                </form>
                 </div>
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
 
@@ -299,6 +321,13 @@ const ScheduleTable = (data:any) => {
                     type="button"
                     onClick={() =>   deleteLesson(lessonmodaldelete.id,lessonmodaldelete.lesson_number)}>
                     удалить
+                  </button>
+                  <button
+                    className="text-white bg-yellow-500 active:bg-yellow-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                    type="button"
+                    onClick={() => updateDateLesson()}
+                  >
+                    обновить
                   </button>
                 </div>
               </div>
