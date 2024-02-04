@@ -871,7 +871,7 @@ const ScheduleModelperGroup = ({date}:any) => {
         type="button"
         onClick={() => getgroups(true)}
       >
-        показать по кабинетам
+        показать по группам
       </button>
       {showModal ? (
         <>
@@ -907,6 +907,60 @@ const ScheduleModelperGroup = ({date}:any) => {
                           <>
                           <tr>
                             <td>{group.group}</td>
+                            <td>{group.lessons.map((lesson:any, index2:any)=>{
+                              if(lesson.lesson_number == 1 ){
+                                return(<>
+                                  <div>
+                                    {lesson.lesson_name}({lesson.cabinet})
+                                  </div>
+                                </>)
+                              }
+                            })}</td>
+                            <td>{group.lessons.map((lesson:any, index2:any)=>{
+                              if(lesson.lesson_number == 2 ){
+                                return(<>
+                                  <div>
+                                    {lesson.lesson_name}({lesson.cabinet})
+                                  </div>
+                                </>)
+                              }
+                            })}</td>
+                            <td>{group.lessons.map((lesson:any, index2:any)=>{
+                              if(lesson.lesson_number == 3 ){
+                                return(<>
+                                  <div>
+                                    {lesson.lesson_name}({lesson.cabinet})
+                                  </div>
+                                </>)
+                              }
+                            })}</td>
+                            <td>{group.lessons.map((lesson:any, index2:any)=>{
+                              if(lesson.lesson_number == 4 ){
+                                return(<>
+                                  <div>
+                                    {lesson.lesson_name}({lesson.cabinet})
+                                  </div>
+                                </>)
+                              }
+                            })}</td>
+                            <td>{group.lessons.map((lesson:any, index2:any)=>{
+                              if(lesson.lesson_number == 5 ){
+                                return(<>
+                                  <div>
+                                    {lesson.lesson_name}({lesson.cabinet})
+                                  </div>
+                                </>)
+                              }
+                            })}</td>
+                            <td>{group.lessons.map((lesson:any, index2:any)=>{
+                              if(lesson.lesson_number == 6 ){
+                                return(<>
+                                  <div>
+                                    {lesson.lesson_name}({lesson.cabinet})
+                                  </div>
+                                </>)
+                              }
+                            })}</td>
                           </tr>
                           </>
                         )
