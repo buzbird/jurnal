@@ -8,7 +8,11 @@ import { getLessonfromDate } from "@/app/actions/schedule/getLessonfromDate";
 import { lessonsfromgroup } from "@/app/actions/schedule/lessonsfromgroup";
 import React, { useState } from "react";
 const ScheduleStudent = (data:any) => {
+  
+
   const [date, setDate] = useState(new Date());
+  const startDate = new Date(date.getFullYear(), date.getMonth(), 2);
+  const endDate = new Date(date.getFullYear(), date.getMonth() + 1, 5);
   const [tableviews,setTable] = useState(false)
   const [group,setgroup] =useState("") ;
   const [table,setTables] = useState([{}])
@@ -28,8 +32,13 @@ const ScheduleStudent = (data:any) => {
   }
   const changDate = async(date2:any)=>{
     let lessons2 = undefined;
+    console.log(new Date(date2) < new Date())
+    if(new Date(date2) < new Date()){
+      await setDate(new Date())
+    }else{
+      await setDate(new Date(date2))
+    }
     
-    await setDate(new Date(date2))
     if(groupmass.get(group) == undefined){
       lessons2 = [{}]
     }else{
@@ -50,8 +59,8 @@ const ScheduleStudent = (data:any) => {
   }
   return (
     <>
-      <input type="date" value={date.toISOString().slice(0,10)} onChange={(e)=> changDate(e.target.value)} />
-      <input type='search' list="groups" onChange={(e)=> changeGroup(e.target.value)} placeholder="выберите группу"/>
+      <input type="date" name="party" min={startDate.toISOString().slice(0,10)}  max={endDate.toISOString().slice(0,10)}    value={date.toISOString().slice(0,10)} onChange={(e)=> changDate(e.target.value)} required/>
+      <input type='search'  list="groups" onChange={(e)=> changeGroup(e.target.value)} placeholder="выберите группу"/>
       <datalist id="groups">
           <>
           {data.data.map((group:any,index:any)=> {

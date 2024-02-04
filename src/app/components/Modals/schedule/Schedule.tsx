@@ -164,6 +164,7 @@ const ScheduleTable = (data:any) => {
       body: JSON.stringify({date:date,group_id:group_id,lesson_number:lesson_number}),
     })
     let data =await lessons2.json()
+    setModal(false)
     setlessons(data)
   }
   return (
@@ -769,13 +770,6 @@ const ScheduleModelperCab = ({date}:any) => {
   );
 };
 
-const ScheduleModel = ({lesson_number,group,date}:any) => {
-
-
- 
-
- 
-};
 
 export default ScheduleTable;
 
