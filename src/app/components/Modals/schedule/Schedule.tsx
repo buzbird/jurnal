@@ -205,7 +205,12 @@ const ScheduleTable = (data:any) => {
     setlessons(data)
   }
   const updateDateLesson = async(id:any,) =>{
-    console.log(id,lesson_number,lesson,cabinet)
+    let les= await lessonmass.get(lesson)
+    let cab = await cabmass.get(cabinet)
+    await fetch("/api/jurnal/getlesson2/update/",{
+      method:'POST',
+      body: JSON.stringify({id:id,lesson_number:lesson_number,lesson:les,cab:cab}),
+    })
   }
   return (
     <>

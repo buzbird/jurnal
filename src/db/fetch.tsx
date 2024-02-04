@@ -581,6 +581,19 @@ export async function getLessonId(group_id:any,lesson_name:any) {
   )
   return data
 }
+export async function UpdateLessonsSchedule(id:any, lesson_number:any, lesson:any, cab:any) {
+  const data = await prisma.dateOfLessons.update({
+    where:{
+     id:Number(id) 
+    },
+    data:{
+      lesson_number: Number(lesson_number),
+      lesson_id: Number(lesson),
+      cabinet_number:Number(cab)
+    }
+  }
+  )
+}
 export async function DeleteLessonsSchedule(id:any) {
   const data = await prisma.dateOfLessons.delete({
     where:{

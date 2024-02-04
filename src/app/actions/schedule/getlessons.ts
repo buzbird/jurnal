@@ -1,6 +1,6 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import { getLessons,DeleteLessonsSchedule } from "@/db/fetch"
+import { getLessons,DeleteLessonsSchedule,UpdateLessonsSchedule } from "@/db/fetch"
 
 export const getLessons2 = async(date:any,group_id:any) =>{
     revalidatePath('/api/schedule/getLessons/')
@@ -13,10 +13,10 @@ export const getLessons2 = async(date:any,group_id:any) =>{
     }
 
 }
-export const UpdateLessons = async(id:any) =>{
+export const UpdateLessons = async(id:any, lesson_number:any, lesson:any, cab:any) =>{
   revalidatePath('/schedule')
   try{
-    const data = await DeleteLessonsSchedule(id)
+    const data = await UpdateLessonsSchedule(id, lesson_number, lesson,cab)
       revalidatePath('/schedule')
     }catch(err){
       console.log(err);
