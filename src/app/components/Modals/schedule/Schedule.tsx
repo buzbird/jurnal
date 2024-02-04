@@ -281,7 +281,7 @@ const ScheduleTable = (data:any) => {
 
                   <div>
                     
-                  <input type='number' value={} onChange={(e)=> setLesson(e.target.value)} placeholder="выберите предмет" className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
+                  <input type='number' value={lesson_number} onChange={(e)=> setLesson(e.target.value)} placeholder="выберите предмет" className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
                   <input type='search' list="lessons" onChange={(e)=> setLesson(e.target.value)} placeholder="выберите предмет" className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
                   <datalist id="lessons">
                       <>
@@ -353,7 +353,7 @@ const ScheduleTable = (data:any) => {
                 <form className="bg-gray-200 shadow-md rounded px-8 pt-6 pb-8 w-full">
 
                   <div>
-                  1 урок
+                   {lesson_number}  урок
                   <input type='search' list="lessons" onChange={(e)=> setLesson(e.target.value)} placeholder="выберите предмет" className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
                   <datalist id="lessons">
                       <>
