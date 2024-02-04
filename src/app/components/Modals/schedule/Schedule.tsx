@@ -68,7 +68,8 @@ const ScheduleTable = (data:any) => {
     
     cab.cab.splice(0,1)
     setcabmass(cabmass)
-
+    setLesson(lesson.specialization?.specialization?.lesson_name)
+    setCabinet(lesson.cabinet?.number)
     setCabs(cab)
     setLessons2(lessons)
     setlessonmodaldelete(lesson)
@@ -315,7 +316,7 @@ const ScheduleTable = (data:any) => {
 
                   <div>
                   <label>номер пары</label>
-                  <input type='number' min={1} max={6} value={lessonmodaldelete.lesson_number} onChange={(e)=> setlesson_number(Number(e.target.value))} placeholder="выберите предмет" className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
+                  <input type='number' min={1} max={6} placeholder={String(lessonmodaldelete.lesson_number)} onChange={(e)=> setlesson_number(Number(e.target.value))} className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
                   <input type='search' placeholder={lessonmodaldelete.specialization?.specialization?.lesson_name} list="lessons" onChange={(e)=> setLesson(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
                   <datalist id="lessons">
                       <>
