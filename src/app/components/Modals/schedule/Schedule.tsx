@@ -902,10 +902,11 @@ const ScheduleModelperGroup = ({date}:any) => {
                   </thead>
                   <tbody>
                       {groups.map((group:any,index:any)=>{
+                        console.log(group)
                         return(
                           <>
                           <tr>
-                            {group.group}
+                            <td>{group.group}</td>
                           </tr>
                           </>
                         )
