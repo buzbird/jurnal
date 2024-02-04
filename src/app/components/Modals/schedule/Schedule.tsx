@@ -238,7 +238,6 @@ const ScheduleTable = (data:any) => {
             );
             })}
             </div>
-          </div>
             <div>
             <table >
                     <thead>
@@ -307,6 +306,8 @@ const ScheduleTable = (data:any) => {
                     </tbody>
                   </table>
             </div>
+          </div>
+            
         </div>
         
         </>
