@@ -231,12 +231,12 @@ const ScheduleTable = (data:any) => {
           <ScheduleModelperTeacher date={date}/>
           <div className="flex">
             <div>
-              {data.data.map((group:any,index:any) => {
-                    groupmass.set(`${group.group_name}`,group.id)
-            return (
-                <div key={index}><button onClick={()=> handleGroup(group?.group_name)}>{group?.group_name}</button></div>
-            );
-            })}
+                {data.data.map((group:any,index:any) => {
+                      groupmass.set(`${group.group_name}`,group.id)
+              return (
+                  <div key={index}><button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={()=> handleGroup(group?.group_name)}>{group?.group_name}</button></div>
+              );
+              })}
             </div>
             <div>
             <table  className="border-2">
