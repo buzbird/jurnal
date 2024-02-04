@@ -181,7 +181,7 @@ const ScheduleTable = (data:any) => {
     
     cab.cab.splice(0,1)
     setcabmass(cabmass)
-
+    setlesson_number(lesson_numbers)
     setCabs(cab)
     setLessons2(lessons)
     setShowModal(true)
