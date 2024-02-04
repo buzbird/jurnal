@@ -13,6 +13,15 @@ export const getLessons2 = async(date:any,group_id:any) =>{
     }
 
 }
+export const UpdateLessons = async(id:any) =>{
+  revalidatePath('/schedule')
+  try{
+    const data = await DeleteLessonsSchedule(id)
+      revalidatePath('/schedule')
+    }catch(err){
+      console.log(err);
+    }
+}
 export const DeleteLessons = async(id:any) =>{
     revalidatePath('/schedule')
     try{

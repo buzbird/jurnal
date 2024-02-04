@@ -37,6 +37,40 @@ const ScheduleTable = (data:any) => {
     setTable(true)
   }
   const setmodalDelete = async(lesson:any)=>{
+    let group_id = await  groupmass.get(group);
+    const lessonslist = await fetch("/api/jurnal/lessonfromgroup",{
+      method:'POST',
+      body: JSON.stringify({group_id: group_id}),
+    })
+    let data = await lessonslist.json()
+    let lessons = {lessons:[{}]}
+    let cab = {cab:[{}]}
+    if(data.lesson != undefined){
+      data.lesson.map((lesson:any) => {
+        lessonmass.set(`${lesson.specialization.lesson_name}`,lesson.id)
+        lessons.lessons.push(lesson.specialization)
+      })
+    }
+    setlessonmass(lessonmass)
+
+    const cabsass = await fetch("/api/jurnal/cab",{
+      method:'POST',
+      body: JSON.stringify({}),
+    })
+    data = await cabsass.json()
+
+    if(data != undefined){
+      data.map((cabinet:any) => {
+        cabmass.set(`${cabinet.number}`,cabinet.id)
+        cab.cab.push(cabinet.number)
+      })
+    }
+    
+    cab.cab.splice(0,1)
+    setcabmass(cabmass)
+
+    setCabs(cab)
+    setLessons2(lessons)
     setlessonmodaldelete(lesson)
     setModal(true)
   }
@@ -167,7 +201,7 @@ const ScheduleTable = (data:any) => {
     setModal(false)
     setlessons(data)
   }
-  const updateDateLesson = async(id:any) =>{
+  const updateDateLesson = async(id:any,) =>{
     console.log(id)
   }
   return (
@@ -193,7 +227,7 @@ const ScheduleTable = (data:any) => {
             </>
         </datalist>
         </div>
-        <table>
+        <table >
                     <thead>
                       <tr>
                         <th>
@@ -281,7 +315,7 @@ const ScheduleTable = (data:any) => {
 
                   <div>
                   <label>номер пары</label>
-                  <input type='number' value={lesson_number} onChange={(e)=> setlesson_number(Number(e.target.value))} placeholder="выберите предмет" className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
+                  <input type='number' min={1} max={6} value={lessonmodaldelete.lesson_number} onChange={(e)=> setlesson_number(Number(e.target.value))} placeholder="выберите предмет" className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
                   <input type='search' placeholder={lessonmodaldelete.specialization?.specialization?.lesson_name} list="lessons" onChange={(e)=> setLesson(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
                   <datalist id="lessons">
                       <>
