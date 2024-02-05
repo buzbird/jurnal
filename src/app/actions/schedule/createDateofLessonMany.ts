@@ -11,6 +11,7 @@ export const  createDateofLessonMany= async(lesson:any,group_id:any) =>{
               les_id = lesson2.id
             }
         })
+        console.log(les_id)
         await CreateDateOfLesson(les_id,lesson.lesson_number,lesson.date,lesson.cabinet_number)
         revalidatePath("/schedule")
       }catch(err){
