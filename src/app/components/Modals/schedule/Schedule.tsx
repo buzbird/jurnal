@@ -93,17 +93,19 @@ const ScheduleTable = (data:any) => {
     let data =await lessons2.json()
     setlessons(data)
   } 
-  const createDateLesson2= async() =>{
+  const createDateLesson2 = async() =>{
     try {
-      const lesson2 = await fetch("/api/jurnal/getlessonid2/",{
+      console.log(groupmass.get(group))
+      data = await fetch("/api/student/jurnal/",{
         method:'POST',
-        body: JSON.stringify({id:groupmass.get(group),lesson:lesson}),
+        body: JSON.stringify({date:new Date(date),group_id:groupmass.get(group)}),
       })
-      let data =await lesson2.json()
-      await fetch("/api/jurnal/createdateoflesson/",{
+      let lessons2 = await data.json()
+      await fetch("/api/jurnal/createdateoflessonmany/", {
         method:'POST',
-        body: JSON.stringify({id:data.lesson.id,lesson_number:lesson_number,date:date,cab:cabmass.get(cabinet)}),
+        body: JSON.stringify({lesson:lessons2,group_id: groupmass.get(group2)}),
       })
+      
       setshowModalgroup(false);
       setShowModal(true);
     }catch(err){
