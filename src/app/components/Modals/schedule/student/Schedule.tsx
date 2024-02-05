@@ -60,17 +60,16 @@ const ScheduleStudent = (data:any) => {
   return (
     <>
       <input type="date" name="party" min={startDate.toISOString().slice(0,10)}  max={endDate.toISOString().slice(0,10)}    value={date.toISOString().slice(0,10)} onChange={(e)=> changDate(e.target.value)} required/>
-      <input type='search'  list="groups" onChange={(e)=> changeGroup(e.target.value)} placeholder="выберите группу"/>
-      <datalist id="groups">
-          <>
-          {data.data.map((group:any,index:any)=> {
-            groupmass.set(`${group.group_name}`,group.id)
-            return(
-              <option key={index}>{group.group_name}</option>
-            );
-            })} 
-          </>
-      </datalist>
+      <div className="flex justify-center items-center">
+          <div>
+        <div className="flex flex-wrap">
+          {data.data.map((group:any,index:any) => {
+                      groupmass.set(`${group.group_name}`,group.id)
+              return (
+                  <div key={index} className="ml-2"><button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={()=> changeGroup(group?.group_name)}>{group?.group_name}</button></div>
+              );
+              })}
+        </div>
       {tableviews ? (
         <table className="tab">
                     <thead>
@@ -160,6 +159,8 @@ const ScheduleStudent = (data:any) => {
                     </tbody>
                   </table>
       ):null}
+          </div>
+      </div>
     </>
   );
 };
