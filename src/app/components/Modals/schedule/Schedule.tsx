@@ -332,8 +332,8 @@ const ScheduleTable = (data:any) => {
 
                     </tbody>
             </table>
-            <button onClick={()=> {addgroup(true)}} className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">скопировать по дате</button>
-            <button onClick={()=> {setshowModaldate(true)}} className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">скопировать в группу</button>
+            <button onClick={()=> {setshowModaldate(true)}} className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">скопировать по дате</button>
+            <button onClick={()=> {addgroup(true)}} className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">скопировать в группу</button>
             </div>
           </div>
             
@@ -547,7 +547,7 @@ const ScheduleTable = (data:any) => {
                   <h3 className="text-3xl font=semibold">выберите группу</h3>
                   <button
                     className="bg-transparent border-0 text-black float-right"
-                    onClick={() => setShowModal(false)}
+                    onClick={() => setshowModaldate(false)}
                   >
                   </button>
                 </div>
@@ -563,7 +563,7 @@ const ScheduleTable = (data:any) => {
                   <button
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
                     type="button"
-                    onClick={() => setshowModalgroup(false)}
+                    onClick={() => setshowModaldate(false)}
                   >
                     закрыть
                   </button>
