@@ -1,8 +1,9 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import { CreateDateOfLesson,getLessonFromGroup } from "@/db/fetch"
-export const  createDateofLessonMany= async(lesson:any,group_id:any) =>{
+export const  createDateofLessonMany= async(lesson:any,date:any,group_id:any) =>{
     try{
+      console.log(date)
         console.log("--------------------------------------")
         console.log("урок")
 
@@ -23,7 +24,7 @@ export const  createDateofLessonMany= async(lesson:any,group_id:any) =>{
             }
         })
         console.log(les_id)
-        await CreateDateOfLesson(les_id,lesson.lesson_number,lesson.date,lesson.cabinet_number)
+        await CreateDateOfLesson(les_id,lesson.lesson_number,date,lesson.cabinet_number)
         revalidatePath("/schedule")
       }catch(err){
         console.log(err);
