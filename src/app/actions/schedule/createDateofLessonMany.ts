@@ -7,8 +7,10 @@ export const  createDateofLessonMany= async(lesson:any,group_id:any) =>{
         const lessons = await getLessonFromGroup(group_id)
         let les_id = 0;
         lessons.map((lesson2:any)=>{
+          console.log(lesson.specialization.specialization.lesson_name== lesson2.specialization.specialization.lesson_name)
             if(lesson.specialization.specialization.lesson_name== lesson2.specialization.specialization.lesson_name){
-              les_id = lesson2.id
+              console.log(lesson2.specialization.id)
+              les_id = lesson2.specialization.id
             }
         })
         console.log(les_id)
