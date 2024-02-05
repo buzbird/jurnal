@@ -100,6 +100,7 @@ const ScheduleTable = (data:any) => {
         method:'POST',
         body: JSON.stringify({date:new Date(date),group_id:group_id}),
       })
+      console.log(group_id)
       let lessons2 = await data.json()
       group_id = await groupmass.get(group2)
       await fetch("/api/jurnal/createdateoflessonmany/", {
