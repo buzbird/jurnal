@@ -305,6 +305,8 @@ const ScheduleTable = (data:any) => {
                       
                     </tbody>
                   </table>
+            <button>1</button>
+            <button>2</button>
             </div>
           </div>
             
