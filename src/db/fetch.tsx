@@ -675,6 +675,12 @@ export async function GetAllStatemnt(teacher_id:any,group_id:any,lesson_id:any) 
   )
   return data
 }
+export async function CreateManydateOflessons(lesson:any){
+  const data = await prisma.user.createMany({
+    data:[lesson]
+  })
+  return data
+}
 export async function gatelessondateforteacher(date:any,teacher_id:any) {
   const data = await prisma.dateOfLessons.findMany({
     where:{

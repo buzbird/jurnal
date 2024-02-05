@@ -95,14 +95,14 @@ const ScheduleTable = (data:any) => {
   } 
   const createDateLesson2= async() =>{
     try {
-      const lesson2 = await fetch("/api/jurnal/getlessonid2/",{
+      data = await fetch("/api/student/jurnal/",{
         method:'POST',
-        body: JSON.stringify({id:groupmass.get(group2),lesson:lesson}),
+        body: JSON.stringify({date:new Date(date),group_id:groupmass.get(group)}),
       })
-      let data =await lesson2.json()
-      await fetch("/api/jurnal/createdateoflesson/",{
+      let lessons2 = await data.json()
+      await fetch("/api/jurnal/createdateoflessonmany/",{
         method:'POST',
-        body: JSON.stringify({id:data.lesson.id,lesson_number:lesson_number,date:date,cab:cabmass.get(cabinet)}),
+        body: JSON.stringify({lesson:lessons2}),
       })
       setshowModalgroup(false);
       setShowModal(true);
@@ -302,10 +302,10 @@ const ScheduleTable = (data:any) => {
                           </>
                         )
                       })}
-                      
+
                     </tbody>
-                  </table>
-            <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">скопировать по дате</button>
+            </table>
+            <button onClick={()=> {addgroup(true)}} className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">скопировать по дате</button>
             <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">скопировать в группу</button>
             </div>
           </div>
@@ -441,14 +441,6 @@ const ScheduleTable = (data:any) => {
                   >
                     закрыть
                   </button>
-
-                  <button
-                    className="text-white bg-yellow-500 active:bg-yellow-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                    onClick={() => addgroup(true)}
-                  >
-                    добавить группу
-                  </button>
                   <button
                     className="text-white bg-yellow-500 active:bg-yellow-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
                     type="button"
@@ -511,7 +503,7 @@ const ScheduleTable = (data:any) => {
                     type="button"
                     onClick={() => createDateLesson2()}
                   >
-                    добавить предмет
+                    добавить предметы
                   </button>
                 </div>
               </div>
