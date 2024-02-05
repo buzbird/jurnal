@@ -124,7 +124,7 @@ const ScheduleTable = (data:any) => {
       })
       console.log(group_id)
       let lessons2 = await data.json()
-      group_id = await groupmass.get(group2)
+      group_id = await groupmass.get(group)
       let date3 = await date2
       console.log(new Date(date3))
       await fetch("/api/jurnal/createdateoflessonmany/", {
