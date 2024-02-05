@@ -10,7 +10,7 @@ export async function POST(req:NextRequest) {
     console.log(body.lesson)
     body.lesson.map((lesson:any)=>{
         console.log(lesson)
-        createDateofLessonMany(lesson,lesson.date,body.group_id)
+        createDateofLessonMany(lesson,body.date,body.group_id)
         return new Response()
     })
     console.log(body.group_id)
