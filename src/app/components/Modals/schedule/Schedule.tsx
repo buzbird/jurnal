@@ -37,7 +37,6 @@ const ScheduleTable = (data:any) => {
     setTable(true)
   }
   const setmodalDelete = async(lesson:any)=>{
-    console.log(lesson)
     let group_id = await  groupmass.get(group);
     const lessonslist = await fetch("/api/jurnal/lessonfromgroup",{
       method:'POST',
@@ -902,7 +901,6 @@ const ScheduleModelperGroup = ({date}:any) => {
                   </thead>
                   <tbody>
                       {groups.map((group:any,index:any)=>{
-                        console.log(group)
                         return(
                           <>
                           <tr>
