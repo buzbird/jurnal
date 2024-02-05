@@ -18,8 +18,8 @@ export const  createDateofLessonMany= async(lesson:any,group_id:any) =>{
 
           console.log(lesson.specialization.specialization.lesson_name== lesson2.specialization.lesson_name)
             if(lesson.specialization.specialization.lesson_name== lesson2.specialization.lesson_name){
-              console.log(lesson2.specialization.id)
-              les_id = lesson2.specialization.id
+              console.log(lesson2.id)
+              les_id = lesson2.id
             }
         })
         console.log(les_id)
