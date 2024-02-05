@@ -7,12 +7,12 @@ export const  createDateofLessonMany= async(lesson:any,group_id:any) =>{
         const lessons = await getLessonFromGroup(group_id)
         let les_id = 0;
         lessons.map((lesson2:any)=>{
-            console.log(lesson2)
-            console.log(lesson.specialization.specialization.lesson_name)
+            if(lesson.specialization.specialization.lesson_name== lesson2.specialization.specialization.lesson_name){
+              les_id = lesson2.id
+            }
         })
-        // const cab = await CreateDateOfLesson(lesson_id,lesson_number,date,cabinet_number)
+        await CreateDateOfLesson(les_id,lesson.lesson_number,lesson.date,lesson.cabinet_number)
         revalidatePath("/schedule")
-        // return cab
       }catch(err){
         console.log(err);
       }
