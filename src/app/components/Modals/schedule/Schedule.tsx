@@ -103,9 +103,10 @@ const ScheduleTable = (data:any) => {
       console.log(group_id)
       let lessons2 = await data.json()
       group_id = await groupmass.get(group2)
+      console.log(group_id)
       await fetch("/api/jurnal/createdateoflessonmany/", {
         method:'POST',
-        body: JSON.stringify({lesson:lessons2,group_id: groupmass.get(group2)}),
+        body: JSON.stringify({lesson:lessons2,group_id: group_id}),
       })
       
       setshowModalgroup(false);
