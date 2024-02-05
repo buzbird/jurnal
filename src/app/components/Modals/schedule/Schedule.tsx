@@ -132,7 +132,7 @@ const ScheduleTable = (data:any) => {
         body: JSON.stringify({lesson:lessons2,date:new Date(date3),group_id: group_id}),
       })
       
-      setshowModalgroup(false);
+      setshowModaldate(false);
     }catch(err){
         console.log(err)
     }
