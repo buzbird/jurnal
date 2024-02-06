@@ -11,7 +11,7 @@ import test from "node:test";
 import React, { useState } from "react";
 
 const JurnalModal = (lessons: any) => {
-  const teacher_id = lessons.lesson.teacher.teacher_id;
+  const teacher_id = lessons.teacher.teacher_id;
   let lessonmass = new Map();
   let groupmass = new Map();
   let assessmetdatestudents = {};

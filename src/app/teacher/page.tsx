@@ -13,6 +13,7 @@ const getLesson = async(session:any) =>{
 const Jurnal = async() => {
   const session = await getServerSession(authOptions)
   const data = await getLesson(session)
+  console.log(data)
       return (
         <JurnalForm lesson={data}/>
       )
