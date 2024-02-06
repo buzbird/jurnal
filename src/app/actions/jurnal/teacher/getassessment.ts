@@ -62,7 +62,7 @@ export const Getassessmentgroup = async(teacher_id:any,lesson_id:any,group_id:an
               }
           ]
       }))
-        return {students:students,assessmentGroup:assessmentGroup}
+        return {students,assessmentGroup:assessmentGroup}
       }catch(err){
         console.log(err);
       }
