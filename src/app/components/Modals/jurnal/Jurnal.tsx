@@ -12,8 +12,6 @@ import React, { useState } from "react";
 
 const JurnalModal = ({lessons,teacher}: any) => {
   const teacher_id = teacher.teacher_id;
-  console.log(teacher_id)
-  console.log(lessons)
   let lessonmass = new Map();
   let groupmass = new Map();
   let assessmetdatestudents = {};
@@ -47,13 +45,11 @@ const JurnalModal = ({lessons,teacher}: any) => {
   const handleLesson = async(lesson:any) =>{
     try {
       setLesson(lesson);
-      
         const data = await fetch("/api/teacher/group/",{
           method:'POST',
           body: JSON.stringify({teacher_id: teacher_id,lesson_id:lessonmass.get(lesson)}),
         })
         let groups2 = await data.json()
-        console.log(groups2)
         setGroups(groups2)
     }catch(err){
        console.log(err)
