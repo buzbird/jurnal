@@ -17,7 +17,6 @@ export const Getassessmentgroup = async(teacher_id:any,lesson_id:any,group_id:an
       type Student = {id:number,full_name:string,assessments:AssessmetDate[]}
       type Students = {students: Student[]};
       const assessmentGroup = await getAssessmentGroup(teacher_id,lesson_id,group_id)
-      console.log(assessmentGroup)
       const students:Students = {students: []};
       
       assessmentGroup?.group?.students.map((student => {
@@ -63,7 +62,7 @@ export const Getassessmentgroup = async(teacher_id:any,lesson_id:any,group_id:an
               }
           ]
       }))
-        return students
+        return {students:students,assessmentGroup:assessmentGroup}
       }catch(err){
         console.log(err);
       }
