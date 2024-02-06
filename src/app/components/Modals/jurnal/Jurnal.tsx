@@ -209,12 +209,12 @@ const JurnalModal = ({lessons,teacher}: any) => {
                           <button type="button" onClick={(e)=> giveModal(date.id,student.id,student.full_name,date.date)} className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-3 px-3 border border-gray-400 rounded shadow"> 
                           {student.assessments.map((assessments:any) => { 
                             console.log(assessments)
-                            console.log(date.date)
+                            console.log(date.id)
                               return(
                                 <>
                                 {assessments.assessments.map(((assessment:any,index:any) => {
                                   console.log(assessment.date_id) 
-                                  console.log(date.date == assessment.date_id) 
+                                  console.log(date.id == assessment.date_id) 
                                   if(date.date == assessment.date_id){
                                     if(assessments.assessments.length -1 === index){
                                       return(
