@@ -292,7 +292,7 @@ const JurnalModal = ({lessons,teacher}: any) => {
                       return(
                         <> 
                           <button type="button" onClick={() => deleteassesment(data.id)} className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-3 px-3 border border-gray-400 rounded shadow">          
-                          {data.number}
+                          <span>{data.number}</span>
                           </button>
                         </>
                       );
