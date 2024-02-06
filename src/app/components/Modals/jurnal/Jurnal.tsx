@@ -1,6 +1,6 @@
 "use client"
 import { createuser } from "@/app/actions/admin/users/createuser";
-import { CreateAssesment2, DeleteAssesment } from "@/app/actions/jurnal/assesment/assesment";
+
 
 
 import { getgrouplist } from "@/app/actions/jurnal/teacher/getgroup";
@@ -23,7 +23,7 @@ const JurnalModal = ({lessons,teacher}: any) => {
 
   const [students,setStudent] = useState({students:{students:[{}]}});
   const [studentid,setstudentId] = useState();
-  const [dateid,setDateId] = useState();
+  const [assesment_id,setDateId] = useState();
   const [studentName,setstudentName] = useState("");
   const [assessmentStudent,setassessmentStudent] = useState({assessments:[]});
   const [date,setDate] = useState([{}])
@@ -49,9 +49,6 @@ const JurnalModal = ({lessons,teacher}: any) => {
         })
         const assessmentgroup = await data.json()
         setShowtable(true)
-        console.log("assessmentgroup")
-        console.log(assessmentgroup)
-        console.log("-------------------------------")
         if(assessmentgroup!=undefined){
           setStudent(assessmentgroup)
         }
@@ -61,9 +58,6 @@ const JurnalModal = ({lessons,teacher}: any) => {
           body: JSON.stringify({lesson_id: lesson_id}),
         })
         const date = await data2.json()
-        console.log("date")
-        console.log(date)
-        console.log("-------------------------------")
         if(date != undefined){
           setDate(date)
         } 
@@ -92,40 +86,64 @@ const JurnalModal = ({lessons,teacher}: any) => {
       }
   }
   const deleteassesment = async(assessment_id:any) =>{
-    // try {
-    //   setShowmodal(false); 
-    //   await DeleteAssesment(assessment_id)
-    //   const assessmentgroup = await Getassessmentgroup(teacher_id,lessonmass.get(lesson),groupmass.get(group))
-    //     setShowtable(true)
-    //     if(assessmentgroup!=undefined){
-    //       setStudent(assessmentgroup)
-    //     }
-    //     const date = await getDateforlesson(lessonmass.get(lesson))
-    //     if(date!=undefined){
-    //       setDate(date)
-    //     }
+    try {
+      setShowmodal(false); 
+      await fetch("/api/teacher/assessment/student/",{
+        method:'DELETE',
+        body: JSON.stringify({assessment_id:assessment_id}),
+      }) 
+      const data = await fetch("/api/teacher/assessment/",{
+        method:'POST',
+        body: JSON.stringify({teacher_id: teacher_id,lesson_id:lessonmass.get(lesson),group_id:groupmass.get(group)}),
+      })
+      const assessmentgroup = await data.json()
+      setShowtable(true)
+      if(assessmentgroup!=undefined){
+        setStudent(assessmentgroup)
+      }
+      const lesson_id = await assessmentgroup.assessmentGroup.id
+      const data2 =await fetch("/api/teacher/dateforlesson/",{
+        method:'POST',
+        body: JSON.stringify({lesson_id: lesson_id}),
+      })
+      const date = await data2.json()
+      if(date != undefined){
+        setDate(date)
+      } 
 
-    //   }catch(err){
-    //       console.log(err)
-    //   }
+      }catch(err){
+          console.log(err)
+      }
   }
   
   const createassesment = async(number:any) =>{
-    // try {
-    //   setShowmodal(false); 
-    //   await CreateAssesment2(number,studentid,dateid)
-    //   const assessmentgroup = await Getassessmentgroup(teacher_id,lessonmass.get(lesson),groupmass.get(group))
-    //     setShowtable(true)
-    //     if(assessmentgroup!=undefined){
-    //       setStudent(assessmentgroup)
-    //     }
-    //     const date = await getDateforlesson(lessonmass.get(lesson))
-    //     if(date!=undefined){
-    //       setDate(date)
-    //     }
-    //   }catch(err){
-    //       console.log(err)
-    //   }
+    try {
+      setShowmodal(false); 
+      await fetch("/api/teacher/assessment/student/",{
+        method:'POST',
+        body: JSON.stringify({number:number,student_id:studentid,lesson_id:assesment_id}),
+      }) 
+      const data = await fetch("/api/teacher/assessment/",{
+        method:'POST',
+        body: JSON.stringify({teacher_id: teacher_id,lesson_id:lessonmass.get(lesson),group_id:groupmass.get(group)}),
+      })
+      const assessmentgroup = await data.json()
+      setShowtable(true)
+      if(assessmentgroup!=undefined){
+        setStudent(assessmentgroup)
+      }
+      const lesson_id = await assessmentgroup.assessmentGroup.id
+      const data2 =await fetch("/api/teacher/dateforlesson/",{
+        method:'POST',
+        body: JSON.stringify({lesson_id: lesson_id}),
+      })
+      const date = await data2.json()
+      if(date != undefined){
+        setDate(date)
+      } 
+      }catch(err){
+          console.log(err)
+      }
   } 
 
   return (
@@ -185,6 +203,8 @@ const JurnalModal = ({lessons,teacher}: any) => {
                   <tr>
                   <td>{student.full_name}</td>
                    {date.map((date:any) => {
+                     console.log("Test:")
+                    console.log(date)
                      return(
                         <> 
                         <td>
