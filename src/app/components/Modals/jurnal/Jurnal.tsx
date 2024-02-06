@@ -72,7 +72,7 @@ const JurnalModal = ({lessons,teacher}: any) => {
         }
         const data2 =await fetch("/api/teacher/dateforlesson/",{
           method:'POST',
-          body: JSON.stringify({lesson_id: lessonmass.get(lesson)}),
+          body: JSON.stringify({lesson_id: assessmentgroup.id}),
         })
         const date = await data2.json()
         console.log("date")
