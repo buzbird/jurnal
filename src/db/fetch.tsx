@@ -194,6 +194,14 @@ export async function getPermission(email:string) {
 
 
 //Преподаватель
+export async function getTeacher(id:any){
+  const teacher = await prisma.teachers.findFirst({
+    where:{
+      user_id: id
+    }
+  })
+  return teacher
+}
 export async function Teacher(id:any) {
   const teacher = await prisma.teachers.findFirst({
     where:{
