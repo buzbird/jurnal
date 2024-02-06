@@ -644,44 +644,21 @@ export async function DeleteLessonsSchedule(id:any) {
   }
   )
 }
-export async function GetAllStatemnt(teacher_id:any,group_id:any,lesson_id:any) {
-  const data = await prisma.lessonteached.findMany({
+export async function GetAllStatemnt(teacher_id:any) {
+  const lesson = await prisma.lessonteached.findMany({
     where:{
-     teacher_id: teacher_id,
-     group_id :group_id,
-     lesson_id:lesson_id,
+      teacher_id: teacher_id,
+    }, 
+    orderBy: {
+      lesson_id: 'asc',
     },
+    distinct:["lesson_id"],
     include:{
-      dateoflessons:{
-        select:{
-          date:true,
-        },
-      },
-      group: true,
       specialization:true,
-      teacher:{
-        include:{
-          user:true
-        }
-      }
-    },
-    orderBy:[
-    {  group:{
-        group_name: 'asc'
-      }},
-      {specialization:{
-        lesson_name: 'asc'
-      }},{
-        teacher:{
-          user:{
-            full_name: 'asc'
-          }
-        }
-      }
-    ]
-  }
-  )
-  return data
+    }
+    
+  })
+  return lesson
 }
 export async function CreateManydateOflessons(lesson:any){
   const data = await prisma.user.createMany({

@@ -13,7 +13,7 @@ const GetTeacher= async(user_id:any) =>{
   return teacher
 }
 const getLesson = async(teacher_id:any) =>{
-  const data  = await GetAllStatemnt(teacher_id,undefined,undefined)
+  const data  = await GetAllStatemnt(teacher_id)
   return data
  
 }
