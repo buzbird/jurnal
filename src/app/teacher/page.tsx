@@ -24,7 +24,7 @@ const Jurnal = async() => {
   const data = await getLesson(teacher?.teacher_id)
   console.log(data)
       return (
-        <JurnalForm lesson={data} teacher={teacher}/>
+        <JurnalForm lessons={data} teacher={teacher}/>
       )
 }
 
