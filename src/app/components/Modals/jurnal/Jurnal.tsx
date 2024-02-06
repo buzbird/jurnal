@@ -68,7 +68,9 @@ const JurnalModal = ({lessons,teacher}: any) => {
         })
         const assessmentgroup = await data.json()
         setShowtable(true)
+        console.log("assessmentgroup")
         console.log(assessmentgroup)
+        console.log("-------------------------------")
         if(assessmentgroup!=undefined){
           setStudent(assessmentgroup)
         }
@@ -77,7 +79,9 @@ const JurnalModal = ({lessons,teacher}: any) => {
           body: JSON.stringify({lesson_id: lessonmass.get(lesson)}),
         })
         const date = await data2.json()
+        console.log("date")
         console.log(date)
+        console.log("-------------------------------")
         if(date != undefined){
           setDate(date)
         } 
