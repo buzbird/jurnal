@@ -12,6 +12,7 @@ import React, { useState } from "react";
 
 const JurnalModal = (lessons: any) => {
   const teacher_id = lessons.teacher.teacher_id;
+  console.log(teacher_id)
   let lessonmass = new Map();
   let groupmass = new Map();
   let assessmetdatestudents = {};
