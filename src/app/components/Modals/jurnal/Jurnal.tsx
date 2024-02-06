@@ -70,9 +70,10 @@ const JurnalModal = ({lessons,teacher}: any) => {
         if(assessmentgroup!=undefined){
           setStudent(assessmentgroup)
         }
+        const lesson_id = await assessmentgroup.id
         const data2 =await fetch("/api/teacher/dateforlesson/",{
           method:'POST',
-          body: JSON.stringify({lesson_id: assessmentgroup.id}),
+          body: JSON.stringify({lesson_id: lesson_id}),
         })
         const date = await data2.json()
         console.log("date")
