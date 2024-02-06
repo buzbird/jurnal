@@ -18,10 +18,7 @@ const Jurnal = async() => {
   const data = await getLesson(session)
   console.log(data)
       return (
-        <> 
-        1
-        </>
-        // <JurnalForm lesson={data}/>
+        <JurnalForm lesson={data}/>
       )
 }
 
