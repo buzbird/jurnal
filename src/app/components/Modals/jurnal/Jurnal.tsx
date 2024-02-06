@@ -213,19 +213,11 @@ const JurnalModal = ({lessons,teacher}: any) => {
                                 <>
                                 {assessments.assessments.map(((assessment:any,index:any) => { 
                                   if(date.date == assessments.date){
-                                    if(assessments.assessments.length -1 === index){
-                                      return(
-                                        <>
-                                        {assessment.number}
-                                        </>
-                                      );
-                                    }else{
-                                      return(
-                                        <>
-                                        {assessment.number},
-                                        </>
-                                      );
-                                    }
+                                    return(
+                                      <>
+                                      {assessment.number}
+                                      </>
+                                    );
                                   }
                                 }))}
                                 </>
