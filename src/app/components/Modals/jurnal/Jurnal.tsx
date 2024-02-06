@@ -145,7 +145,7 @@ const JurnalModal = (lessons: any,teacher:any) => {
     <input type='search' list="lessons" placeholder="Выберите предмет" onChange={(e)=> handleLesson(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
         <datalist id="lessons">
             <>
-            {lessons.lesson.teacher.lessonteached.map((lessons:any,index:any) => {
+            {lessons.map((lessons:any,index:any) => {
                     lessonmass.set(`${lessons.specialization.lesson_name}`,lessons.lesson_id)
             return (
                 <option key={index}>{lessons?.specialization.lesson_name} </option>
@@ -155,8 +155,8 @@ const JurnalModal = (lessons: any,teacher:any) => {
             </>
         </datalist>
     </div>
-    <input type='search' list="group" placeholder="Выберите группу" onChange={(e)=> handleGroup(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
     </div>
+    {/* <input type='search' list="group" placeholder="Выберите группу" onChange={(e)=> handleGroup(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
       <datalist id="group">
       <>
       {groups.map((group:any,index:any) => {
@@ -309,7 +309,7 @@ const JurnalModal = (lessons: any,teacher:any) => {
             </div>
           </div>
         </>
-      ) : null}
+      ) : null} */}
     </form>   
     </div>
       
