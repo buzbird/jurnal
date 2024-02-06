@@ -14,6 +14,10 @@ export const getDateforlesson = async(lesson_id:any) =>{
       const endDate = new Date(year, month + 1, 0);
       console.log(startDate,endDate)
       const data = await gatelessondatefor(lesson_id,endDate,startDate)
+      console.log("------------------")
+      console.log("data")
+      console.log(data)
+      console.log("------------------")
       return data
       }catch(err){
         console.log(err);
