@@ -7,9 +7,12 @@ const getLesson = async() =>{
  
 }
 const Jurnal = async() => {
-  const data = await getLesson()
+  // const data = await getLesson()
       return (
-        <JurnalForm lesson={data}/>
+        <> 
+        1
+        </>
+        // <JurnalForm lesson={data}/>
       )
 }
 
