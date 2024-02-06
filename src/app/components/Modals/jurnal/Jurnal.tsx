@@ -160,7 +160,7 @@ const JurnalModal = ({lessons,teacher}: any) => {
       <datalist id="group">
       <>
       {groups.map((group:any,index:any) => {
-            groupmass.set(`${group.group?.group_name}`,group.group.id)
+            groupmass.set(`${group.group?.group_name}`,group.group?.id)
             return(
                 <> 
                   <option key={index} >{group.group?.group_name}</option>
