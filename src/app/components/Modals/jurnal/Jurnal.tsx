@@ -53,6 +53,7 @@ const JurnalModal = ({lessons,teacher}: any) => {
           body: JSON.stringify({teacher_id: teacher_id,lesson_id:lessonmass.get(lesson)}),
         })
         let groups2 = await data.json()
+        console.log(groups2)
         setGroups(groups2)
     }catch(err){
        console.log(err)
@@ -159,10 +160,10 @@ const JurnalModal = ({lessons,teacher}: any) => {
       <datalist id="group">
       <>
       {groups.map((group:any,index:any) => {
-            groupmass.set(`${group.group.group_name}`,group.group.id)
+            groupmass.set(`${group.group?.group_name}`,group.group.id)
             return(
                 <> 
-                  <option key={index} >{group.group.group_name}</option>
+                  <option key={index} >{group.group?.group_name}</option>
                 </>
             );
       })}      
