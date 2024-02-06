@@ -21,22 +21,7 @@ const JurnalModal = ({lessons,teacher}: any) => {
   const [group,setGroup] = useState("");
   const [groups,setGroups] = useState([{}]);
 
-  type Assessmet =  {
-    id:number,
-    number:string,
-    date_id:number,
-  }
-  type AssessmetDate =  {
-      id: Number,
-      date: Date ,
-      assessments: Assessmet[]
-  }
-
-  type Student = {id:number,full_name:string,assessments:AssessmetDate[]}
-  type Students = {students: Student[]};
-  const student :Students ={students:[]};
-
-  const [students,setStudent] = useState(student);
+  const [students,setStudent] = useState({students:{students:[{}]}});
   const [studentid,setstudentId] = useState();
   const [dateid,setDateId] = useState();
   const [studentName,setstudentName] = useState("");
@@ -93,7 +78,7 @@ const JurnalModal = ({lessons,teacher}: any) => {
       setstudentId(student_id)
       setShowmodal(true);  
       setDateId(date_id);
-      students.students.map((student:any) => {
+      students.students.students.map((student:any) => {
       if(student.full_name == student_name){
         student.assessments.map((assessment:any) => {
           if(assessment.date== date){
@@ -194,7 +179,7 @@ const JurnalModal = ({lessons,teacher}: any) => {
                 </tr>
             </thead>
             <tbody>
-            {students.students.map((student:any) => {
+            {students.students.students.map((student:any) => {
             return(
                 <> 
                   <tr>
