@@ -288,6 +288,8 @@ const JurnalModal = ({lessons,teacher}: any) => {
                    <label>оценки</label>
                    </div>
                    {assessmentStudent.assessments ? (assessmentStudent.assessments.map((data:any) => {
+                    console.log(assesment_id)
+                    console.log(data)
                     if(assesment_id == data.id){
                       return(
                         <> 
