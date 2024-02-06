@@ -46,16 +46,14 @@ const JurnalModal = ({lessons,teacher}: any) => {
   const [date,setDate] = useState([{}])
   const handleLesson = async(lesson:any) =>{
     try {
-      if(lesson ==="Выберите предмет"){
-      }else{
-        setLesson(lesson);
-        const groups2 = await getgrouplist(teacher_id,lessonmass.get(lesson))
-        if(groups2!=undefined){
-          setGroups(groups2)
-        }
-        
-        
-      } 
+      setLesson(lesson);
+      
+        const data = await fetch("/api/teacher/group/",{
+          method:'POST',
+          body: JSON.stringify({teacher_id: teacher_id,lesson_id:lessonmass.get(lesson)}),
+        })
+        let groups2 = await data.json()
+        setGroups(groups2)
     }catch(err){
        console.log(err)
     }
@@ -157,7 +155,7 @@ const JurnalModal = ({lessons,teacher}: any) => {
         </datalist>
     </div>
     </div>
-    {/* <input type='search' list="group" placeholder="Выберите группу" onChange={(e)=> handleGroup(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
+    <input type='search' list="group" placeholder="Выберите группу" onChange={(e)=> handleGroup(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
       <datalist id="group">
       <>
       {groups.map((group:any,index:any) => {
@@ -170,7 +168,7 @@ const JurnalModal = ({lessons,teacher}: any) => {
       })}      
       </>
       </datalist>
-      {showtable ?(
+      {/* {showtable ?(
       <>
       <div>
       <table >
