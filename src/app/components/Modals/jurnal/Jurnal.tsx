@@ -1,8 +1,8 @@
 "use client"
 import { createuser } from "@/app/actions/admin/users/createuser";
 import { CreateAssesment2, DeleteAssesment } from "@/app/actions/jurnal/assesment/assesment";
-import { getDateforlesson } from "@/app/actions/jurnal/teacher/getDateforlesson";
-import { Getassessmentgroup } from "@/app/actions/jurnal/teacher/getassessment";
+
+
 import { getgrouplist } from "@/app/actions/jurnal/teacher/getgroup";
 import { Console } from "console";
 import { redirect } from "next/dist/server/api-utils";
@@ -61,20 +61,26 @@ const JurnalModal = ({lessons,teacher}: any) => {
   }
   const handleGroup = async(group:any) =>{
     try {
-      if(group ==="Выберите группу"){
-      }else{
-        setGroup(group);
-        const assessmentgroup = await Getassessmentgroup(teacher_id,lessonmass.get(lesson),groupmass.get(group))
+      setGroup(group);
+        const data = await fetch("/api/teacher/assessment/",{
+          method:'POST',
+          body: JSON.stringify({teacher_id: teacher_id,lesson_id:lessonmass.get(lesson),group_id:groupmass.get(group)}),
+        })
+        const assessmentgroup = await data.json()
         setShowtable(true)
+        console.log(assessmentgroup)
         if(assessmentgroup!=undefined){
           setStudent(assessmentgroup)
         }
-        const date = await getDateforlesson(lessonmass.get(lesson))
+        const data2 =await fetch("/api/teacher/dateforlesson/",{
+          method:'POST',
+          body: JSON.stringify({lesson_id: lessonmass.get(lesson)}),
+        })
+        const date = await data2.json()
+        console.log(date)
         if(date != undefined){
           setDate(date)
-        }
-
-      } 
+        } 
     }catch(err){
        console.log(err)
     }
@@ -100,40 +106,40 @@ const JurnalModal = ({lessons,teacher}: any) => {
       }
   }
   const deleteassesment = async(assessment_id:any) =>{
-    try {
-      setShowmodal(false); 
-      await DeleteAssesment(assessment_id)
-      const assessmentgroup = await Getassessmentgroup(teacher_id,lessonmass.get(lesson),groupmass.get(group))
-        setShowtable(true)
-        if(assessmentgroup!=undefined){
-          setStudent(assessmentgroup)
-        }
-        const date = await getDateforlesson(lessonmass.get(lesson))
-        if(date!=undefined){
-          setDate(date)
-        }
+    // try {
+    //   setShowmodal(false); 
+    //   await DeleteAssesment(assessment_id)
+    //   const assessmentgroup = await Getassessmentgroup(teacher_id,lessonmass.get(lesson),groupmass.get(group))
+    //     setShowtable(true)
+    //     if(assessmentgroup!=undefined){
+    //       setStudent(assessmentgroup)
+    //     }
+    //     const date = await getDateforlesson(lessonmass.get(lesson))
+    //     if(date!=undefined){
+    //       setDate(date)
+    //     }
 
-      }catch(err){
-          console.log(err)
-      }
+    //   }catch(err){
+    //       console.log(err)
+    //   }
   }
   
   const createassesment = async(number:any) =>{
-    try {
-      setShowmodal(false); 
-      await CreateAssesment2(number,studentid,dateid)
-      const assessmentgroup = await Getassessmentgroup(teacher_id,lessonmass.get(lesson),groupmass.get(group))
-        setShowtable(true)
-        if(assessmentgroup!=undefined){
-          setStudent(assessmentgroup)
-        }
-        const date = await getDateforlesson(lessonmass.get(lesson))
-        if(date!=undefined){
-          setDate(date)
-        }
-      }catch(err){
-          console.log(err)
-      }
+    // try {
+    //   setShowmodal(false); 
+    //   await CreateAssesment2(number,studentid,dateid)
+    //   const assessmentgroup = await Getassessmentgroup(teacher_id,lessonmass.get(lesson),groupmass.get(group))
+    //     setShowtable(true)
+    //     if(assessmentgroup!=undefined){
+    //       setStudent(assessmentgroup)
+    //     }
+    //     const date = await getDateforlesson(lessonmass.get(lesson))
+    //     if(date!=undefined){
+    //       setDate(date)
+    //     }
+    //   }catch(err){
+    //       console.log(err)
+    //   }
   } 
 
   return (
@@ -169,7 +175,7 @@ const JurnalModal = ({lessons,teacher}: any) => {
       })}      
       </>
       </datalist>
-      {/* {showtable ?(
+      {showtable ?(
       <>
       <div>
       <table >
@@ -309,7 +315,7 @@ const JurnalModal = ({lessons,teacher}: any) => {
             </div>
           </div>
         </>
-      ) : null} */}
+      ) : null}
     </form>   
     </div>
       
