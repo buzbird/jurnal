@@ -1,7 +1,7 @@
 import React from 'react'
 import { getServerSession } from 'next-auth';
 import JurnalForm from '../components/Modals/jurnal/Jurnal'
-import { GetAllStatemnt,getUser,getTeacher } from '@/db/fetch'
+import { GetAllStatemnt2,getUser,getTeacher } from '@/db/fetch'
 import { authOptions } from '../api/auth/[...nextauth]/route';
 const getUserTeacher= async(session:any) =>{
   const user = await getUser(session.user?.email)
@@ -13,7 +13,7 @@ const GetTeacher= async(user_id:any) =>{
   return teacher
 }
 const getLesson = async(teacher_id:any) =>{
-  const data  = await GetAllStatemnt(teacher_id)
+  const data  = await GetAllStatemnt2(teacher_id)
   return data
  
 }
