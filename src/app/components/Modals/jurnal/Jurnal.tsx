@@ -20,7 +20,7 @@ const JurnalModal = ({lessons,teacher}: any) => {
   const [lesson,setLesson] = useState("");
   const [group,setGroup] = useState("");
   const [groups,setGroups] = useState([{}]);
-
+  const [date3,setDate3] = useState(new Date());
   const [students,setStudent] = useState({students:{students:[{}]}});
   const [studentid,setstudentId] = useState();
   const [assesment_id,setDateId] = useState();
@@ -55,7 +55,7 @@ const JurnalModal = ({lessons,teacher}: any) => {
         const lesson_id = await assessmentgroup.assessmentGroup.id
         const data2 =await fetch("/api/teacher/dateforlesson/",{
           method:'POST',
-          body: JSON.stringify({lesson_id: lesson_id}),
+          body: JSON.stringify({lesson_id: lesson_id,date:date3}),
         })
         const date = await data2.json()
         if(date != undefined){
@@ -63,6 +63,29 @@ const JurnalModal = ({lessons,teacher}: any) => {
         } 
     }catch(err){
        console.log(err)
+    }
+  }
+  const handleDate = async(date2:any)=>{
+    setDate3(new Date(date2))
+    if(group != ""){
+      const data = await fetch("/api/teacher/assessment/",{
+        method:'POST',
+        body: JSON.stringify({teacher_id: teacher_id,lesson_id:lessonmass.get(lesson),group_id:groupmass.get(group)}),
+      })
+      const assessmentgroup = await data.json()
+      setShowtable(true)
+      if(assessmentgroup!=undefined){
+        setStudent(assessmentgroup)
+      }
+      const lesson_id = await assessmentgroup.assessmentGroup.id
+      const data2 =await fetch("/api/teacher/dateforlesson/",{
+        method:'POST',
+        body: JSON.stringify({lesson_id: lesson_id,date:date2}),
+      })
+      const date = await data2.json()
+      if(date != undefined){
+        setDate(date)
+      } 
     }
   }
   const giveModal= async(date_id: any,student_id: any,student_name:any,date:any) =>{
@@ -164,6 +187,9 @@ const JurnalModal = ({lessons,teacher}: any) => {
             })}
             </>
         </datalist>
+    </div>
+    <div>
+      <input type="month" onChange={(e)=>handleDate(new Date(e.target.value))}/>
     </div>
     </div>
     <input type='search' list="group" placeholder="Выберите группу" onChange={(e)=> handleGroup(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
