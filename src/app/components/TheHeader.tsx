@@ -73,8 +73,8 @@ export default async function TheHeader(){
             })}
             {data.map((data:any)=>{
                 return(<>
-                {data.permission.map((permission:any)=>{
-                     if (permission.permission_id == 4){ return(<li className="menu-item"><Link href="/teacher/">выставление оценок</Link></li>)}
+                {data.permission.map((permission:any,index:any)=>{
+                     if (permission.permission_id == 4){ return(<li key={index} className="menu-item"><Link href="/teacher/">выставление оценок</Link></li>)}
                 })}</>)
             })}
             {data.map((data:any)=>{
