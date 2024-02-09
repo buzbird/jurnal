@@ -29,67 +29,76 @@ export default async function TheHeader(){
             
             <li className="menu-item"><Link href="/">Главная</Link></li>
 
-        {data.map((data:any)=>{
-            return(
+        
+                
+        {log ? (<>
+            <li className="menu-item"><Link href="/schedule/student">Расписание</Link></li>
+        <li className="menu-item"><Link href="/auth/signin">Войти</Link></li>
+        </>
+        ):(<>
+        <li className="menu-item"><Link href="/schedule/student">Расписание</Link></li>
+            {data.map((data:any)=>{
+                return(
+                    <>
+                    {data.permission.map((permission:any)=>{
+                        console.log(permission)
+                    if (permission.permission_id == 1){
+                        return (<><li className="menu-item"><Link href="/admin/">Администратор</Link></li></>)
+                    }
+                })}
+                    </>
+                );
+                
+            })}
+            {data.map((data:any)=>{
+                return(
                 <>
                 {data.permission.map((permission:any)=>{
-                if (permission.permission_id == 1){
-                    return (<><li className="menu-item"><Link href="/admin/">Администратор</Link></li></>)
+                    if (permission.permission_id == 3){
+                        <li className="menu-item"><Link href="/teacher/">Куратор</Link></li>
+                    }
+                })} 
+                </>
+                );
+            })}
+            {data.map((data:any)=>{
+                return(<>
+                {data.permission.map((permission:any,index:any)=>{
+                    if (permission.permission_id == 2){
+                        return(<li key={index} className="menu-item"><Link href="/schedule/">Составитель расписания</Link></li>);
+                    }
+                })}
+                </>
+                );
+            })}
+            {data.map((data:any)=>{
+                return(<>
+                {data.permission.map((permission:any)=>{
+                     if (permission.permission_id == 4){ return(<li className="menu-item"><Link href="/teacher/">выставление оценок</Link></li>)}
+                })}</>)
+            })}
+            {data.map((data:any)=>{
+                return(<>
+                {data.permission.map((permission:any,index:any)=>{
+                    if (permission.permission_id == 5){
+                        return (<li key={index} className="menu-item"><Link href="/Admin/">студентов</Link></li>);
                 }
             })}
                 </>
-            );
-            
-        })}
-        {data.map((data:any)=>{
-            return(
-            <>
-            {data.permission.map((permission:any)=>{
-                if (permission.permission_id == 3){
-                    <li className="menu-item"><Link href="/teacher/">Куратор</Link></li>
-                }
-            })} 
-            </>
-            );
-        })}
-        {data.map((data:any)=>{
-            return(<>
-            {data.permission.map((permission:any,index:any)=>{
-                if (permission.permission_id == 2){
-                    return(<li key={index} className="menu-item"><Link href="/schedule/">Составитель расписания</Link></li>);
+                )
+            })}
+            {data.map((data:any)=>{
+                return(<>
+                {data.permission.map((permission:any,index:any)=>{
+                    if (permission.permission_id == 5){
+                        return (<li key={index} className="menu-item"><Link href="/Admin/">студентов</Link></li>);
                 }
             })}
-            </>
-            );
-        })}
-        {data.map((data:any)=>{
-            return(<>
-            {data.permission.map((permission:any)=>{
-                 if (permission.permission_id == 4){<li className="menu-item"><Link href="/teacher/">Преподаватель</Link></li>}
-            })}</>)
-        })}
-        {data.map((data:any)=>{
-            return(<>
-            {data.permission.map((permission:any,index:any)=>{
-                if (permission.permission_id == 5){
-                    return (<li key={index} className="menu-item"><Link href="/Admin/">студентов</Link></li>);
-            }
-        })}
-            </>
-            )
-        })}
-        {data.map((data:any)=>{
-            return(<>
-            {data.permission.map((permission:any,index:any)=>{
-                if (permission.permission_id == 5){
-                    return (<li key={index} className="menu-item"><Link href="/Admin/">студентов</Link></li>);
-            }
-        })}
-            </>
-            )
-        })}
-                <li className="menu-item"><Link href="/schedule/student">Расписание</Link></li>
-        {log ? (<li className="menu-item"><Link href="/auth/signin">Войти</Link></li>):(<li className="menu-item"><Link href="/auth/signout">Выйти</Link></li>)}
+                </>
+                )
+            })}
+        <li className="menu-item"><Link href="/auth/signout">Выйти</Link></li>
+        </>)}
         </ul>
     </header>
             </>

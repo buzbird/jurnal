@@ -297,6 +297,19 @@ export async function getAssessmentGroup(teacher_id:any,lesson_id:any,group_id:a
   )
   return data
 }
+export async function changepassword(id:any,password: any) {
+  const lesson = await prisma.user.update({
+    where:{
+      id:id
+    },
+    data:{
+      passwordHash: password
+    }
+ 
+  }
+  )
+  return lesson
+}
 export async function gatelessondatefor(lesson_id:any,lte: any,gte:any) {
   const lesson = await prisma.dateOfLessons.findMany({
     where:{
