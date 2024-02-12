@@ -16,17 +16,25 @@ const ScheduleTeacher = ({teacher_id}:any) => {
   const [groupmass,setgroupmass] =useState(new Map()) ;
   const checktable = async()=>{
     setTables([{}])
-
-    const lessons2 = await getLessonsTeachers(date,teacher_id)
-    if(lessons2 !=undefined){
-      setTables(lessons2)
+    const lessons2 = await fetch("/api/teacher/getlesson/",{
+      method:'POST',
+      body: JSON.stringify({date:new Date(date),teacher_id:teacher_id}),
+    })
+    let data = await lessons2.json()
+    console.log(data)
+    if(data !=undefined){
+      setTables(data)
     }
     await setTable(true)
   }
   const changDate = async(date:any)=>{
     setDate(new Date(date))
-    const lessons2 = await getLessonsTeachers(date,teacher_id)
-    setTables(lessons2)
+    const lessons2 = await fetch("/api/teacher/getlesson/",{
+      method:'POST',
+      body: JSON.stringify({date:new Date(date),teacher_id:teacher_id}),
+    })
+    let data = await lessons2.json()
+    setTables(data)
     await setTable(true)
   }
   const m = [1,2,3,4,5,6]
@@ -95,7 +103,14 @@ const ScheduleTeacher = ({teacher_id}:any) => {
               }</>
             )
           }
-          
+          return(
+              <tr key={index}>
+                 <td className="pn">{i}</td>
+                 <td className="cab"></td>
+                 <td className="cab"></td>
+                 <td className="cab"></td>
+              </tr>
+          )
           
         })}
 
