@@ -36,7 +36,7 @@ export default async function TheHeader(){
         <li className="menu-item"><Link href="/auth/signin">Войти</Link></li>
         </>
         ):(<>
-        <li className="menu-item"><Link href="/schedule/student">Расписание</Link></li>
+        
             {data.map((data:any)=>{
                 return(
                     <>
@@ -49,6 +49,29 @@ export default async function TheHeader(){
                     </>
                 );
                 
+            })}
+            {data.map((data:any)=>{
+                return(
+                <>
+                {data.permission.map((permission:any)=>{
+                    if (permission.permission_id == 4){
+                        return (<li className="menu-item"><Link href="/schedule/teacher">Расписание</Link></li>);
+                       
+                    }
+                })} 
+                </>
+                );
+            })}
+             {data.map((data:any)=>{
+                return(
+                <>
+                {data.permission.map((permission:any)=>{
+                    if (permission.permission_id == 5){
+                        <li className="menu-item"><Link href="/schedule/student">Расписание</Link></li>
+                    }
+                })} 
+                </>
+                );
             })}
             {data.map((data:any)=>{
                 return(
