@@ -53,9 +53,9 @@ export default async function TheHeader(){
             {data.map((data:any)=>{
                 return(
                 <>
-                {data.permission.map((permission:any)=>{
+                {data.permission.map((permission:any,index:any)=>{
                     if (permission.permission_id == 4){
-                        return (<li className="menu-item"><Link href="/schedule/teacher">Расписание</Link></li>);
+                        return (<li key={index} className="menu-item"><Link href="/schedule/teacher">Расписание</Link></li>);
                        
                     }
                 })} 
@@ -65,9 +65,9 @@ export default async function TheHeader(){
              {data.map((data:any)=>{
                 return(
                 <>
-                {data.permission.map((permission:any)=>{
+                {data.permission.map((permission:any,index:any)=>{
                     if (permission.permission_id == 5){
-                        <li className="menu-item"><Link href="/schedule/student">Расписание</Link></li>
+                        <li key={index} className="menu-item"><Link href="/schedule/student">Расписание</Link></li>
                     }
                 })} 
                 </>
