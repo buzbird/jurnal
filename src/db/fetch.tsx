@@ -729,6 +729,7 @@ export async function gatelessondateforteacher(date:any,teacher_id:any) {
     include:{
       specialization:{
         include:{
+          group: true,
           specialization:{
             select:{
               lesson_name:true
@@ -740,7 +741,7 @@ export async function gatelessondateforteacher(date:any,teacher_id:any) {
         select:{
           number:true
         }
-      },
+      }
     },
     orderBy:{
       lesson_number:'asc',

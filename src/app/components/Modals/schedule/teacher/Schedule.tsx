@@ -16,6 +16,7 @@ const ScheduleTeacher = ({teacher_id}:any) => {
   const [groupmass,setgroupmass] =useState(new Map()) ;
   const checktable = async()=>{
     setTables([{}])
+
     const lessons2 = await getLessonsTeachers(date,teacher_id)
     if(lessons2 !=undefined){
       setTables(lessons2)
@@ -35,35 +36,67 @@ const ScheduleTeacher = ({teacher_id}:any) => {
 
       {tableviews ? (
         <>
-        <table>
+        <table className="tab">
         <thead>
             <tr>
-            <th>№</th>
-            <th>предмет</th>
-            <th>кабинет</th>
+            <th className="hdg">№</th>
+            <th className="hdg">предмет</th>
+            <th className="hdg">кабинет</th>
+            <th className="hdg">группа</th>
             </tr>
         </thead>
         <tbody>
         {m.map((i:any,index:any)=>{
-          return(
-              <tr key={index}>
-                <td>{i}</td>
-                {table.map((table:any,index:any) => {
-                  if(table.lesson_number == i){
-                    return(
-                        <td key={index} >{table.specialization.specialization.lesson_name}</td>
+            let rowspanx =  0;
+            table.map((table:any)=>{
+              if(table.lesson_number == i){
+                rowspanx = rowspanx +1 
+              }
+            })
+           console.log(rowspanx)
+           if(rowspanx == 1){
+            return(<>
+            {table.map((lesson:any)=>{
+              if(lesson.lesson_number == i){
+                return(<>
+                  <tr key={index}>
+                      <td className="pn">{i}</td>
+                       <td key={index} className="dsc">{lesson.specialization?.specialization?.lesson_name}</td>
+                       <td className="cab">{lesson.cabinet?.number}</td>
+                       <td key={index} className="dsc">{lesson.specialization?.group?.group_name}</td>
+                    </tr>
+                  </>
                   );
-                  }
-                  })} 
-                {table.map((table:any,index:any) => {
-                  if(table.lesson_number == i){
-                    return(
-                      <td key={index}>{table.cabinet.number}</td>
-                  );
-                  }
-                  })}
+              }
+            })}
+            </>);
+          }
+           if(rowspanx == 2){
+            return(
+              <>
+              <tr>
+                <td rowSpan={3} className="pn">{i}</td>
               </tr>
-          )
+              {
+                table.map((lesson:any,index:any)=>{
+                  if(i == lesson.lesson_number){
+                   return(
+                     <>
+                     <tr key={index}>
+                       <td key={index} className="dsc">{lesson.specialization?.specialization?.lesson_name}</td>
+                       <td className="cab">{lesson.cabinet?.number}</td>
+                       <td key={index} className="dsc">{lesson.specialization?.group?.group_name}</td>
+                     </tr>
+                     </>
+ 
+                   )
+                  }
+                 })
+              }</>
+            )
+          }
+          
+          
         })}
 
         </tbody> 
