@@ -17,7 +17,8 @@ const SignInForm = () => {
         const signInResponse = await signIn('credentials',{
             email,
             password,
-            redirect: false,
+            redirect: true,
+            callbackUrl:'/',
             
         })
         if(!signInResponse || signInResponse?.ok !== true){
