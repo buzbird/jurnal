@@ -24,6 +24,7 @@ const SignInForm = () => {
             setMessage('invalid credentials');
         }else{
             router.refresh();
+            router.push("/");
         }
     }catch(err){
         console.log(err)
