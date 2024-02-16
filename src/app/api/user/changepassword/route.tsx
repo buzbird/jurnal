@@ -7,7 +7,7 @@ import TheHeader from "@/app/components/TheHeader"
 import { NextRequest } from "next/server"
 
 export async function GET(req: NextRequest) {
-    const permission = await Changepassword()
+    // const permission = await Changepassword()
     return new Response("k")
 
 }
