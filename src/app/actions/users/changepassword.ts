@@ -22,8 +22,10 @@ export const Changepassword = async() =>{
     if(secret_key != undefined){
         users.map((user:any)=>{
             let password = makeString() 
-            console.log(user.full_name,",",user.login,",",password)
-            changepassword(user.id,bcrypt.hashSync(password,10))
+            if(user.id>42){
+              console.log(user.full_name,",",user.login,",",password)
+              changepassword(user.id,bcrypt.hashSync(password,10))
+            }
         })
     }
     return "Success..."
