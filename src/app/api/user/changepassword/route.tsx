@@ -9,5 +9,4 @@ import { NextRequest } from "next/server"
 export async function GET(req: NextRequest) {
     // const permission = await Changepassword()
     return new Response("k")
-
 }
