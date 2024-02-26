@@ -19,7 +19,7 @@ const JurnalModal = ({lessons,teacher}: any) => {
   const [showmodal,setShowmodal] = useState(false);
   const [lesson,setLesson] = useState("");
   const [group,setGroup] = useState("");
-  const [groups,setGroups] = useState([{}]);
+  const [groups,setGroups] = useState([]);
   const [date3,setDate3] = useState(new Date());
   const [students,setStudent] = useState({students:{students:[{}]}});
   const [studentid,setstudentId] = useState();
@@ -30,12 +30,21 @@ const JurnalModal = ({lessons,teacher}: any) => {
   const handleLesson = async(lesson:any) =>{
     try {
       setLesson(lesson);
+      console.log(lesson)
+      setGroup("");
+
+      setShowtable(false)
+      if(lesson == ""){setGroups([])
+      }else{
         const data = await fetch("/api/teacher/group/",{
           method:'POST',
           body: JSON.stringify({teacher_id: teacher_id,lesson_id:lessonmass.get(lesson)}),
         })
         let groups2 = await data.json()
         setGroups(groups2)
+       
+      }
+        
     }catch(err){
        console.log(err)
     }
@@ -188,23 +197,18 @@ const JurnalModal = ({lessons,teacher}: any) => {
             </>
         </datalist>
     </div>
-    <div>
-      <input type="month" onChange={(e)=>handleDate(new Date(e.target.value))}/>
     </div>
-    </div>
-    <input type='search' list="group" placeholder="Выберите группу" onChange={(e)=> handleGroup(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
-      <datalist id="group">
-      <>
       {groups.map((group:any,index:any) => {
             groupmass.set(`${group.group?.group_name}`,group.group?.id)
             return(
                 <> 
-                  <option key={index} >{group.group?.group_name}</option>
+                  <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={()=>{handleGroup(group.group?.group_name)}}>{group.group?.group_name}</button>
                 </>
             );
       })}      
-      </>
-      </datalist>
+    <div>
+      <input type="month" onChange={(e)=>handleDate(new Date(e.target.value))}/>
+    </div>
       {showtable ?(
       <>
       <div>
