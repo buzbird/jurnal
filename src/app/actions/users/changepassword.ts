@@ -1,10 +1,10 @@
 "use server";
 
-import { getUsers, changepassword } from "@/db/fetch";
+import { getGroups, changepassword } from "@/db/fetch";
 import bcrypt from 'bcryptjs';
 
 export const Changepassword = async() =>{
-    let users = await getUsers()
+    let groups = await getGroups()
     let passwords = new Map()
     const makeString = () => {
         let outString: string = '';
@@ -20,12 +20,16 @@ export const Changepassword = async() =>{
       }
     let  secret_key = process.env.NEXTAUTH_SECRET
     if(secret_key != undefined){
-        users.map((user:any)=>{
-            let password = makeString() 
-            if(user.id>42){
-              console.log(user.full_name,",",user.login,",",password)
-              changepassword(user.id,bcrypt.hashSync(password,10))
-            }
+        groups.map((group:any)=>{
+            console.log(group.group_name)
+            group.students.map((student:any)=>{
+              let password = makeString() 
+              if(student.user?.id>42){
+                console.log(student.user?.full_name,",",student.user?.login,",",password)
+                changepassword(student.user?.id,bcrypt.hashSync(password,10))
+              }
+            })
+            
         })
     }
     return "Success..."

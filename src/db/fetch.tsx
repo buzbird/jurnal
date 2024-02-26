@@ -25,14 +25,31 @@ export async function getKuratorinGroup(id: any) {
 //группы
 export async function getGroups() {
   const users = await prisma.group.findMany({
-    include:{
-      specialization: true,
-      kurator: {
-        include:{
-          user:true
+    select:{
+      group_name:true,
+      students:{
+        select:{
+          user:{
+            select:{
+
+              id:true,
+              full_name:true,
+              login:true,
+              passwordHash:true
+            }
+          }
         }
       }
     }
+    // include:{
+    //   specialization: true,
+    //   kurator: {
+    //     include:{
+    //       user:true
+    //     }
+    //   }
+    // }
+    
   })
   return users
 }
@@ -202,6 +219,55 @@ export async function getTeacher(id:any){
   })
   return teacher
 }
+export async function getStudent(id:any){
+  const teacher = await prisma.student.findFirst({
+    where:{
+     id:id
+    },
+    include:{
+      group:true,
+    }
+  })
+  return teacher
+}
+export async function getdateOfLessonsforStudent(lesson_id:any,lte:any,gte:any){
+  const teacher = await prisma.dateOfLessons.findMany({
+    where:{
+      lesson_id: lesson_id,
+      date:{
+        lte:lte,
+        gte:gte,
+      }
+    }
+  })
+  return teacher
+}
+export async function getassesmentforStudent(lesson_id:any,student_id:any){
+  const teacher = await prisma.assessmentOfLessons.findMany({
+    where:{
+      lesson_id: lesson_id,
+      student_id: student_id,
+    }
+  })
+  return teacher
+}
+export async function getStudentlessons(id:any){
+  const teacher = await prisma.lessonteached.findMany({
+    where:{
+     group_id:id,
+    },
+    select:{
+      specialization:{
+        select:{
+          id:true,
+          lesson_name:true,
+        }
+      },
+    }
+  })
+  return teacher
+}
+
 export async function Teacher(id:any) {
   const teacher = await prisma.teachers.findFirst({
     where:{

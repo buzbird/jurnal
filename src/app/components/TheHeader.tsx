@@ -104,7 +104,7 @@ export default async function TheHeader(){
                 return(<>
                 {data.permission.map((permission:any,index:any)=>{
                     if (permission.permission_id == 5){
-                        return (<li key={index} className="menu-item"><Link href="/Admin/">студентов</Link></li>);
+                        return (<li key={index} className="menu-item"><Link href="/student/assessment/">Оценки</Link></li>);
                 }
             })}
                 </>
@@ -114,7 +114,7 @@ export default async function TheHeader(){
                 return(<>
                 {data.permission.map((permission:any,index:any)=>{
                     if (permission.permission_id == 5){
-                        return (<li key={index} className="menu-item"><Link href="/Admin/">студентов</Link></li>);
+                        return (<li key={index} className="menu-item"><Link href="/student/shedule/">Расписание</Link></li>);
                 }
             })}
                 </>
