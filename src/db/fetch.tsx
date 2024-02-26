@@ -230,23 +230,41 @@ export async function getStudent(id:any){
   })
   return teacher
 }
-export async function getdateOfLessonsforStudent(lesson_id:any,lte:any,gte:any){
+export async function getdateOfLessonsforStudent(lesson_id:any,lte:any,gte:any,student_id:any){
   const teacher = await prisma.dateOfLessons.findMany({
     where:{
       lesson_id: lesson_id,
       date:{
         lte:lte,
         gte:gte,
-      }
+      },
+    },
+    orderBy:{
+      date:'asc'
     }
+    
   })
   return teacher
 }
-export async function getassesmentforStudent(lesson_id:any,student_id:any){
+export async function getassesmentforStudent(lesson_id:any,lte:any,gte:any,student_id:any){
   const teacher = await prisma.assessmentOfLessons.findMany({
     where:{
-      lesson_id: lesson_id,
       student_id: student_id,
+      lesson:{
+        lesson_id: lesson_id,
+        date:{
+          lte:lte,
+          gte:gte,
+        },
+      }
+    },
+    include:{
+      lesson:true
+    },
+    orderBy:{
+      lesson:{
+        date: 'asc',
+      }
     }
   })
   return teacher
@@ -257,9 +275,9 @@ export async function getStudentlessons(id:any){
      group_id:id,
     },
     select:{
+      id:true,
       specialization:{
         select:{
-          id:true,
           lesson_name:true,
         }
       },

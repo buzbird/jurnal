@@ -13,21 +13,22 @@ const AssesmentStudentByGroup = ({group,lessons}:any) => {
   const [lesson,setLesson] = useState("")
   const [date,setDate] = useState(new Date())
   const [view,setView] = useState(false)
-  const [assesments,setAssesments] = useState({lessons:[],assesments:[]})
-  const getAssessment = async(lesson_id:any) =>{
+  const [assesments,setAssesments] = useState({lessons:[],assesment:[]})
+  const getAssessment = async(lesson_id:any,date:any) =>{
+    
     const lessons2 = await fetch("/api/student/assesment/",{
       method:'POST',
-      body: JSON.stringify({lesson_id:lesson_id,group_id:group.group_id,student_id:group.id,date: date}),
+      body: JSON.stringify({lesson_id:lesson_id,group_id: group.group_id,date: date,student_id:group.id}),
     })
     let data = await lessons2.json()
     console.log(data)
-    // setAssesments(data)
+    setAssesments(data)
     setView(true)
   }
   const LessonHandler = async(lesson:any) =>{
     if(lesson == ""){setView(false)}else{
       setLesson(lesson)
-      getAssessment(lessonmass.get(lesson))
+      getAssessment(lessonmass.get(lesson),date)
     }
   }
   
@@ -36,7 +37,7 @@ const AssesmentStudentByGroup = ({group,lessons}:any) => {
       await setDate(new Date(date))
       console.log(date)
       if(lesson == ""){}else{
-        getAssessment(lessonmass.get(lesson))
+        getAssessment(lessonmass.get(lesson),new Date(date))
       }
     }
     
@@ -46,39 +47,40 @@ const AssesmentStudentByGroup = ({group,lessons}:any) => {
     <>
     <input type="search" list='lesson' placeholder='Фильтрация по предметам'onChange={(e) =>{LessonHandler(e.target.value)}} />
     <datalist id="lesson">
-                      <>
-                      {lessons.map((lesson:any)=>{
-                        lessonmass.set(`${lesson.specialization?.lesson_name}`,lesson.specialization?.id)
+                      {lessons.map((lesson:any,index:any)=>{
+                        lessonmass.set(`${lesson.specialization?.lesson_name}`,lesson.id)
                         return(
                           <>
-                            <option>{lesson.specialization?.lesson_name}</option>
+                            <option key={index}>{lesson.specialization?.lesson_name}</option>
                           </>
                         )
                       })
                       }
-                      </>
+     
     </datalist>
     <input type="month" value={date.toISOString().slice(0,7)} onChange={(e) =>{changeDate(e.target.value)}}/>
     {view ? (
       <>
-      <table>
-        <thead>
-          <th>
-            <td>{lesson}</td>
-          </th>
-        </thead>
+      <table className="tab">
         <tbody> 
           <tr>
           {assesments.lessons.map((assesment:any,index:any)=>{
-            return(<td>
-              
+            return(<td className="dsc">
+              {new Date(assesment.date).getDate()}
             </td>);
           })}
           </tr>
           <tr>
-          {assesments.assesments.map((assesment:any,index:any)=>{
-            return(<td>
-
+          {assesments.lessons.map((assesment:any,index:any)=>{
+            return(<td className="dsc">
+             {assesments.assesment.map((number:any,index:any)=>{
+              console.log(number)
+              
+              if(assesment.id == number.lesson_id){
+                let a = number.numbers.join(',')
+                return(<>{a}</>)
+              }
+             })}
             </td>);
           })}
           </tr>

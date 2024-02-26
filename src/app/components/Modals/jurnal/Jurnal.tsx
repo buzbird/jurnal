@@ -198,14 +198,18 @@ const JurnalModal = ({lessons,teacher}: any) => {
         </datalist>
     </div>
     </div>
-      {groups.map((group:any,index:any) => {
+    <input type='search' list="group" placeholder="Выберите предмет" onChange={(e)=> handleGroup(e.target.value)} className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
+        <datalist id="group">
+            <>
+            {groups.map((group:any,index:any) => {
             groupmass.set(`${group.group?.group_name}`,group.group?.id)
             return(
-                <> 
-                  <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={()=>{handleGroup(group.group?.group_name)}}>{group.group?.group_name}</button>
-                </>
+                  <option key={index} className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={()=>{handleGroup(group.group?.group_name)}}>{group.group?.group_name}</option>
             );
-      })}      
+            })}       
+            </>
+        </datalist>
+       
     <div>
       <input type="month" onChange={(e)=>handleDate(new Date(e.target.value))}/>
     </div>

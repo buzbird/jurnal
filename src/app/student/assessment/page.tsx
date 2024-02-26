@@ -21,7 +21,7 @@ const Shedule = async() => {
   const user = await getUserStudents(session)
   const student =await  GetStudents(user?.id)
   const lesson = await getStudentlessons(student?.group?.id)
-  console.log(student)
+  console.log(lesson)
       return (
         <>
         <div>

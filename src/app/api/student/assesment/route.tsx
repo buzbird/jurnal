@@ -1,33 +1,45 @@
-import { getLessonFromDate, getdateOfLessonsforStudent ,getassesmentforStudent} from "@/db/fetch"
 import { NextRequest } from "next/server"
+import { getLessonFromDate, getdateOfLessonsforStudent ,getassesmentforStudent} from "@/db/fetch"
 
 export async function GET(req: NextRequest) {
     return new Response()
 }
 export async function POST(req:NextRequest) {
     const body = await req.json()
-    
-    console.log(body.student_id,body.lesson_id,body.date,body.group_id)
-
     const date = new Date(body.date);
     const year = date.getFullYear();
     const month = date.getMonth();
     const startDate = new Date(year, month, 1);
-    const endDate = new Date(year, month + 1, 0);
-    const lessons =await getdateOfLessonsforStudent(body.lesson_id,endDate,startDate)
-    console.log(lessons)
+    const endDate = new Date(year, month + 1, 1);
+    const lesson = await getdateOfLessonsforStudent(body.lesson_id,endDate,startDate,body.student_id)
+    const lessons = await getdateOfLessonsforStudent(body.lesson_id,endDate,startDate,body.student_id)
+    const assesments = await getassesmentforStudent(body.lesson_id,endDate,startDate,body.student_id)
+    console.log(assesments)
     let assesment:any[] = [];
-    await lessons.map(async(lesson:any)=>{
-        let assesmentfordate :any[] = [];
-        const assesments = await getassesmentforStudent(lesson.id,body.student_id)
-        console.log(assesments)
-        
-        assesments.map((assesment:any)=>{
-            assesmentfordate.push(assesment.number)
+    let numbers:any[] = []
+    let i = 1;
+    let index2 = false;
+    let index3 = 0;
+    assesments.map((asses:any)=>{
+        numbers.map((number:any,index:any)=>{
+            if(number.lesson_id == asses.lesson_id){
+                index3 = index
+                index2= true
+            }
         })
-        assesment.push({date:lesson.date, assesment:assesmentfordate})
-        console.log(assesment)
+        if(index2){
+            numbers[index3].numbers.push(asses.number) 
+            index2= false
+        }else{
+            if(numbers.length < i){
+                numbers.push({lesson_id:asses.lesson_id, numbers:[asses.number]})
+                i = i+1
+            }
+        }
     })
-    // const lessons = await getLessonFromDate(body.lesson_id,body.date)
-    return new Response(JSON.stringify(assesment))//
+    lessons.map((lesson:any)=>{
+        let numbers:any[] = [];
+       assesment.push({date:lesson.date,})
+    })
+    return new Response(JSON.stringify({lessons:lessons,assesment:numbers}))//
 }
