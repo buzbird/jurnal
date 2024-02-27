@@ -61,7 +61,7 @@ const AssesmentStudentByGroup = ({group,lessons}:any) => {
       <table className="tab">
         <tbody> 
           <tr>
-            <td>тест</td>
+            <td>Дата:</td>
           {assesments.lessons.map((assesment:any,index:any)=>{
             return(<td className="dsc" key={index}>
               {new Date(assesment.date).getDate()}
@@ -69,6 +69,7 @@ const AssesmentStudentByGroup = ({group,lessons}:any) => {
           })}
           </tr>
           <tr>
+          <td>Оценки:</td>
           {assesments.lessons.map((assesment:any,index:any)=>{
             return(<td className="dsc" key={index}>
              {assesments.assesment.map((number:any)=>{
