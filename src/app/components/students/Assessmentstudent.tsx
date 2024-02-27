@@ -12,6 +12,7 @@ const AssesmentStudentByGroup = ({group,lessons}:any) => {
   let lessonmass = new Map();
   const [lesson,setLesson] = useState("")
   const [date,setDate] = useState(new Date())
+  const [viewdisp,setviewdisp] = useState(false)
   const [view,setView] = useState(false)
   const [assesments,setAssesments] = useState({lessons:[],assesment:[]})
   const getAssessment = async(lesson_id:any,date:any) =>{
@@ -42,10 +43,14 @@ const AssesmentStudentByGroup = ({group,lessons}:any) => {
     }
     
   }
-  
+
   return (
     <>
-    <input type="search" list='lesson' placeholder='Фильтрация по предметам'onChange={(e) =>{LessonHandler(e.target.value)}} />
+    <div>
+      <button type="button" onClick={()=>{setviewdisp(true)}}>смотреть по предмету</button>
+    </div>
+    {viewdisp? (<>
+      <input type="search" list='lesson' placeholder='Фильтрация по предметам'onChange={(e) =>{LessonHandler(e.target.value)}} />
     <datalist id="lesson">
                       {lessons.map((lesson:any,index:any)=>{
                         lessonmass.set(`${lesson.specialization?.lesson_name}`,lesson.id)
@@ -90,6 +95,7 @@ const AssesmentStudentByGroup = ({group,lessons}:any) => {
       </>
     ): null
     }
+    </>): null}
     </>
   );
 

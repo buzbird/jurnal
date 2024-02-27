@@ -55,7 +55,7 @@ const ScheduleStudentByGroup = (group:any) => {
   }
   return (
     <>
-      <input type="date" name="party" min={startDate.toISOString().slice(0,10)}  max={endDate.toISOString().slice(0,10)} onChange={(e)=> changDate(e.target.value)} required/>
+      <div className="flex justify-center items-center"><input type="date" name="party" min={startDate.toISOString().slice(0,10)}  max={endDate.toISOString().slice(0,10)} onChange={(e)=> changDate(e.target.value)} required/></div>
       <div className="flex justify-center items-center">
     <div>
       {tableviews ? (
