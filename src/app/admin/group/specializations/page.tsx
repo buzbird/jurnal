@@ -4,7 +4,7 @@ import { getServerSession } from 'next-auth'
 
 import UpdateSpecialization from '@/app/components/Modals/Group/Specialization/Update'
 import CreateSpecialization from '@/app/components/Modals/Group/Specialization/Create'
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
+import { authOptions } from '@/app/utils/authOptions'
 
 
 async function getSpecialization() {

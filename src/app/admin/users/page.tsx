@@ -5,7 +5,7 @@ import Modal from "@/app/components/Modals/СreateUser"
 import UpdateUser from "@/app/components/Modals/UpdateUser"
 
 import { getUsers } from "@/db/fetch"
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
+import { authOptions } from '@/app/utils/authOptions'
 async function getUserall() {
     const session = await getServerSession(authOptions)
     const data = await getUsers()

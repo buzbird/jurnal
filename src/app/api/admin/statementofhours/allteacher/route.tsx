@@ -1,8 +1,6 @@
 import { getAllTeachers2 } from '@/app/actions/admin/getTeachers/getallTeachers';
 
 import { NextRequest } from "next/server"
-import { json } from 'stream/consumers';
-
 export async function GET(req: NextRequest) {
     return new Response()
 }
