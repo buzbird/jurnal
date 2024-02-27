@@ -2,10 +2,9 @@ import { getUser } from "@/db/fetch";
 import { Account, AuthOptions, Profile, Session, User } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from 'bcryptjs';
-import { Prosto_One } from "next/font/google";
+
 import jwt from 'jsonwebtoken'
 import { JWT } from "next-auth/jwt";
-import NextAuth from "next-auth/next";
 export const authOptions : AuthOptions = {
     providers: [
         Credentials({
@@ -84,7 +83,3 @@ export const authOptions : AuthOptions = {
         }
     }
 }
-
-const handler = NextAuth(authOptions)
-
-export { handler as GET,handler as POST}

@@ -6,6 +6,7 @@ import UpdateSpecialization from '@/app/components/Modals/Group/Specialization/U
 import CreateSpecialization from '@/app/components/Modals/Group/Specialization/Create'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 
+
 async function getSpecialization() {
   const session = await getServerSession(authOptions)
   const users = await fetch(process.env.API +"/api/admin/group/specializations",{

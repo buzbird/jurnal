@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth';
 import ScheduleTeacher from '@/app/components/Modals/schedule/teacher/Schedule'
 import { getUser,getTeacher } from '@/db/fetch'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+
 const getUserTeacher= async(session:any) =>{
   const user = await getUser(session.user?.email)
   return user

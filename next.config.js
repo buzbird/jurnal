@@ -5,7 +5,8 @@ const nextConfig = {
             allowedForwardedHosts: ['localhost'],
             allowedOrigins: ['http://localhost']
         },
-    }
+    },
+    
 }
 
 module.exports = nextConfig

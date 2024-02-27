@@ -12,7 +12,6 @@ const AssesmentStudentByGroup = ({group,lessons}:any) => {
   let lessonmass = new Map();
   const [lesson,setLesson] = useState("")
   const [date,setDate] = useState(new Date())
-  const [viewdisp,setviewdisp] = useState(false)
   const [view,setView] = useState(false)
   const [assesments,setAssesments] = useState({lessons:[],assesment:[]})
   const getAssessment = async(lesson_id:any,date:any) =>{
@@ -43,14 +42,10 @@ const AssesmentStudentByGroup = ({group,lessons}:any) => {
     }
     
   }
-
+  
   return (
     <>
-    <div>
-      <button type="button" onClick={()=>{setviewdisp(true)}}>смотреть по предмету</button>
-    </div>
-    {viewdisp? (<>
-      <input type="search" list='lesson' placeholder='Выберите предмет'onChange={(e) =>{LessonHandler(e.target.value)}} />
+    <input type="search" list='lesson' placeholder='Фильтрация по предметам'onChange={(e) =>{LessonHandler(e.target.value)}} />
     <datalist id="lesson">
                       {lessons.map((lesson:any,index:any)=>{
                         lessonmass.set(`${lesson.specialization?.lesson_name}`,lesson.id)
@@ -70,15 +65,15 @@ const AssesmentStudentByGroup = ({group,lessons}:any) => {
         <tbody> 
           <tr>
           {assesments.lessons.map((assesment:any,index:any)=>{
-            return(<td key={index} className="dsc">
+            return(<td className="dsc" key={index}>
               {new Date(assesment.date).getDate()}
             </td>);
           })}
           </tr>
           <tr>
           {assesments.lessons.map((assesment:any,index:any)=>{
-            return(<td key={index} className="dsc">
-             {assesments.assesment.map((number:any,index:any)=>{
+            return(<td className="dsc" key={index}>
+             {assesments.assesment.map((number:any)=>{
               console.log(number)
               
               if(assesment.id == number.lesson_id){
@@ -95,11 +90,6 @@ const AssesmentStudentByGroup = ({group,lessons}:any) => {
       </>
     ): null
     }
-    </>): (
-      <>
-      <input type="month" value={date.toISOString().slice(0,7)} onChange={(e) =>{changeDate(e.target.value)}}/>
-      </>
-    )}
     </>
   );
 
