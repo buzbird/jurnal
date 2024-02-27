@@ -50,7 +50,7 @@ const AssesmentStudentByGroup = ({group,lessons}:any) => {
       <button type="button" onClick={()=>{setviewdisp(true)}}>смотреть по предмету</button>
     </div>
     {viewdisp? (<>
-      <input type="search" list='lesson' placeholder='Фильтрация по предметам'onChange={(e) =>{LessonHandler(e.target.value)}} />
+      <input type="search" list='lesson' placeholder='Выберите предмет'onChange={(e) =>{LessonHandler(e.target.value)}} />
     <datalist id="lesson">
                       {lessons.map((lesson:any,index:any)=>{
                         lessonmass.set(`${lesson.specialization?.lesson_name}`,lesson.id)
@@ -70,14 +70,14 @@ const AssesmentStudentByGroup = ({group,lessons}:any) => {
         <tbody> 
           <tr>
           {assesments.lessons.map((assesment:any,index:any)=>{
-            return(<td className="dsc">
+            return(<td key={index} className="dsc">
               {new Date(assesment.date).getDate()}
             </td>);
           })}
           </tr>
           <tr>
           {assesments.lessons.map((assesment:any,index:any)=>{
-            return(<td className="dsc">
+            return(<td key={index} className="dsc">
              {assesments.assesment.map((number:any,index:any)=>{
               console.log(number)
               
@@ -95,7 +95,11 @@ const AssesmentStudentByGroup = ({group,lessons}:any) => {
       </>
     ): null
     }
-    </>): null}
+    </>): (
+      <>
+      <input type="month" value={date.toISOString().slice(0,7)} onChange={(e) =>{changeDate(e.target.value)}}/>
+      </>
+    )}
     </>
   );
 

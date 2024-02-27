@@ -1,10 +1,9 @@
 import React from 'react'
 import { getServerSession } from 'next-auth';
-
-import { getUser, getStudent,getStudentlessons  } from '@/db/fetch'
+import { getStudent, getStudentlessons, getUser } from '@/db/fetch';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import ScheduleStudentByGroup from '@/app/components/students/Studentform';
 import AssesmentStudentByGroup from '@/app/components/students/Assessmentstudent';
+
 
 const getUserStudents= async(session:any) =>{
   const user = await getUser(session.user?.email)
