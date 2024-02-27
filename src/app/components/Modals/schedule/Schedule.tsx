@@ -78,8 +78,10 @@ const ScheduleTable = (data:any) => {
     setModal(true)
   }
   const handleGroup = async(group:any) =>{
+    console.log("я работаю")
     await setGroup(group)
     let group_id = await groupmass.get(group)
+    console.log(groupmass)
     if(group_id != undefined){
       await getLesson(group_id)
     }else{
@@ -260,6 +262,7 @@ const ScheduleTable = (data:any) => {
             <div>
                 {data.data.map((group:any,index:any) => {
                       groupmass.set(`${group.group_name}`,group.id)
+                      console.log(group)
               return (
                   <div key={index}><button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={()=> handleGroup(group?.group_name)}>{group?.group_name}</button></div>
               );

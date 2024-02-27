@@ -26,6 +26,7 @@ export async function getKuratorinGroup(id: any) {
 export async function getGroups() {
   const users = await prisma.group.findMany({
     select:{
+      id:true,
       group_name:true,
       students:{
         select:{
