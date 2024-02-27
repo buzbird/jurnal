@@ -8,7 +8,6 @@ import { getLessonfromDate } from "@/app/actions/schedule/getLessonfromDate";
 import { lessonsfromgroup } from "@/app/actions/schedule/lessonsfromgroup";
 import React, { useState } from "react";
 const AssesmentStudentByGroup = ({group,lessons}:any) => {
-  console.log(group)
   let lessonmass = new Map();
   const [lesson,setLesson] = useState("")
   const [date,setDate] = useState(new Date())
@@ -21,7 +20,6 @@ const AssesmentStudentByGroup = ({group,lessons}:any) => {
       body: JSON.stringify({lesson_id:lesson_id,group_id: group.group_id,date: date,student_id:group.id}),
     })
     let data = await lessons2.json()
-    console.log(data)
     setAssesments(data)
     setView(true)
   }
@@ -35,7 +33,6 @@ const AssesmentStudentByGroup = ({group,lessons}:any) => {
   const changeDate = async(date:any) =>{
     if(date==""){await setDate(new Date())}else{
       await setDate(new Date(date))
-      console.log(date)
       if(lesson == ""){}else{
         getAssessment(lessonmass.get(lesson),new Date(date))
       }
@@ -64,6 +61,7 @@ const AssesmentStudentByGroup = ({group,lessons}:any) => {
       <table className="tab">
         <tbody> 
           <tr>
+            <td>тест</td>
           {assesments.lessons.map((assesment:any,index:any)=>{
             return(<td className="dsc" key={index}>
               {new Date(assesment.date).getDate()}
@@ -74,8 +72,7 @@ const AssesmentStudentByGroup = ({group,lessons}:any) => {
           {assesments.lessons.map((assesment:any,index:any)=>{
             return(<td className="dsc" key={index}>
              {assesments.assesment.map((number:any)=>{
-              console.log(number)
-              
+
               if(assesment.id == number.lesson_id){
                 let a = number.numbers.join(',')
                 return(<>{a}</>)
