@@ -146,6 +146,9 @@ table.tab th {
    background: #f2f2f7;
 }
 
+.dd {
+   background: #d1d1d1;
+}
 
 
 input{
@@ -277,4 +280,28 @@ input{
 /* Отступы для расписания по преподам */
 .shedtable {
    margin: 30px;
+}
+.but{
+   background-color: #3C82F8;
+   border-radius: 15px;
+   text-decoration: none;
+   margin-bottom: 1%;
+   display: block;
+   position: relative;
+   line-height: 61px;
+   padding-left: 15px;
+   padding-right: 15px;
+   font-size: 18px;
+   letter-spacing: 2px;
+   font-family: 'Arimo', sans-serif;
+   font-weight: bold;
+   color: white;
+   transition: .3s linear;
+
+}
+input{
+   border: 2px solid #3C82F8;
+}
+.pd-2{
+   padding: 1%;
 }

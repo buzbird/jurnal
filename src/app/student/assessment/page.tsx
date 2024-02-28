@@ -24,7 +24,7 @@ const Shedule = async() => {
   console.log(lesson)
       return (
         <>
-        <div>
+        <div className='pd-2'>
           <AssesmentStudentByGroup group={student} lessons={lesson}/>
         </div>
         </>
