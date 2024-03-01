@@ -79,11 +79,12 @@ const ScheduleTeacher = ({teacher_id}:any) => {
             })}
             </>);
           }
-           if(rowspanx == 2){
+           if(rowspanx >= 2){
+            rowspanx= rowspanx +1
             return(
               <>
               <tr>
-                <td rowSpan={3} className="pn">{i}</td>
+                <td rowSpan={rowspanx} className="pn">{i}</td>
               </tr>
               {
                 table.map((lesson:any,index:any)=>{
