@@ -26,7 +26,8 @@ const Schedule = async() => {
   const user = await getUserTeacher(session)
   const teacher =await  GetTeacher(user?.id)
   const kurator =await  GetKurator(user?.id)
-  const groups =await  getGroup(kurator)
+  let groups :any[];
+  if(kurator != null){groups =await  getGroup(kurator)}else{groups =[]}
     return (
       <>
       <div>
