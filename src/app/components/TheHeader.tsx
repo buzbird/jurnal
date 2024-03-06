@@ -2,8 +2,13 @@ import { getServerSession } from 'next-auth';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { authOptions } from '@/app/utils/authOptions'
+import { getUser } from '@/db/fetch';
 
-
+const getUser2= async(session:any) =>{
+    const user = await getUser(session.user?.email)
+    return user
+   
+  }
 const getHeader = async(session:any) =>{
     const header = await fetch(process.env.API +"/api/header",{
         method:'POST',
@@ -16,10 +21,12 @@ const getHeader = async(session:any) =>{
 export default async function TheHeader(){
     let data = [];
     const session = await getServerSession(authOptions)
+    let user;
     const log = session==undefined
     if(log){
         data= []
     }else{
+        user = await getUser2(session)
         data = await getHeader(session)
     }
     return (
@@ -36,7 +43,7 @@ export default async function TheHeader(){
         <li className="menu-item"><Link href="/auth/signin">Войти</Link></li>
         </>
         ):(<>
-        
+               <li className="menu-item dark"><Link href="">{user?.full_name}</Link></li>
             {data.map((data:any)=>{
                 return(
                     <>
@@ -94,6 +101,17 @@ export default async function TheHeader(){
                 </>
                 );
             })}
+             {data.map((data:any)=>{
+                return(<>
+                {data.permission.map((permission:any,index:any)=>{
+                    if (permission.permission_id == 3){
+                        return(<li key={index} className="menu-item"><Link href="/kurator/">Куратор</Link></li>);
+                    }
+                })}
+                </>
+                );
+            })}
+            
             {data.map((data:any)=>{
                 return(<>
                 {data.permission.map((permission:any,index:any)=>{
@@ -120,6 +138,7 @@ export default async function TheHeader(){
                 </>
                 )
             })}
+     
         <li className="menu-item"><Link href="/auth/signout">Выйти</Link></li>
         </>)}
         </ul>

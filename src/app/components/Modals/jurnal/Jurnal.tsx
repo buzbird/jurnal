@@ -12,7 +12,7 @@ import React, { useState } from "react";
 
 const JurnalModal = ({lessons,teacher}: any) => {
   const teacher_id = teacher.teacher_id;
-  let lessonmass = new Map();
+  let lessonmass = new Map();1
   let groupmass = new Map();
   let assessmetdatestudents = {};
   const [showtable,setShowtable] = useState(false);
@@ -107,7 +107,9 @@ const JurnalModal = ({lessons,teacher}: any) => {
       students.students.students.map((student:any) => {
       if(student.full_name == student_name){
         student.assessments.map((assessment:any) => {
+          
           if(assessment.date== date){
+            console.log(assessment)
             setassessmentStudent(assessment);
           }
         })

@@ -8,19 +8,12 @@ export async function GetUserbyGroup(groups: any) {
   //перебор групп и получение по группе студентов
 }
 export async function getKuratorinGroup(id: any) {
-  const kurator = await prisma.kurator.findFirst({
+  const kurator = await prisma.group.findMany({
     where:{
       kurator_id: id,
     },
-    include:{
-      user:{
-        select:{
-          full_name:true,
-        }
-      }
-    }
   })
-  console.log(kurator)
+  return kurator
 }
 //группы
 export async function getGroups() {
@@ -214,6 +207,15 @@ export async function getPermission(email:string) {
 //Преподаватель
 export async function getTeacher(id:any){
   const teacher = await prisma.teachers.findFirst({
+    where:{
+      user_id: id
+    }
+  })
+  return teacher
+}
+
+export async function getKurator(id:any){
+  const teacher = await prisma.kurator.findFirst({
     where:{
       user_id: id
     }
@@ -451,7 +453,28 @@ export async function CreateAssesment(number:any,student_id:any,lesson_id:any) {
   return lesson
 }
 
-
+export async function getGroupfromKurator(id:any,group_id:any) {
+  const data = await prisma.group.findFirst({
+    where:{
+      kurator_id: id,
+      id: group_id
+    },
+    select:{
+      students:{
+        select:{
+          id:true,
+          user:{
+            select:{
+              full_name:true
+            }
+          }
+        }
+      }
+    }
+  }
+  )
+  return data
+}
 export async function getLessonFromGroup(group_id:any) {
   const data = await prisma.lessonteached.findMany({
     where:{

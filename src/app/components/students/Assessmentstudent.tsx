@@ -75,7 +75,7 @@ const AssesmentStudentByGroup = ({group,lessons}:any) => {
       <button className="but" onClick={()=>{changetable(false,true)}}>показать все</button>
     </div>
     {ViewsMonth ? (<>
-      <input type="search" list='lesson' placeholder='Фильтрация по предметам'onChange={(e) =>{LessonHandler(e.target.value)}} />
+      <input type="search" list='lesson' placeholder='Выберите предмет'onChange={(e) =>{LessonHandler(e.target.value)}} />
     <datalist id="lesson">
                       {lessons.map((lesson:any,index:any)=>{
                         lessonmass.set(`${lesson.specialization?.lesson_name}`,lesson.id)
@@ -133,6 +133,7 @@ const AssesmentStudentByGroup = ({group,lessons}:any) => {
          <tbody>
            
          {assesments2.assesment.map((lesson:any,index:any)=>{
+            console.log(lesson)
            const dates: Date[] = [];
              const currentDate = new Date(new Date().getFullYear(),date2.getMonth()); // Month argument is 0-based()
             let a= true
@@ -148,6 +149,7 @@ const AssesmentStudentByGroup = ({group,lessons}:any) => {
                   a=true
                   let k = {numbers:[]}
                   lesson.assesments.map((assesment:any,index:any)=>{
+
                     if(new Date(date).getDate() == new Date(assesment.date).getDate()){
                       a= false
                       k = assesment

@@ -29,7 +29,8 @@ const ScheduleStudentByGroup = (group:any) => {
     await setTable(true)
   }
   const changDate = async(date2:any)=>{
-    let lessons2 = undefined;
+    if(date2 == ""){}else{
+      let lessons2 = undefined;
     console.log(new Date(date2) < new Date())
     if(new Date(date2) <= new Date()){
       await setDate(new Date())
@@ -50,6 +51,7 @@ const ScheduleStudentByGroup = (group:any) => {
     if(lessons2!= undefined){
       setTables(lessons2)
       setTable(true)
+    }
     }
 
   }

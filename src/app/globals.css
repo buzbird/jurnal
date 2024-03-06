@@ -305,3 +305,10 @@ input{
 .pd-2{
    padding: 1%;
 }
+.dark{
+   background: #383838;
+   pointer-events: none;
+}
+.m-w-1\2{
+   min-width: 50%;
+}
